@@ -67,6 +67,25 @@ if ( ! function_exists('site_url'))
 	}
 }
 
+
+if ( ! function_exists('asset_url'))
+{
+	/**
+	 * Asset URL
+	 *
+	 * Create a local URL based on your basepath for asset. Segments can be passed via the
+	 * first parameter either as a string or an array.
+	 *
+	 * @param	string	$uri
+	 * @param	string	$protocol
+	 * @return	string
+	 */
+	function asset_url($uri = '', $protocol = NULL)
+	{
+		return get_instance()->config->base_url("assets/{$uri}", $protocol);
+	}
+}
+
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('base_url'))
