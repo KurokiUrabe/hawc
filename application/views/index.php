@@ -29,7 +29,7 @@
 					<ul class="nav nav-tabs nav-justified">
 						<li class="active" role="presentation"><a href="#hawc" data-toggle="tab">HAWC</a></li>
 						<li role="presentation"><a href="#query" data-toggle="tab">QMDB</a></li>
-						<li role="presentation"><a href="#variable" data-toggle="tab">variable</a></li>
+						<li role="presentation"><a href="#variable" data-toggle="tab">Variable</a></li>
 						<li role="presentation"><a href="#about" data-toggle="tab">about</a></li>
 					</ul>
 				</nav>
@@ -44,6 +44,26 @@
 				</div>
 				<div class="tab-pane" id="variable">
 					<h3>Variable editor</h3>
+					<div class="row">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>id_var</th>
+									<th>name</th>
+									<th>description</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($variables as $key => $var): ?>
+								<tr>
+									<td><?php echo $var->id_var ?></td>
+									<td><?php echo $var->name ?></td>
+									<td><?php echo $var->description ?></td>
+								</tr>
+							<?php endforeach ?>
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div class="tab-pane" id="about">
 					<h3>About</h3>

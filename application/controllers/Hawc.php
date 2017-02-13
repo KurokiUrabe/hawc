@@ -5,11 +5,14 @@ class hawc extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('QueryBuildier', 'hawc');
+		$this->load->model('variable', 'variable');
+
 	}
 
 	public function index(){
-		// $data["colums_name"] = $this->hawc->columns('qmdb','recstats_hawcprod_v4r01_v1p26p00_rev20264_20150504' );
-		$data["colums"] $this->
+		$data["colums_name"] = $this->hawc->columns('qmdb','recstats_hawcprod_v4r01_v1p26p00_rev20264_20150504' );
+		print_r($data["colums_name"]);
+		$data["variables"] = $this->variable->getListVariables();
 		$this->load->view('index',$data);
 	}
 }
