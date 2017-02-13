@@ -8,13 +8,35 @@
 
 	// The $ is now locally scoped
 	$(function() {
-
+		console.log("isLoad");
 		// The DOM is ready!
+		$("#variable").on("keyup paste change focus blur keydown",function(event) {
+			var data = {variableID:$(this).val()}
+			$("#variable_conteiner").empty();
 
+			getVariableSelect(data)
+			.done(function(response){
+				if (response.correct) {
+					$("#variable_conteiner").append(response.variable);
+				}else{
+					// toastr.error("Fall");
+				}
+			});
+		});
 
 	});
 
+		console.log("other");
+		var base_url = window.location.origin+"/hawc/";
 		// The rest of your code goes here!
-
+		function getVariableSelect (data) {
+			return $.ajax({
+				url: base_url +"Hawc/getVariableSelect",
+				cache: false,
+				type: "post",
+				data: data,
+				dataType: 'json'
+			});
+		}
 	}
 ));

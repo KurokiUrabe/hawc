@@ -13,7 +13,9 @@
 
 	<!-- Bootstrap -->
 	<link href="<?php echo asset_url("css/bootstrap.min.css") ?>" rel="stylesheet">
-
+	<script type="text/javascript">
+		var baseurl = "<?php echo base_url() ?><?php  ?>";
+	</script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -27,49 +29,28 @@
 				<h1>HAWC <small>Advances</small></h1>
 				<nav>
 					<ul class="nav nav-tabs nav-justified">
-						<li class="active" role="presentation"><a href="#hawc" data-toggle="tab">HAWC</a></li>
-						<li role="presentation"><a href="#query" data-toggle="tab">QMDB</a></li>
+						<li class="" role="presentation"><a href="#hawc" data-toggle="tab">HAWC</a></li>
+						<li class="active" role="presentation"><a href="#query" data-toggle="tab">QMDB</a></li>
 						<li role="presentation"><a href="#variable" data-toggle="tab">Variable</a></li>
 						<li role="presentation"><a href="#about" data-toggle="tab">about</a></li>
 					</ul>
 				</nav>
 			</div>
 			<div class="tab-content body-heigth" id="tabs">
-				<div class="tab-pane  active" id="hawc">
+				<div class="tab-pane  " id="hawc">
 					<h3>About HAWC</h3>
 					<p>HAWC is a facility designed to observe gamma rays and cosmic rays between 100 GeV and 100 TeV. TeV gamma rays are the highest energy photons ever observed — 1 TeV is 1 trillion electron volts (eV), about 1 trillion times more energetic than visible light! These photons are born in the most extreme environments in the known universe: supernova explosions, active galactic nuclei, and gamma-ray bursts.</p>
 				</div>
-				<div class="tab-pane" id="query">
-					<h3>Query generator</h3>
+				<div class="tab-pane active" id="query">
+					<?php $this->view('query_buldier'); ?>
 				</div>
 				<div class="tab-pane" id="variable">
-					<h3>Variable editor</h3>
-					<div class="row">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>id_var</th>
-									<th>name</th>
-									<th>description</th>
-								</tr>
-							</thead>
-							<tbody>
-							<?php foreach ($variables as $key => $var): ?>
-								<tr>
-									<td><?php echo $var->id_var ?></td>
-									<td><?php echo $var->name ?></td>
-									<td><?php echo $var->description ?></td>
-								</tr>
-							<?php endforeach ?>
-							</tbody>
-						</table>
-					</div>
-				</div>
+					<?php $this->view('variable'); ?>
 				<div class="tab-pane" id="about">
 					<h3>About</h3>
 				</div>
 			</div>
-			<footer class="footer">
+			<footer class="footer navbar-fixed-bottom">
 
 				<p class="center">the HAWC Collaboration</p>
 			</footer>
