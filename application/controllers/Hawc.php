@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Hawc extends MY_Controller {
+class Hawc extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('QueryBuildier', 'hawc');
@@ -10,15 +10,18 @@ class Hawc extends MY_Controller {
 	}
 
 	public function index(){
-		echo base_url();
-
 		$data["colums_name"] = $this->hawc->columns('qmdb','recstats_hawcprod_v4r01_v1p26p00_rev20264_20150504' );
 		$data["variables"] = $this->variable->getListVariables();
 		$this->load->view('index',$data);
 	}
 	public function getVariableSelect(){
-		$variableID = $this->input->post("variableID");
-		$this->variable->getVariableSelect($this->input->post());
-		$this->responseJson([]);
+		$search = $this->input->post("search");
+		$variables = $this->variable->getVariableSelect($search);
+		echo json_encode(["correct"=>$variables!=null,"variables"=>$variables]);
+	}
+
+	public function insertVariable(){
+		$VariableID = $this->variable->insert($this->input->post());
+		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);
 	}
 }
