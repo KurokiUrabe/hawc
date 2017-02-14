@@ -26,6 +26,7 @@
 	<body>
 		<div class="container">
 			<div class="masthead">
+			<?php echo base_url("Hawc/getVariableSelect") ?>
 				<h1>HAWC <small>Advances</small></h1>
 				<nav>
 					<ul class="nav nav-tabs nav-justified">
