@@ -27,7 +27,7 @@
 	});
 
 		console.log("other");
-		var base_url = window.location.origin+"/hawc/";
+		var base_url = window.location.origin+"/hawc/index.php/";
 		// The rest of your code goes here!
 		function getVariableSelect (data) {
 			return $.ajax({
