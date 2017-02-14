@@ -107,7 +107,6 @@ class MY_Model extends CI_Model {
 			 if ($this->db->insert($this->TABLE_NAME, $data)) {
 			 		$last=$this->db->last_query();
 			 		$id=$this->db->insert_id();
-			 		$this->db->insert("historicos",array("id_usuario"=>$this->session->userdata('user_id'),"tipo_movimiento"=>"Agregar informacion","tabla"=>$this->TABLE_NAME,"sql_query"=>$last));
 					 return $id;
 			 } else {
 					 return false;
@@ -124,7 +123,6 @@ class MY_Model extends CI_Model {
 			 if ($this->db->insert_batch($this->TABLE_NAME, $data)) {
 			 		$last=$this->db->last_query();
 			 		$rows=$this->db->affected_rows();
-			 		$this->db->insert("historicos",array("id_usuario"=>$this->session->userdata('user_id'),"tipo_movimiento"=>"Agregar informacion de varios registros","tabla"=>$this->TABLE_NAME,"sql_query"=>$last));
 					 return $rows;
 			 } else {
 					 return false;
@@ -145,7 +143,6 @@ class MY_Model extends CI_Model {
 		$this->db->update($this->TABLE_NAME, $data, $where);
 		$last=$this->db->last_query();
 		$rows=$this->db->affected_rows();
-		$this->db->insert("historicos",array("id_usuario"=>$this->session->userdata('user_id'),"tipo_movimiento"=>"Actualizacion de informacion","tabla"=>$this->TABLE_NAME,"sql_query"=>$last));
 		return $rows;
 	 }
 
@@ -163,7 +160,6 @@ class MY_Model extends CI_Model {
 		$this->db->update_batch($this->TABLE_NAME, $data, $where);
 		$last=$this->db->last_query();
 		$rows=$this->db->affected_rows();
-		$this->db->insert("historicos",array("id_usuario"=>$this->session->userdata('user_id'),"tipo_movimiento"=>"Actualizacion de informacion de varios registros","tabla"=>$this->TABLE_NAME,"sql_query"=>$last));
 		return $rows;
 	}
 

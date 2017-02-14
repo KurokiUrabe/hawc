@@ -7,8 +7,9 @@ class Variable extends MY_Model {
 		$this->TABLE_NAME = 'Variable';
 		$this->PRI_INDEX = "{$this->TABLE_NAME}.{$this->TABLE_NAME}ID";
 	}
-	public function getVariableSelect(){
+	public function getVariableSelect($search = ''){
 		$this->db->select("{$this->TABLE_NAME}ID,Name");
+		$this->db->like('Name', $search);
 		$query = $this->db->get($this->TABLE_NAME);
 		return $query->result();
 	}

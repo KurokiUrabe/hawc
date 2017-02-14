@@ -5,15 +5,16 @@
 </div>
 <div class="row">
 	<div class="well col-xs-10 col-sm-10 col-md-10 col-lg-10" style="background-color: blue; height: 100%">
+		<div id="queryBuldier"></div>
 	</div>
 	<div class="well col-xs-2 col-sm-2 col-md-2 col-lg-2">
-		<input id="variable" class="form-control">
+		<input class="form-control variable finder">
 	<div class="panel panel-default">
   <div class="panel-heading">Panel heading without title</div>
   <div class="panel-body">
-	<dir id="variable_conteiner">
+	<ul id="variable_conteiner">
 
-	</dir>
+	</ul>
   </div>
 </div>
 
