@@ -7,8 +7,12 @@ class Variable extends MY_Model {
 		$this->TABLE_NAME = 'Variable';
 		$this->PRI_INDEX = "{$this->TABLE_NAME}.{$this->TABLE_NAME}ID";
 	}
-	public function getVariableSelect($search = ''){
-		$this->db->select("{$this->TABLE_NAME}ID,Name");
+	public function getVariableSelect($search = '',$SELECT=NULL){
+		if ($SELECT) {
+			$this->db->select($SELECT);
+		}else{
+			$this->db->select("{$this->TABLE_NAME}ID,Name");
+		}
 		$this->db->like('Name', $search);
 		$query = $this->db->get($this->TABLE_NAME);
 		return $query->result();
@@ -19,7 +23,11 @@ class Variable extends MY_Model {
 		$query = $this->db->get($this->TABLE_NAME);
 		return $query->result();
 	}
-
+	public function getAllDataFrom($VariableID){
+		$query = $this->db->get($this->TABLE_NAME);
+		$this->db->where('VariableID', $VariableID);
+		return $query->result();
+	}
 }
 
 /* End of file variable.php */

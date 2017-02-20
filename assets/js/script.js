@@ -8,14 +8,24 @@
 
 	// The $ is now locally scoped
 	$(function() {
-		console.log("isLoad");
 		// The DOM is ready!
-		$( "#variable_conteiner" ).sortable();
-		$( "#variable_conteiner" ).disableSelection();
-		 $('#queryBuldier').droppable({
-			drop: function(e, ui) {
-				outputResult(ui.draggable);
-			}
+		$( "#variable_conteiner, #queryBuldier" ).sortable({
+			connectWith: ".connectedSortable"
+		}).disableSelection()
+		.on("dblclick", ".connectedSortable", function() {
+			// First figure out which list the clicked element is NOT in...
+			var otherUL = $("#variable_conteiner, #queryBuldier").not($(this).closest("ul"));
+			var li = $(this).closest("li");
+
+			// Move the li to the other list. prependTo() can also be used instead of appendTo().
+			li.detach().appendTo(otherUL);
+
+		});
+		$('#queryBuldier').on('click','li',function() {
+			$('#queryBuldier li.editing').removeClass('editing');
+			$(this).addClass('editing');
+			var tools  =$('#tools').html($(this).data('variable'));
+			console.log($(this).data());
 		});
 
 
@@ -24,12 +34,24 @@
 			getVariableSelect(data)
 			.done(function(response){
 				if (response.correct) {
-					// console.log("miracle",response.variables);
-					var elements = ''
+					var elements = '';
+					var ul = document.getElementById('variable_conteiner');
+					ul.innerHTML = '';
 					$.each(response.variables,function(key,variable) {
-						elements += '<li class="ui-state-default drag" data-variable="'+variable.Name+'" ><span>'+variable.Name+'</span></li>'
+						var li = document.createElement('li');
+						var span = document.createElement('span');
+						li.className = "ui-state-default connectedSortable";
+
+						span.textContent = variable.Name;
+						console.log(variable);
+						li.setAttribute('data-varialbe', JSON.stringify(variable));
+
+						li.appendChild(span);
+						ul.appendChild(li);
+						// elements += '<li class="ui-state-default connectedSortable " data-variable="'+variable.Name+'" ><span>'+variable.Name+'</span></li>';
+						// console.log('<li class="ui-state-default connectedSortable " data-variable="'++'" ><span>'+variable.Name+'</span></li>');
 					})
-					$("#variable_conteiner").html(elements);
+					// $("#variable_conteiner").html(elements);
 				}else{
 					// toastr.error("Fall");
 				}

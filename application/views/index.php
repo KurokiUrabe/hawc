@@ -30,22 +30,22 @@
 				<h1>HAWC <small>Advances</small></h1>
 				<nav>
 					<ul class="nav nav-tabs nav-justified">
-						<li class="" role="presentation"><a href="#hawc" data-toggle="tab">HAWC</a></li>
+						<li class="active" role="presentation"><a href="#hawc" data-toggle="tab">HAWC</a></li>
 						<li role="presentation"><a href="#query" data-toggle="tab">QMDB</a></li>
-						<li role="presentation" class="active"><a href="#variable" data-toggle="tab">Variable</a></li>
+						<li role="presentation" class=""><a href="#variable" data-toggle="tab">Variable</a></li>
 						<li role="presentation"><a href="#about" data-toggle="tab">about</a></li>
 					</ul>
 				</nav>
 			</div>
 			<div class="tab-content body-heigth" id="tabs">
-				<div class="tab-pane  " id="hawc">
+				<div class="tab-pane " id="hawc">
 					<h3>About HAWC</h3>
 					<p>HAWC is a facility designed to observe gamma rays and cosmic rays between 100 GeV and 100 TeV. TeV gamma rays are the highest energy photons ever observed — 1 TeV is 1 trillion electron volts (eV), about 1 trillion times more energetic than visible light! These photons are born in the most extreme environments in the known universe: supernova explosions, active galactic nuclei, and gamma-ray bursts.</p>
 				</div>
-				<div class="tab-pane" id="query">
+				<div class="tab-pane active" id="query">
 					<?php $this->view('query_buldier'); ?>
 				</div>
-				<div class="tab-pane active" id="variable">
+				<div class="tab-pane " id="variable">
 					<?php $this->view('variable'); ?>
 				<div class="tab-pane" id="about">
 					<h3>About</h3>

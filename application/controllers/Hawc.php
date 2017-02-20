@@ -16,12 +16,21 @@ class Hawc extends CI_Controller {
 	}
 	public function getVariableSelect(){
 		$search = $this->input->post("search");
-		$variables = $this->variable->getVariableSelect($search);
+		$variables = $this->variable->getVariableSelect($search,'*');
+		$length = count($variables);
+		$jsonVariable = [];
+		// for ($i=0; $i < $length ; $i++) {
+		// 	$jsonVariable[]=json_encode($variables[$i]);
+		// }
 		echo json_encode(["correct"=>$variables!=null,"variables"=>$variables]);
 	}
 
 	public function insertVariable(){
 		$VariableID = $this->variable->insert($this->input->post());
+		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);
+	}
+	public function getAllDataFrom(){
+		$VariableID = $this->variable->getAllDataFrom($this->input->post('VariableID'));
 		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);
 	}
 }
