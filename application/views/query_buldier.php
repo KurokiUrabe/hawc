@@ -36,13 +36,43 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" id="tools" style="background-color: green; height: 100%">
-		<div>
-			<input type="number" name="" id="minRange">
-			<input type="text" name="" id="" value="<">
-			<label>My variable </label>
-			<input type="text" name="" id="" value="<">
-			<input type="number" name="" id="maxRange">
+	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" id="tools" style="height: 100%">
+		<div class="row">
+			<div class="btn-group">
+				<a data-tooltip="tooltip" title="New Propertie" class="btn btn-primary"  href="#"><i class="glyphicon glyphicon-plus"></i></a>
+				<a class="btn btn-white"  href="#">New Propertie</a>
+			</div>
+		</div>
+		<div class="row">
+			<table class="table table-striped table-bordered table-hover " id="propertiesEditor">
+				<thead>
+
+					<th>Valor</th>
+					<th>Operator</th>
+					<th>Variable</th>
+					<th>Operator</th>
+					<th>Valor</th>
+				</thead>
+				<tbody>
+					<tr>
+
+						<td><input type="number"  step='0.1' min="10" max='100' placeholder="[1,100]" value="-1" name=""></td>
+						<td><select>
+							<option value="-1"></option>
+							<option><</option>
+							<option><=</option>
+						</select></td>
+						<td class="variable"></td>
+						<td><select>
+							<option><</option>
+							<option><=</option>
+							<option>!=</option>
+							<option>=</option>
+						</select></td>
+						<td><input type="number" step='0.1' min="10" max='100' placeholder="[1,100]" value="100" name=""></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

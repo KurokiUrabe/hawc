@@ -24,8 +24,14 @@
 		$('#queryBuldier').on('click','li',function() {
 			$('#queryBuldier li.editing').removeClass('editing');
 			$(this).addClass('editing');
-			var tools  =$('#tools').html($(this).data('variable'));
-			console.log($(this).data());
+
+			// var tools  =$('#tools').html($(this).data('variable'));
+			var variables = $('#propertiesEditor tbody tr td.variable');
+				console.log($('.editing').data('variable'));
+			$.each(variables,function(k,variable) {
+				$(variable).text($('.editing').data('variable').Name);
+			});
+			// console.log($(this).data());
 		});
 
 
@@ -43,17 +49,11 @@
 						li.className = "ui-state-default connectedSortable";
 
 						span.textContent = variable.Name;
-						console.log(variable);
-						li.setAttribute('data-varialbe', JSON.stringify(variable));
-
+						li.setAttribute('data-variable', JSON.stringify(variable));
 						li.appendChild(span);
 						ul.appendChild(li);
-						// elements += '<li class="ui-state-default connectedSortable " data-variable="'+variable.Name+'" ><span>'+variable.Name+'</span></li>';
-						// console.log('<li class="ui-state-default connectedSortable " data-variable="'++'" ><span>'+variable.Name+'</span></li>');
 					})
-					// $("#variable_conteiner").html(elements);
 				}else{
-					// toastr.error("Fall");
 				}
 			});
 		});
