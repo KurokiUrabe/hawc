@@ -8,6 +8,22 @@
 
 	// The $ is now locally scoped
 	$(function() {
+
+
+		$( "connectedSortable" ).draggable({ revert: "valid" });
+
+		$( "#tools" ).droppable({
+			classes: {
+				"ui-droppable-active": "ui-state-active",
+				"ui-droppable-hover": "ui-state-hover"
+			},
+			drop: function( event, ui ) {
+				newRow(ui.draggable.data('variable'));
+			}
+		});
+
+
+
 		// The DOM is ready!
 		$( "#variable_conteiner, #queryBuldier" ).sortable({
 			connectWith: ".connectedSortable"
@@ -50,6 +66,10 @@
 
 						span.textContent = variable.Name;
 						li.setAttribute('data-variable', JSON.stringify(variable));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a1ee4334ddccc6fc6e74fa983bfefe195f29a46
 						li.appendChild(span);
 						ul.appendChild(li);
 					})
@@ -97,7 +117,9 @@
 		// 	}
 		// });
 	});
-
+	function newRow(argument) {
+		// body...
+	}
 	function outputResult(elm) {
 		$("#queryBuldier").append('<div>'+elm.data('variable')+'</div>');
 		console.log(elm.data('range'));
