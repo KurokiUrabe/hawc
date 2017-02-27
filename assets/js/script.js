@@ -10,7 +10,7 @@
 	$(function() {
 
 
-		$( "connectedSortable" ).draggable({ revert: "valid" });
+		// $( ".connectedSortable" ).draggable({ revert: "valid" });
 
 		$( "#tools" ).droppable({
 			classes: {
@@ -18,14 +18,21 @@
 				"ui-droppable-hover": "ui-state-hover"
 			},
 			drop: function( event, ui ) {
-				newRow(ui.draggable.data('variable'));
+				var newRow = newRow(ui.draggable.data('variable'));
+				newQuery(newRow);
 			}
 		});
 
-
+		$('select.right').change(function() {
+			if ($(this).val()==-1) {
+				$(this).closest(tr).find('input.left').attr('disabled','false');
+			}else{
+				$(this).closest(tr).find('input.left').attr('disabled','disabled');
+			}
+		});
 
 		// The DOM is ready!
-		$( "#variable_conteiner, #queryBuldier" ).sortable({
+		$( "#variable_conteiner").sortable({
 			connectWith: ".connectedSortable"
 		}).disableSelection()
 		.on("dblclick", ".connectedSortable", function() {
@@ -37,18 +44,18 @@
 			li.detach().appendTo(otherUL);
 
 		});
-		$('#queryBuldier').on('click','li',function() {
-			$('#queryBuldier li.editing').removeClass('editing');
-			$(this).addClass('editing');
+		// $('#queryBuldier').on('click','li',function() {
+		// 	$('#queryBuldier li.editing').removeClass('editing');
+		// 	$(this).addClass('editing');
 
-			// var tools  =$('#tools').html($(this).data('variable'));
-			var variables = $('#propertiesEditor tbody tr td.variable');
-				console.log($('.editing').data('variable'));
-			$.each(variables,function(k,variable) {
-				$(variable).text($('.editing').data('variable').Name);
-			});
-			// console.log($(this).data());
-		});
+		// 	// var tools  =$('#tools').html($(this).data('variable'));
+		// 	var variables = $('#propertiesEditor tbody tr td.variable');
+		// 		console.log($('.editing').data('variable'));
+		// 	$.each(variables,function(k,variable) {
+		// 		$(variable).text($('.editing').data('variable').Name);
+		// 	});
+		// 	// console.log($(this).data());
+		// });
 
 
 		$(".variable.finder").on("keyup paste change focus blur keydown",function(event) {
@@ -66,10 +73,6 @@
 
 						span.textContent = variable.Name;
 						li.setAttribute('data-variable', JSON.stringify(variable));
-<<<<<<< HEAD
-=======
-
->>>>>>> 8a1ee4334ddccc6fc6e74fa983bfefe195f29a46
 						li.appendChild(span);
 						ul.appendChild(li);
 					})
@@ -117,8 +120,28 @@
 		// 	}
 		// });
 	});
-	function newRow(argument) {
-		// body...
+	function newRow(variableJson) {
+		// var tr = document.createElement('tr');
+		// var td = document.createElement('td');
+		var defaultTR = document.getElementById('default');
+		var tr = defaultTR.cloneNode(true)
+		tr.removeAttribute('id')
+		var left = tr.querySelector('input.left');
+		var right = tr.querySelector('input.right');
+		var variable = tr.querySelector('td.variable');
+		var queryRow = 'query'+document.getElementById('propertiesEditor').rows.length-1;
+		// tr.classList.add('')
+		tr.setAttribute('data-query', rows);
+		left.setAttribute ('min', variableJson.minRange);
+		left.setAttribute ('max', variableJson.minRange);
+		variable.innerHTML = variableJson.Name;
+		left.setAttribute ('placeholder', "["+variableJson.minRange+","+variableJson.maxRange+"]");
+		var tbody = document.getElementById('tbody');
+
+		tr.style.display = '';
+		console.log(tr);
+		tbody.insertBefore(tr,tbody.childNodes[0]);
+		return queryRow;
 	}
 	function outputResult(elm) {
 		$("#queryBuldier").append('<div>'+elm.data('variable')+'</div>');
@@ -129,7 +152,9 @@
 		// 	$result.append('<input type="radio" />');
 		// }
 	}
+	function newQuery(queryRow) {
 
+	}
 	function newVariable() {
 		console.error("asdas");
 		if(

@@ -55,7 +55,9 @@
 			height: 100%;
 			background-color: white;
 		}
-
+		.queryPart{
+			margin-left: 15px;
+		}
 
 
 		 ul#variable_conteiner, ul#queryBuldier{

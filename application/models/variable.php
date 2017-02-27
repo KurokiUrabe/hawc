@@ -21,6 +21,12 @@ class Variable extends MY_Model {
 
 	public function getListVariables(){
 		$query = $this->db->get($this->TABLE_NAME);
+		if($query->num_rows() > 0) {
+			return true;
+		}else{
+			return false;
+		}
+
 		return $query->result();
 	}
 	public function getAllDataFrom($VariableID){
