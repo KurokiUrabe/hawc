@@ -32,19 +32,19 @@
 					<td>
 						<input disabled="disabled" type="number"  step='0.1' min="10" max='100' placeholder="[1,100]" value="-1" class="left" name=""></td>
 					<td>
-						<select class="rigtht">
+						<select class="left">
 							<option value="-1"></option>
-							<option value="1"><</option>
-							<option value="2"><=</option>
+							<option value="<"><</option>
+							<option value="<="><=</option>
 						</select>
 					</td>
 					<td class="variable"></td>
 					<td>
-						<select class="left">
-							<option value="1"><</option>
-							<option value="2"><=</option>
-							<option value="3">!=</option>
-							<option value="4">=</option>
+						<select class="rigth">
+							<option value="<"><</option>
+							<option value="<="><=</option>
+							<option value="!=">!=</option>
+							<option value="=">=</option>
 						</select>
 					</td>
 					<td><input type="number" step='0.1' min="10" max='100' placeholder="[1,100]" value="100" name="" class="rigth"></td>

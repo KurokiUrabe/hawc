@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Variable extends MY_Model {
 	function __construct(){
 		parent::__construct();
-		$this->TABLE_NAME = 'Variable';
+		$this->TABLE_NAME = 'variable';
 		$this->PRI_INDEX = "{$this->TABLE_NAME}.{$this->TABLE_NAME}ID";
 	}
 	public function getVariableSelect($search = '',$SELECT=NULL){
@@ -13,21 +13,21 @@ class Variable extends MY_Model {
 		}else{
 			$this->db->select("{$this->TABLE_NAME}ID,Name");
 		}
-		$this->db->like('Name', $search);
+		$this->db->like('VariableName', $search);
 		$query = $this->db->get($this->TABLE_NAME);
 		return $query->result();
 	}
 
 
 	public function getListVariables(){
+		$this->db->select('*');
 		$query = $this->db->get($this->TABLE_NAME);
+			return $query->result();
 		if($query->num_rows() > 0) {
-			return true;
 		}else{
 			return false;
 		}
 
-		return $query->result();
 	}
 	public function getAllDataFrom($VariableID){
 		$query = $this->db->get($this->TABLE_NAME);

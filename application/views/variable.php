@@ -36,7 +36,7 @@
 			<?php foreach ($variables as $key => $var): ?>
 				<tr>
 					<td><?php echo $var->VariableID ?></td>
-					<td><?php echo $var->Name ?></td>
+					<td><?php echo $var->VariableName ?></td>
 					<td><span contenteditable="true" class="form-control"><?php echo $var->Description ?></span></td>
 					<td>
 						<button type="button" class="btn save btn-primary">Save</button>
@@ -72,7 +72,7 @@
 
 	function insertVariable(data) {
 		return $.ajax({
-			url: base_url +"Hawc/insertVariable",
+			url: base_url +"~manuel/Hawc/insertVariable",
 			cache: false,
 			type: "post",
 			data: data,

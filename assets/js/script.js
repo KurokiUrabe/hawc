@@ -24,7 +24,29 @@
 			}
 		});
 
-		$('select.right').change(function() {
+		$("#propertiesEditor").on('change','.left,.rigth',function(event) {
+			console.log(event.target);
+			console.log(this);
+			var tr = $(this).closest('tr');
+			var inputLeft = $(tr).find("input.left");
+			var selectLeft = $(tr).find("select.left");
+			var selectRigth = $(tr).find("select.rigth");
+			var inputRigth = $(tr).find("input.rigth");
+			console.log($(tr).data('query'));
+			var query = $(tr).data('query')
+			var queryPart = $("#querySample .where .queryPart."+query);
+			var valueLeft = $(queryPart).find('.value.left');
+			var operatorLeft = $(queryPart).find('.operator.left');
+			var operatorRigth = $(queryPart).find('.operator.rigth');
+			var valueRigth = $(queryPart).find('.value.rigth');
+
+			valueLeft.text($(inputLeft).val());
+			operatorLeft.text($(selectLeft).val());
+			operatorRigth.text($(selectRigth).val());
+			valueRigth.text($(inputRigth).val());
+		});
+
+		$('select.rigth').change(function() {
 			if ($(this).val()==-1) {
 				$(this).closest(tr).find('input.left').attr('disabled','false');
 			}else{
@@ -53,7 +75,7 @@
 		// 	var variables = $('#propertiesEditor tbody tr td.variable');
 		// 		console.log($('.editing').data('variable'));
 		// 	$.each(variables,function(k,variable) {
-		// 		$(variable).text($('.editing').data('variable').Name);
+		// 		$(variable).text($('.editing').data('variable').VariableName);
 		// 	});
 		// 	// console.log($(this).data());
 		// });
@@ -72,7 +94,7 @@
 						var span = document.createElement('span');
 						li.className = "ui-state-default connectedSortable";
 
-						span.textContent = variable.Name;
+						span.textContent = variable.VariableName;
 						li.setAttribute('data-variable', JSON.stringify(variable));
 						li.appendChild(span);
 						ul.appendChild(li);
@@ -103,9 +125,9 @@
 		// 	.off('click',$("#popoverSave"))
 		// 	.on('click',$("#popoverSave"),function(event) {
 		// 	if (
-		// 		$(".popover-content form input.name").length >0 &&
+		// 		$(".popover-content form input.VariableName").length >0 &&
 		// 		$(".popover-content form input.description").length>0 &&
-		// 		$(".popover-content form input.name").val().length > 0 &&
+		// 		$(".popover-content form input.VariableName").val().length > 0 &&
 		// 		$(".popover-content form input.description").val().length > 0
 		// 		) {
 		// 		var newVariable = $(".popover-content form").serialize();
@@ -129,22 +151,21 @@
 		var tr = defaultTR.cloneNode(true)
 		tr.removeAttribute('id')
 		var left = tr.querySelector('input.left');
-		var right = tr.querySelector('input.right');
+		var rigth = tr.querySelector('input.rigth');
 		var variable = tr.querySelector('td.variable');
 		var queryRow = document.getElementById('propertiesEditor').rows.length-1;
 		queryRow = "query"+queryRow;
-		console.log(queryRow);
 		// tr.classList.add('')
 		tr.setAttribute('data-query', queryRow);
 		left.setAttribute ('min', variableJson.minRange);
 		left.setAttribute ('max', variableJson.minRange);
-		variable.innerHTML = variableJson.Name;
+		variable.innerHTML = variableJson.VariableName;
 		left.setAttribute ('placeholder', "["+variableJson.minRange+","+variableJson.maxRange+"]");
 		var tbody = document.getElementById('tbody');
 
 		tr.style.display = '';
-		console.log(tr);
-		tbody.insertBefore(tr,tbody.childNodes[0]);
+		// tbody.insertBefore(tr,tbody.childNodes[0]);
+		tbody.appendChild(tr);
 		return queryRow;
 	}
 
@@ -163,13 +184,15 @@
 		var name = document.createElement('span');
 		var operator = document.createElement('span');
 		var value = document.createElement('span');
-		name.innerHTML = variable.Name;
+		name.innerHTML = variable.VariableName;
 		operator.innerHTML = '<';
+		operator.className = "operator rigth";
+		value.className = "value rigth";
 		value.innerHTML = 0;
 		div.appendChild(name);
 		div.appendChild(operator);
 		div.appendChild(value);
-		div.className = "queryPart";
+		div.className = "queryPart "+queryRow;
 		var where = document.querySelector("#querySample .where");
 		where.appendChild(div);
 	}
@@ -177,9 +200,9 @@
 	function newVariable() {
 		console.error("asdas");
 		if(
-			$(".popover-content form input.name").length >0 &&
+			$(".popover-content form input.VariableName").length >0 &&
 			$(".popover-content form input.description").length>0 &&
-			$(".popover-content form input.name").val().length > 0 &&
+			$(".popover-content form input.VariableName").val().length > 0 &&
 			$(".popover-content form input.description").val().length > 0
 			) {
 			var newVariable = $(".popover-content form").serialize();
@@ -192,7 +215,7 @@
 				});
 		}
 	}
-	var base_url = window.location.origin+"/hawc/index.php/";
+	var base_url = window.location.href+"index.php/";
 	// The rest of your code goes here!
 	function getVariableSelect (data) {
 		return $.ajax({
