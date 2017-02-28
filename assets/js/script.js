@@ -18,8 +18,9 @@
 				"ui-droppable-hover": "ui-state-hover"
 			},
 			drop: function( event, ui ) {
-				var newRow = newRow(ui.draggable.data('variable'));
-				newQuery(newRow);
+				var variable = ui.draggable.data('variable');
+				var row = newRow(variable);
+				newQuery(row,variable);
 			}
 		});
 
@@ -120,6 +121,7 @@
 		// 	}
 		// });
 	});
+
 	function newRow(variableJson) {
 		// var tr = document.createElement('tr');
 		// var td = document.createElement('td');
@@ -129,9 +131,11 @@
 		var left = tr.querySelector('input.left');
 		var right = tr.querySelector('input.right');
 		var variable = tr.querySelector('td.variable');
-		var queryRow = 'query'+document.getElementById('propertiesEditor').rows.length-1;
+		var queryRow = document.getElementById('propertiesEditor').rows.length-1;
+		queryRow = "query"+queryRow;
+		console.log(queryRow);
 		// tr.classList.add('')
-		tr.setAttribute('data-query', rows);
+		tr.setAttribute('data-query', queryRow);
 		left.setAttribute ('min', variableJson.minRange);
 		left.setAttribute ('max', variableJson.minRange);
 		variable.innerHTML = variableJson.Name;
@@ -143,6 +147,7 @@
 		tbody.insertBefore(tr,tbody.childNodes[0]);
 		return queryRow;
 	}
+
 	function outputResult(elm) {
 		$("#queryBuldier").append('<div>'+elm.data('variable')+'</div>');
 		console.log(elm.data('range'));
@@ -152,9 +157,23 @@
 		// 	$result.append('<input type="radio" />');
 		// }
 	}
-	function newQuery(queryRow) {
 
+	function newQuery(queryRow,variable) {
+		var div = document.createElement('div');
+		var name = document.createElement('span');
+		var operator = document.createElement('span');
+		var value = document.createElement('span');
+		name.innerHTML = variable.Name;
+		operator.innerHTML = '<';
+		value.innerHTML = 0;
+		div.appendChild(name);
+		div.appendChild(operator);
+		div.appendChild(value);
+		div.className = "queryPart";
+		var where = document.querySelector("#querySample .where");
+		where.appendChild(div);
 	}
+
 	function newVariable() {
 		console.error("asdas");
 		if(
