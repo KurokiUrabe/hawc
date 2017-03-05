@@ -18,6 +18,11 @@ class QueryBuildier extends  CI_Model {
 
 		return $result->result();
 	}
+	public function tables($database='qmdb'){
+		$query = "SELECT TABLE_NAME as name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '$database' AND TABLE_NAME LIKE '%hawc%'";
+		$result = $this->db->query($query) or die ("Schema Query Failed");
+		return $result->result();
+	}
 	public function DescribefromTable($table_name = null){
 		// print_r($this->db);
 		$query = "SELECT column_name
@@ -33,20 +38,11 @@ class QueryBuildier extends  CI_Model {
 		// $query = $this->db->get();
 		return $result->result();
 	}
-	public function runQuery($query = ''){
-		$query = $this->db->query($query);
-		$query = $this->db->query("
-
-					SELECT
-					File_name
-
-
-					FROM
-					hawconlinev8_0_1
-
-
-					WHERE
-				-1<=SubRun_number<100");
+	public function runQuery($sql = ''){
+		$sql = $sql." LIMIT 100";
+		// $query = $this->db->query("SELECT File_name FROM hawconlinev8_0_1 WHERE 1=1 and (-1<File_name<100) LIMIT 100");
+		// echo $this->db->last_query();
+		$query = $this->db->query( $sql );
 		return $query->result();
 	}
 }

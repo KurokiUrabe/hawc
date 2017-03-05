@@ -24,6 +24,14 @@
 			}
 		});
 
+		$('#tables').change(function() {
+			$(".from .queryPart").text($(this).val());
+		});
+
+		$('#runQuery').click(function() {
+			printQuery();
+		});
+
 		$("#propertiesEditor").on('change','.left,.rigth',function(event) {
 			var tr = $(this).closest('tr');
 			var inputLeft = $(tr).find("input.left");
@@ -42,7 +50,6 @@
 				$(operatorLeft).show();
 				$(inputLeft).prop('disabled', false);
 			}else{
-				console.log('nop');
 				$(valueLeft).hide();
 				$(operatorLeft).hide();
 				$(inputLeft).prop('disabled', true);
@@ -52,18 +59,9 @@
 			operatorRigth.text($(selectRigth).val());
 			valueRigth.text($(inputRigth).val());
 
-				var querySample = document.getElementById("querySample");
-				var text = querySample.textContent.replace(/(?:(?:\r\n|\r|\n)\t*){2}/gm, "");
-				console.log(text);
-				runQuery({query:text})
-					.done(function(response){
-						console.log(response);
-					});
-					hola()
-					.done(function(response){
-						console.log(response);
-					});
-			if (true) {
+
+			if (document.getElementById("autoQuery").checked) {
+				printQuery();
 			}
 		});
 
@@ -125,7 +123,12 @@
 			});
 		});
 
-
+		$(document).on('click','.delete',function() {
+			var query = $(this).closest('tr').data('query');
+			$(this).closest('tr').remove();
+			var queryPart = $("#querySample .where .queryPart."+query);
+			$(queryPart).remove();
+		});
 		/**
 		 * Eventos de variables
 		 */
@@ -164,6 +167,42 @@
 		// 	}
 		// });
 	});
+
+	function printQuery() {
+		var text = document.getElementById("querySample").innerText;
+		text = text.replace(/\n/gm, " ");
+		text = text.replace(/</gm, "\<");
+		text = text.replace(/>/gm, "\>");
+		var responseQuery = $("#responseQuery");
+		runQuery({query:text})
+			.done(function(response){
+				console.log(typeof response);
+				if (!$.trim(response)) {
+					console.log("is empty");
+				}else{
+					var names = Object.keys(response[1]);
+					var tr = '<tr>';
+					$.each(names, function(i, name) {
+						tr += '<th>'+name+'</th>';
+					});
+					tr += '</tr>';
+					$("#responseQuery thead").append(tr);
+					var body = '';
+					$.each(response,function(i,res) {
+						tr = '<tr>';
+
+						$.each(names, function(i, name) {
+							tr += '<td>'+res[name]+'</td>';
+						});
+						tr += "</tr>";
+						body+= tr;
+					});
+					$("#responseQuery tbody").append(body);
+
+
+				}
+			});
+	}
 
 	function newRow(variableJson) {
 		// var tr = document.createElement('tr');
@@ -204,9 +243,12 @@
 		var div = document.createElement('div');
 		var valueleft = document.createElement('span');
 		var operatorLefth = document.createElement('span');
+		var bool = document.createElement('span');
+		var cierre = document.createElement('span');
 		var name = document.createElement('span');
 		var operatorRigth = document.createElement('span');
 		var valuerigth = document.createElement('span');
+		bool.innerHTML = 'and (';
 		name.innerHTML = variable.VariableName;
 		operatorLefth.innerHTML = '<';
 		operatorLefth.className = "operator left";
@@ -218,11 +260,21 @@
 		valueleft.style.display = "none";
 		valuerigth.className = "value rigth";
 		valuerigth.innerHTML = 0;
+		cierre.innerHTML = ')';
+		div.appendChild(bool);
 		div.appendChild(valueleft);
 		div.appendChild(operatorLefth);
 		div.appendChild(name);
 		div.appendChild(operatorRigth);
 		div.appendChild(valuerigth);
+		div.appendChild(cierre);
+
+// 		div.appendChild(bool);
+// 		div.appendChild(name);
+// 		div.appendChild(operator);
+// 		div.appendChild(value);
+// 		div.appendChild(cierre);
+// >>>>>>> 82465a1e35715f50c4b6a9075df54b3ddd63dec0
 		div.className = "queryPart "+queryRow;
 		var where = document.querySelector("#querySample .where");
 		where.appendChild(div);

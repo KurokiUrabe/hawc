@@ -11,6 +11,7 @@ class Hawc extends CI_Controller {
 
 	public function index(){
 		$data["colums_name"] = $this->hawc->columns('qmdb','recstats_hawcprod_v4r01_v1p26p00_rev20264_20150504' );
+		$data["tables"] =  $this->hawc->tables('QMDB');
 		$data["variables"] = $this->variable->getListVariables();
 		$this->load->view('index',$data);
 	}
@@ -35,10 +36,7 @@ class Hawc extends CI_Controller {
 	}
 	public function runQuery(){
 		$query = $this->input->post("query");
-		echo $query;
 		$result = $this->hawc->runQuery($query);
-		echo $this->db->last_query();
-		print_r($result);
 		echo json_encode($result);
 	}
 	public function hola(){

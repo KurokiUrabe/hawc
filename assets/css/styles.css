@@ -37,7 +37,9 @@
 		text-align: center;
 	}
 
-
+	.overflow{
+		overflow: scroll
+	}
 	/*#variable_conteiner li {
 		margin: 0 3px 3px 3px;
 		padding: 0.4em;
@@ -59,6 +61,9 @@
 			margin-left: 15px;
 		}
 
+		.runQuery{
+			margin-top: 25px;
+		}
 
 		 ul#variable_conteiner, ul#queryBuldier{
 			min-height: 500px;
