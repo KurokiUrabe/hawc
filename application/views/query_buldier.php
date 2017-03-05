@@ -3,6 +3,9 @@
 		<h3>Query generator</h3>
 	</div>
 </div>
+<div class="row" style="text-align: right;">
+	<button type="button" class="btn btn-primary">runQuery</button>
+</div>
 <div class="row">
 
 	<div class="well col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -43,6 +46,8 @@
 						<select class="rigth">
 							<option value="<"><</option>
 							<option value="<="><=</option>
+							<option value=">">></option>
+							<option value=">=">>=</option>
 							<option value="!=">!=</option>
 							<option value="=">=</option>
 						</select>

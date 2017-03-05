@@ -25,25 +25,46 @@
 		});
 
 		$("#propertiesEditor").on('change','.left,.rigth',function(event) {
-			console.log(event.target);
-			console.log(this);
 			var tr = $(this).closest('tr');
 			var inputLeft = $(tr).find("input.left");
 			var selectLeft = $(tr).find("select.left");
 			var selectRigth = $(tr).find("select.rigth");
 			var inputRigth = $(tr).find("input.rigth");
-			console.log($(tr).data('query'));
 			var query = $(tr).data('query')
 			var queryPart = $("#querySample .where .queryPart."+query);
 			var valueLeft = $(queryPart).find('.value.left');
 			var operatorLeft = $(queryPart).find('.operator.left');
 			var operatorRigth = $(queryPart).find('.operator.rigth');
 			var valueRigth = $(queryPart).find('.value.rigth');
-
+			if ($(selectLeft).val()!=-1) {
+				console.log('yea');
+				$(valueLeft).show();
+				$(operatorLeft).show();
+				$(inputLeft).prop('disabled', false);
+			}else{
+				console.log('nop');
+				$(valueLeft).hide();
+				$(operatorLeft).hide();
+				$(inputLeft).prop('disabled', true);
+			}
 			valueLeft.text($(inputLeft).val());
 			operatorLeft.text($(selectLeft).val());
 			operatorRigth.text($(selectRigth).val());
 			valueRigth.text($(inputRigth).val());
+
+				var querySample = document.getElementById("querySample");
+				var text = querySample.textContent.replace(/(?:(?:\r\n|\r|\n)\t*){2}/gm, "");
+				console.log(text);
+				runQuery({query:text})
+					.done(function(response){
+						console.log(response);
+					});
+					hola()
+					.done(function(response){
+						console.log(response);
+					});
+			if (true) {
+			}
 		});
 
 		$('select.rigth').change(function() {
@@ -181,20 +202,32 @@
 
 	function newQuery(queryRow,variable) {
 		var div = document.createElement('div');
+		var valueleft = document.createElement('span');
+		var operatorLefth = document.createElement('span');
 		var name = document.createElement('span');
-		var operator = document.createElement('span');
-		var value = document.createElement('span');
+		var operatorRigth = document.createElement('span');
+		var valuerigth = document.createElement('span');
 		name.innerHTML = variable.VariableName;
-		operator.innerHTML = '<';
-		operator.className = "operator rigth";
-		value.className = "value rigth";
-		value.innerHTML = 0;
+		operatorLefth.innerHTML = '<';
+		operatorLefth.className = "operator left";
+		operatorLefth.style.display = "none";
+		operatorRigth.innerHTML = '<';
+		operatorRigth.className = "operator rigth";
+		valueleft.className = "value left";
+		valueleft.innerHTML = 0;
+		valueleft.style.display = "none";
+		valuerigth.className = "value rigth";
+		valuerigth.innerHTML = 0;
+		div.appendChild(valueleft);
+		div.appendChild(operatorLefth);
 		div.appendChild(name);
-		div.appendChild(operator);
-		div.appendChild(value);
+		div.appendChild(operatorRigth);
+		div.appendChild(valuerigth);
 		div.className = "queryPart "+queryRow;
 		var where = document.querySelector("#querySample .where");
 		where.appendChild(div);
+
+
 	}
 
 	function newVariable() {
@@ -230,6 +263,24 @@
 	function insertVariable(data) {
 		return $.ajax({
 			url: base_url +"Hawc/insertVariable",
+			cache: false,
+			type: "post",
+			data: data,
+			dataType: 'json'
+		});
+	}
+	function runQuery(data) {
+		return $.ajax({
+			url: base_url +"Hawc/runQuery",
+			cache: false,
+			type: "post",
+			data: data,
+			dataType: 'json'
+		});
+	}
+	function hola(data) {
+		return $.ajax({
+			url: base_url +"Hawc/hola",
 			cache: false,
 			type: "post",
 			data: data,

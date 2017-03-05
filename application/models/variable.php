@@ -34,6 +34,8 @@ class Variable extends MY_Model {
 		$this->db->where('VariableID', $VariableID);
 		return $query->result();
 	}
+
+
 }
 
 /* End of file variable.php */

@@ -8,13 +8,13 @@ class QueryBuildier extends  CI_Model {
 		$this->TABLE_NAME = 'recstats_hawcprod_v4r01_v1p26p00_rev20264_20150504';
 		$this->PRI_INDEX = "{$this->TABLE_NAME}.id";
 	}
-	
+
 	public function columns($database, $table)
 	{
-		$query = "SELECT COLUMN_NAME as name FROM INFORMATION_SCHEMA.COLUMNS 
+		$query = "SELECT COLUMN_NAME as name FROM INFORMATION_SCHEMA.COLUMNS
 			WHERE table_name = '$table'
-			AND table_schema = '$database'";	
-		$result = $this->db->query($query) or die ("Schema Query Failed"); 
+			AND table_schema = '$database'";
+		$result = $this->db->query($query) or die ("Schema Query Failed");
 
 		return $result->result();
 	}
@@ -33,7 +33,22 @@ class QueryBuildier extends  CI_Model {
 		// $query = $this->db->get();
 		return $result->result();
 	}
+	public function runQuery($query = ''){
+		$query = $this->db->query($query);
+		$query = $this->db->query("
 
+					SELECT
+					File_name
+
+
+					FROM
+					hawconlinev8_0_1
+
+
+					WHERE
+				-1<=SubRun_number<100");
+		return $query->result();
+	}
 }
 
 /* End of file hawc.php */

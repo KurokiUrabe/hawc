@@ -33,4 +33,15 @@ class Hawc extends CI_Controller {
 		$VariableID = $this->variable->getAllDataFrom($this->input->post('VariableID'));
 		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);
 	}
+	public function runQuery(){
+		$query = $this->input->post("query");
+		echo $query;
+		$result = $this->hawc->runQuery($query);
+		echo $this->db->last_query();
+		print_r($result);
+		echo json_encode($result);
+	}
+	public function hola(){
+		echo "jola";
+	}
 }
