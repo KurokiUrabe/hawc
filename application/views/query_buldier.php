@@ -65,6 +65,7 @@
 				</div>
 				<div class="where">
 					<div>WHERE</div>
+					<div class="queryPart">1=1</div>
 				</div>
 		</div>
 	</div>

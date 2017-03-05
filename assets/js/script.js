@@ -181,17 +181,24 @@
 
 	function newQuery(queryRow,variable) {
 		var div = document.createElement('div');
+		var bool = document.createElement('span');
+		var cierre = document.createElement('span');
 		var name = document.createElement('span');
 		var operator = document.createElement('span');
 		var value = document.createElement('span');
 		name.innerHTML = variable.VariableName;
-		operator.innerHTML = '<';
+		bool.innerHTML = 'and (';
+		cierre.innerHTML = ')';
+		operator.innerHTML = ' < ';
 		operator.className = "operator rigth";
 		value.className = "value rigth";
 		value.innerHTML = 0;
+
+		div.appendChild(bool);
 		div.appendChild(name);
 		div.appendChild(operator);
 		div.appendChild(value);
+		div.appendChild(cierre);
 		div.className = "queryPart "+queryRow;
 		var where = document.querySelector("#querySample .where");
 		where.appendChild(div);
