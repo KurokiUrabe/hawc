@@ -133,6 +133,13 @@
 		 * Eventos de variables
 		 */
 		$("table .save").click(function() {
+			var data = $(this).closest('tr').find('input').serialize();
+			save(data)
+				.done(function(response){
+					if (true) {
+						console.log(response);
+					}
+				});
 
 		})
 
@@ -334,9 +341,9 @@
 			dataType: 'json'
 		});
 	}
-	function hola(data) {
+	function save(data) {
 		return $.ajax({
-			url: base_url +"Hawc/hola",
+			url: base_url +"Hawc/save",
 			cache: false,
 			type: "post",
 			data: data,

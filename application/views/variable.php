@@ -27,20 +27,29 @@
 			<thead>
 				<tr>
 					<th>VariableID</th>
+					<th>VariableName</th>
 					<th>Name</th>
 					<th>Description</th>
+					<th>MinRange</th>
+					<th>MaxRange</th>
 					<th>Acion</th>
 				</tr>
 			</thead>
 			<tbody>
 			<?php foreach ($variables as $key => $var): ?>
 				<tr>
-					<td><?php echo $var->VariableID ?></td>
+					<td>
+						<?php echo $var->VariableID ?>
+						<input type="hidden" name="VariableID" value="<?php echo $var->VariableID ?>">
+					</td>
 					<td><?php echo $var->VariableName ?></td>
-					<td><span contenteditable="true" class="form-control"><?php echo $var->Description ?></span></td>
+					<td><input type="text" name="name" class="form-control name" value="<?php echo $var->Name ?>"></td>
+					<td><input type="text" name="description" class="form-control description" value="<?php echo $var->Description ?>"></td>
+					<td><input type="text" name="MinRange" class="form-control MinRange" value="<?php echo $var->MinRange ?>"></td>
+					<td><input type="text" name="MaxRange" class="form-control MaxRange" value="<?php echo $var->MaxRange ?>"></td>
 					<td>
 						<button type="button" class="btn save btn-primary">Save</button>
-						<button type="button" class="btn edit btn-success">Editar Rango</button>
+						<!-- <button type="button" class="btn edit btn-success">Editar Rango</button> -->
 					</td>
 				</tr>
 			<?php endforeach ?>

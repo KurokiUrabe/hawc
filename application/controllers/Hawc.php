@@ -20,9 +20,6 @@ class Hawc extends CI_Controller {
 		$variables = $this->variable->getVariableSelect($search,'*');
 		$length = count($variables);
 		$jsonVariable = [];
-		// for ($i=0; $i < $length ; $i++) {
-		// 	$jsonVariable[]=json_encode($variables[$i]);
-		// }
 		echo json_encode(["correct"=>$variables!=null,"variables"=>$variables]);
 	}
 
@@ -39,7 +36,19 @@ class Hawc extends CI_Controller {
 		$result = $this->hawc->runQuery($query);
 		echo json_encode($result);
 	}
-	public function hola(){
-		echo "jola";
+	public function save(){
+		$variableData = $this->input->post();
+		$VariableID = $variableData['VariableID'];
+		unset($variable['VariableID']);
+		$isOK = $this->variable->update($variableData,$VariableID);
+		if ($isOk>0) {
+			echo json_encode([
+				"correct"=>$isOk>0,
+				"msj"=>'Se guardo correctamente',
+				"mas"=>'hola'
+				]);
+		}else{
+			echo "jola";
+		}
 	}
 }
