@@ -90,6 +90,12 @@
 			min-height: 500px;
 			height: 500px;
 		}
+	.ui-hawc-state-active{
+		border: 1px solid #003eff;
+		background: #b3d9ff;
+		font-weight: normal;
+		color: #ffffff;
+}
 		table#propertiesEditor {
 			width: 100%;
 			table-layout: auto;
