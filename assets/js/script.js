@@ -11,10 +11,10 @@
 
 
 		// $( ".connectedSortable" ).draggable({ revert: "valid" });
-
+		findVariable({search:''});
 		$( "#tools" ).droppable({
 			classes: {
-				"ui-droppable-active": "ui-state-active",
+				"ui-droppable-active": "ui-hawc-state-active",
 				"ui-droppable-hover": "ui-state-hover"
 			},
 			drop: function( event, ui ) {
@@ -102,25 +102,7 @@
 
 		$(".variable.finder").on("keyup paste change focus blur keydown",function(event) {
 			var data = {search:$(this).val()}
-			getVariableSelect(data)
-			.done(function(response){
-				if (response.correct) {
-					var elements = '';
-					var ul = document.getElementById('variable_conteiner');
-					ul.innerHTML = '';
-					$.each(response.variables,function(key,variable) {
-						var li = document.createElement('li');
-						var span = document.createElement('span');
-						li.className = "ui-state-default connectedSortable";
-
-						span.textContent = variable.VariableName;
-						li.setAttribute('data-variable', JSON.stringify(variable));
-						li.appendChild(span);
-						ul.appendChild(li);
-					})
-				}else{
-				}
-			});
+			findVariable(data);
 		});
 
 		$(document).on('click','.delete',function() {
@@ -152,28 +134,30 @@
 				return $("#popover-content").html();
 			}
 		});
-		// $(document)
-		// 	.off('click',$("#popoverSave"))
-		// 	.on('click',$("#popoverSave"),function(event) {
-		// 	if (
-		// 		$(".popover-content form input.VariableName").length >0 &&
-		// 		$(".popover-content form input.description").length>0 &&
-		// 		$(".popover-content form input.VariableName").val().length > 0 &&
-		// 		$(".popover-content form input.description").val().length > 0
-		// 		) {
-		// 		var newVariable = $(".popover-content form").serialize();
-		// 		insertVariable(newVariable)
-		// 			.done(function(response){
-		// 				if (response.correct) {
-		// 					$("#popover").popover('hide');
-		// 				}else{
-		// 				}
-		// 			});
-		// 	}else{
-		// 		console.error("valores incorrectos");
-		// 	}
-		// });
+
 	});
+
+	function findVariable(data) {
+		getVariableSelect(data)
+			.done(function(response){
+				if (response.correct) {
+					var elements = '';
+					var ul = document.getElementById('variable_conteiner');
+					ul.innerHTML = '';
+					$.each(response.variables,function(key,variable) {
+						var li = document.createElement('li');
+						var span = document.createElement('span');
+						li.className = "ui-state-default connectedSortable";
+
+						span.textContent = variable.VariableName;
+						li.setAttribute('data-variable', JSON.stringify(variable));
+						li.appendChild(span);
+						ul.appendChild(li);
+					})
+				}else{
+				}
+			});
+	}
 
 	function printQuery() {
 		var text = document.getElementById("querySample").innerText;
@@ -183,11 +167,11 @@
 		var responseQuery = $("#responseQuery");
 		runQuery({query:text})
 			.done(function(response){
-				console.log(typeof response);
-				if (!$.trim(response)) {
+				console.log(response);
+				if (Object.keys(response).length === 0) {
 					console.log("is empty");
 				}else{
-					var names = Object.keys(response[1]);
+					var names = Object.keys(response[0]);
 					var tr = '<tr>';
 					$.each(names, function(i, name) {
 						tr += '<th>'+name+'</th>';

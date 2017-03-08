@@ -18,7 +18,7 @@
 				<h3 class="panel-title">Variable Selection</h3>
 			</div>
 			<div class="panel-body overflow">
-				<input class="form-control variable finder">
+				<input type="text" class="form-control variable finder" placeholder="Variable Search">
 				<ul id="variable_conteiner" class="connectedSortable">
 				</ul>
 			</div>
