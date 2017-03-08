@@ -177,7 +177,7 @@
 						tr += '<th>'+name+'</th>';
 					});
 					tr += '</tr>';
-					$("#responseQuery thead").append(tr);
+					$("#responseQuery thead").empty().append(tr);
 					var body = '';
 					$.each(response,function(i,res) {
 						tr = '<tr>';
@@ -188,7 +188,7 @@
 						tr += "</tr>";
 						body+= tr;
 					});
-					$("#responseQuery tbody").append(body);
+					$("#responseQuery tbody").empty().append(body);
 
 
 				}
@@ -208,10 +208,14 @@
 		queryRow = "query"+queryRow;
 		// tr.classList.add('')
 		tr.setAttribute('data-query', queryRow);
-		left.setAttribute ('min', variableJson.minRange);
-		left.setAttribute ('max', variableJson.minRange);
+		console.log(variableJson);
+		left.setAttribute ('min', variableJson.MinRange);
+		left.setAttribute ('max', variableJson.MaxRange);
+		rigth.setAttribute ('min', variableJson.MinRange);
+		rigth.setAttribute ('max', variableJson.MaxRange);
+		rigth.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
+		left.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
 		variable.innerHTML = variableJson.VariableName;
-		left.setAttribute ('placeholder', "["+variableJson.minRange+","+variableJson.maxRange+"]");
 		var tbody = document.getElementById('tbody');
 
 		tr.style.display = '';

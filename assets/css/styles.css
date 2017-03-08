@@ -1,4 +1,4 @@
-@media (min-width: 1200px)
+/*@media (min-width: 1200px)
 .footer {
 	width: 1170px;
 }
@@ -10,7 +10,7 @@
 @media (min-width: 768px)
 .footer {
 	width: 750px;
-}
+}*/
 
 /*.body-heigth{
 	height: 100%;
@@ -96,3 +96,7 @@
 		font-weight: normal;
 		color: #ffffff;
 }
+		table#propertiesEditor {
+			width: 100%;
+			table-layout: auto;
+		}

@@ -38,9 +38,9 @@
 				<tr id="default" style="display: none">
 					<td><button type="button" class="btn btn-danger delete" style="width: 100%"> delete </button></td>
 					<td>
-						<input disabled="disabled" type="number"  step='0.1' min="10" max='100' placeholder="[1,100]" value="-1" class="left" name=""></td>
+						<input disabled="disabled" type="number"  step='0.1' placeholder="[1,∞]" value="0" class="left form-control" name=""></td>
 						<td>
-							<select class="left">
+							<select class="left form-control">
 								<option value="-1"></option>
 								<option value="<"><</option>
 								<option value="<="><=</option>
@@ -48,7 +48,7 @@
 						</td>
 						<td class="variable"></td>
 						<td>
-							<select class="rigth">
+							<select class="rigth form-control">
 								<option value="<"><</option>
 								<option value="<="><=</option>
 								<option value=">">></option>
@@ -57,7 +57,7 @@
 								<option value="=">=</option>
 							</select>
 						</td>
-						<td><input type="number" step='0.1' min="10" max='100' placeholder="[1,100]" value="100" name="" class="rigth"></td>
+						<td><input type="number" step='0.1' placeholder="[1,∞]" value="0" name="" class="rigth form-control"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -83,7 +83,7 @@
 					<div id="querySample">
 						<div class="selector">
 							<div>SELECT</div>
-							<div class="queryPart">*</div>
+							<div class="queryPart" contenteditable="true">*</div>
 						</div>
 						<div class="from">
 							<div>FROM</div>
