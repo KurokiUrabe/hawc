@@ -38,7 +38,7 @@
 				<tr id="default" style="display: none">
 					<td><button type="button" class="btn btn-danger delete" style="width: 100%"> delete </button></td>
 					<td>
-						<input disabled="disabled" type="number"  step='0.1' placeholder="[1,∞]" value="0" class="left form-control" name=""></td>
+						<input disabled="disabled" type="number"  step='0.1' placeholder="[1,∞]"  class="left form-control" name=""></td>
 						<td>
 							<select class="left form-control">
 								<option value="-1"></option>
@@ -57,7 +57,7 @@
 								<option value="=">=</option>
 							</select>
 						</td>
-						<td><input type="number" step='0.1' placeholder="[1,∞]" value="0" name="" class="rigth form-control"></td>
+						<td><input type="number" step='0.1' placeholder="[1,∞]"  name="" class="rigth form-control"></td>
 					</tr>
 				</tbody>
 			</table>
