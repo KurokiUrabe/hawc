@@ -27,7 +27,7 @@
 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" id="tools" style="max-width: ">
 		<table class="table table-striped table-bordered table-hover " width="100%" id="propertiesEditor">
 			<thead>
-				<th>option</th>
+				<th></th>
 				<th>Valor</th>
 				<th>Operator</th>
 				<th>Variable</th>
@@ -36,7 +36,9 @@
 			</thead>
 			<tbody id="tbody">
 				<tr id="default" style="display: none">
-					<td><button type="button" class="btn btn-danger delete" style="width: 100%"> delete </button></td>
+					<td>
+					<span class="btn btn-danger delete"><i class="glyphicon glyphicon-minus"></i> </span>
+					</td>
 					<td>
 						<input disabled="disabled" type="number"  step='0.1' placeholder="[1,∞]" value="0" class="left form-control" name=""></td>
 						<td>

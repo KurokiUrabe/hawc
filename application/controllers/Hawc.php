@@ -39,11 +39,12 @@ class Hawc extends CI_Controller {
 	public function save(){
 		$variableData = $this->input->post();
 		$VariableID = $variableData['VariableID'];
-		unset($variable['VariableID']);
+		unset($variableData['VariableID']);
 		$isOK = $this->variable->update($variableData,$VariableID);
-		if ($isOk>0) {
+
+		if ($isOK&&$isOK>0) {
 			echo json_encode([
-				"correct"=>$isOk>0,
+				"correct"=>$isOK>0,
 				"msj"=>'Se guardo correctamente',
 				"mas"=>'hola'
 				]);

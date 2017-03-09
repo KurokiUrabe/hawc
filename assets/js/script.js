@@ -168,6 +168,8 @@
 		runQuery({query:text})
 			.done(function(response){
 				console.log(response);
+				$("#responseQuery tbody").empty();
+				$("#responseQuery thead").empty()
 				if (Object.keys(response).length === 0) {
 					console.log("is empty");
 				}else{
@@ -177,7 +179,7 @@
 						tr += '<th>'+name+'</th>';
 					});
 					tr += '</tr>';
-					$("#responseQuery thead").empty().append(tr);
+					$("#responseQuery thead").append(tr);
 					var body = '';
 					$.each(response,function(i,res) {
 						tr = '<tr>';
@@ -188,7 +190,7 @@
 						tr += "</tr>";
 						body+= tr;
 					});
-					$("#responseQuery tbody").empty().append(body);
+					$("#responseQuery tbody").append(body);
 
 
 				}
