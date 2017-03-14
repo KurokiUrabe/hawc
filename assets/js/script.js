@@ -300,6 +300,7 @@
 	var base_url = window.location.href+"index.php/";
 	// The rest of your code goes here!
 	function getVariableSelect (data) {
+		console.log(base_url +"Hawc/getVariableSelect");
 		return $.ajax({
 			url: base_url +"Hawc/getVariableSelect",
 			cache: false,

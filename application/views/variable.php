@@ -40,10 +40,10 @@
 				<tr>
 					<td>
 						<?php echo $var->VariableID ?>
-						<input type="hidden" name="VariableID" value="<?php echo $var->VariableID ?>">
+						<input type="hidden" name="VariableID" value="<?php echo $var->VariableID ?>" placeholder="<?php echo $var->VariableID ?>">
 					</td>
 					<td><?php echo $var->VariableName ?></td>
-					<td><input type="text" name="name" class="form-control name" value="<?php echo $var->Name ?>"></td>
+					<td><input type="text" name="name" class="form-control name" value="<?php echo $var->Name ?>" placeholder="<?php echo $var->VariableName ?>"></td>
 					<td><input type="text" name="description" class="form-control description" value="<?php echo $var->Description ?>"></td>
 					<td><input type="text" name="MinRange" class="form-control MinRange" value="<?php echo $var->MinRange ?>"></td>
 					<td><input type="text" name="MaxRange" class="form-control MaxRange" value="<?php echo $var->MaxRange ?>"></td>

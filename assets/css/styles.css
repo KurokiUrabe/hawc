@@ -38,7 +38,7 @@
 	}
 
 	.overflow{
-		overflow: scroll
+		overflow-y: scroll;
 	}
 	/*#variable_conteiner li {
 		margin: 0 3px 3px 3px;

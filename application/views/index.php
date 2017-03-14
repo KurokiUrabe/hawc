@@ -25,7 +25,7 @@
 		<![endif]-->
 	</head>
 	<body>
-		<div class="container">
+		<div class="">
 			<div class="masthead">
 				<h1>HAWC <small>Advances</small></h1>
 				<nav>
