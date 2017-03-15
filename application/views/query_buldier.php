@@ -53,21 +53,21 @@
 			</div>
 			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 				<table class="table table-striped table-bordered table-hover " width="100%" id="propertiesEditor">
-				<thead>
-					<th></th>
-					<th>Valor</th>
-					<th>Operator</th>
-					<th>Variable</th>
-					<th>Operator</th>
-					<th>Valor</th>
-				</thead>
-				<tbody id="tbody">
-					<tr id="default" style="display: none">
-						<td>
-							<span class="btn btn-danger delete"><i class="glyphicon glyphicon-minus"></i> </span>
-						</td>
-						<td>
-							<input disabled="disabled" type="number"  step='0.1' placeholder="[1,∞]"  class="left form-control" name=""></td>
+					<thead>
+						<th></th>
+						<th>Valor</th>
+						<th>Operator</th>
+						<th>Variable</th>
+						<th>Operator</th>
+						<th>Valor</th>
+					</thead>
+					<tbody id="tbody">
+						<tr id="default" style="display: none">
+							<td>
+								<span class="btn btn-danger delete"><i class="glyphicon glyphicon-minus"></i> </span>
+							</td>
+							<td>
+								<input disabled="disabled" type="number"  step='0.1' placeholder="[1,∞]"  class="left form-control" name=""></td>
 							<td>
 								<select class="left form-control">
 									<option value="-1"></option>
@@ -86,13 +86,15 @@
 									<option value="=">=</option>
 								</select>
 							</td>
-							<td><input type="number" step='0.1' placeholder="[1,∞]"  name="" class="rigth form-control"></td>
+							<td>
+								<input type="number" step='0.1' placeholder="[1,∞]"  name="" class="rigth form-control">
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<div class="row overflow">
+		<div class="row" style="overflow: scroll ">
 			<table class="table" id="responseQuery">
 				<thead></thead>
 				<tbody></tbody>
