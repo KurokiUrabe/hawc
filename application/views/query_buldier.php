@@ -77,7 +77,7 @@
 							</td>
 							<td class="variable"></td>
 							<td>
-								<select class="rigth form-control">
+								<select class="right form-control">
 									<option value="<"><</option>
 									<option value="<="><=</option>
 									<option value=">">></option>
@@ -87,14 +87,14 @@
 								</select>
 							</td>
 							<td>
-								<input type="number" step='0.1' placeholder="[1,∞]"  name="" class="rigth form-control">
+								<input type="number" step='0.1' placeholder="[1,∞]"  name="" class="right form-control">
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<div class="row" style="overflow: scroll ">
+		<div class="row" id="helio" style="overflow: scroll">
 			<table class="table" id="responseQuery">
 				<thead></thead>
 				<tbody></tbody>

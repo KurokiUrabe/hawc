@@ -14,6 +14,10 @@
 
 	<!-- Bootstrap -->
 	<link href="<?php echo asset_url("css/bootstrap.min.css") ?>" rel="stylesheet">
+	<link href="<?php echo asset_url("css/dataTables.bootstrap.min.css") ?>" rel="stylesheet">
+	<link href="<?php echo asset_url("css/jquery.dataTables.min.css") ?>" rel="stylesheet">
+
+
 	<script type="text/javascript">
 		var baseurl = "<?php echo base_url() ?><?php  ?>";
 	</script>
@@ -27,7 +31,7 @@
 	<body>
 		<div class="">
 			<div class="masthead">
-				<h1>HAWC <small>Advances</small></h1>
+				<h1>HAWC <small>Variables</small></h1>
 				<!-- <nav>
 					<ul class="nav nav-tabs nav-justified">
 						<li class="active" role="presentation"><a href="#hawc" data-toggle="tab">HAWC</a></li>
@@ -66,6 +70,8 @@
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="<?php echo asset_url("js/bootstrap.min.js") ?>"></script>
 		<script src="<?php echo asset_url("js/script.js") ?>"></script>
+		<script src="<?php echo asset_url("js/jquery.dataTables.min.js") ?>"></script>
+		<script src="<?php echo asset_url("js/dataTables.bootstrap.min.js") ?>"></script>
 		<!-- Site footer -->
 </body>
 </html>

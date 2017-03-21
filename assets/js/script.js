@@ -8,7 +8,7 @@
 
 	// The $ is now locally scoped
 	$(function() {
-
+		var responseQuery = {};
 
 		// $( ".connectedSortable" ).draggable({ revert: "valid" });
 		findVariable({search:''});
@@ -30,48 +30,71 @@
 
 		$('#runQuery').click(function() {
 			printQuery();
+		/*	if (!$('#responseQuery').is(':empty')) {
+					responseQuery = $('#responseQuery').dataTable();
+			}*/
+
 		});
 
-		$("#propertiesEditor").on('change','.left,.rigth',function(event) {
+		$("#propertiesEditor").on('change','select.right',function() {
+			var input  = $(this).closest('tr').find('input.left');
+			var select = $(this).closest('tr').find('select.left');
+			switch($(this).val()){
+				case -1:
+					$(input).attr('disabled','false');
+				break;
+				case "=":
+				case "!=":
+					$( select ).val(-1).change()
+					$(input).attr('disabled','false');
+					$(select).attr('disabled','false');
+				break;
+				default:
+					console.log($(this).val());
+					$(input).removeAttr('disabled');
+					$(select).removeAttr('disabled');
+				break;
+			}
+		});
+
+		$("#propertiesEditor").on('change','.left,.right',function(event) {
 			var tr = $(this).closest('tr');
 			var inputLeft = $(tr).find("input.left");
 			var selectLeft = $(tr).find("select.left");
-			var selectRigth = $(tr).find("select.rigth");
-			var inputRigth = $(tr).find("input.rigth");
+			var selectRight = $(tr).find("select.right");
+			var inputRight = $(tr).find("input.right");
 			var query = $(tr).data('query')
 			var queryPart = $("#querySample .where .queryPart."+query);
 			var valueLeft = $(queryPart).find('.value.left');
+			var and = $(queryPart).find('.and');
 			var operatorLeft = $(queryPart).find('.operator.left');
-			var operatorRigth = $(queryPart).find('.operator.rigth');
-			var valueRigth = $(queryPart).find('.value.rigth');
+			var nameLeft = $(queryPart).find('.name.left');
+			var operatorRight = $(queryPart).find('.operator.right');
+			var valueRight = $(queryPart).find('.value.right');
 			if ($(selectLeft).val()!=-1) {
 				console.log('yea');
 				$(valueLeft).show();
 				$(operatorLeft).show();
+				$(nameLeft).show();
+				$(and).show();
 				$(inputLeft).prop('disabled', false);
 			}else{
 				$(valueLeft).hide();
 				$(operatorLeft).hide();
+				$(nameLeft).hide();
+				$(and).hide();
 				$(inputLeft).prop('disabled', true);
 			}
 			valueLeft.text($(inputLeft).val());
 			operatorLeft.text($(selectLeft).val());
-			operatorRigth.text($(selectRigth).val());
-			valueRigth.text($(inputRigth).val());
-
+			operatorRight.text($(selectRight).val());
+			valueRight.text($(inputRight).val());
 
 			if (document.getElementById("autoQuery").checked) {
 				printQuery();
 			}
 		});
 
-		$('select.rigth').change(function() {
-			if ($(this).val()==-1) {
-				$(this).closest(tr).find('input.left').attr('disabled','false');
-			}else{
-				$(this).closest(tr).find('input.left').attr('disabled','disabled');
-			}
-		});
 
 		// The DOM is ready!
 		$( "#variable_conteiner").sortable({
@@ -165,22 +188,33 @@
 		text = text.replace(/</gm, "\<");
 		text = text.replace(/>/gm, "\>");
 		var responseQuery = $("#responseQuery");
+		var thead = '';
+		var tbody = '';
+		var tr = '';
+		var helio = $("#helio");
+		var table = ''
+		var head = '';
+		var body = '';
 		runQuery({query:text})
 			.done(function(response){
-				console.log(response);
-				$("#responseQuery tbody").empty();
-				$("#responseQuery thead").empty()
+				$(helio).empty()
+				table = $('<table>');
+				$(table).addClass("table").attr("id","responseQuery");
+				head = $("<thead>");
+				body = $("<tbody>")
+				$(table).append(head);
+				$(table).append(body);
+				$(helio).append(table);
 				if (Object.keys(response).length === 0) {
 					console.log("is empty");
 				}else{
 					var names = Object.keys(response[0]);
-					var tr = '<tr>';
+					tr = '<tr>';
 					$.each(names, function(i, name) {
 						tr += '<th>'+name+'</th>';
 					});
 					tr += '</tr>';
-					$("#responseQuery thead").append(tr);
-					var body = '';
+					thead = tr;
 					$.each(response,function(i,res) {
 						tr = '<tr>';
 
@@ -188,11 +222,17 @@
 							tr += '<td>'+res[name]+'</td>';
 						});
 						tr += "</tr>";
-						body+= tr;
+						tbody+= tr;
 					});
-					$("#responseQuery tbody").append(body);
+
+					$(body).append(tbody)
+					$(head).append(thead)
+					// $("#responseQuery thead").append(tr);
 
 
+				$('#responseQuery').dataTable({
+					"paging": false
+				});
 				}
 			});
 	}
@@ -201,10 +241,10 @@
 		// var tr = document.createElement('tr');
 		// var td = document.createElement('td');
 		var defaultTR = document.getElementById('default');
-		var tr = defaultTR.cloneNode(true)
+		var tr = defaultTR.cloneNode(true);
 		tr.removeAttribute('id')
 		var left = tr.querySelector('input.left');
-		var rigth = tr.querySelector('input.rigth');
+		var right = tr.querySelector('input.right');
 		var variable = tr.querySelector('td.variable');
 		var queryRow = document.getElementById('propertiesEditor').rows.length-1;
 		queryRow = "query"+queryRow;
@@ -213,9 +253,9 @@
 		console.log(variableJson);
 		left.setAttribute ('min', variableJson.MinRange);
 		left.setAttribute ('max', variableJson.MaxRange);
-		rigth.setAttribute ('min', variableJson.MinRange);
-		rigth.setAttribute ('max', variableJson.MaxRange);
-		rigth.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
+		right.setAttribute ('min', variableJson.MinRange);
+		right.setAttribute ('max', variableJson.MaxRange);
+		right.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
 		left.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
 		variable.innerHTML = variableJson.VariableName;
 		var tbody = document.getElementById('tbody');
@@ -238,32 +278,49 @@
 
 	function newQuery(queryRow,variable) {
 		var div = document.createElement('div');
+		var left = document.createElement('div');
+		var right = document.createElement('div');
 		var valueleft = document.createElement('span');
 		var operatorLefth = document.createElement('span');
+		var and = document.createElement('span');
 		var bool = document.createElement('span');
 		var cierre = document.createElement('span');
 		var name = document.createElement('span');
-		var operatorRigth = document.createElement('span');
-		var valuerigth = document.createElement('span');
+		var operatorRight = document.createElement('span');
+		var valueright = document.createElement('span');
 		bool.innerHTML = 'and (';
 		name.innerHTML = variable.VariableName;
 		operatorLefth.innerHTML = '<';
 		operatorLefth.className = "operator left";
 		operatorLefth.style.display = "none";
-		operatorRigth.innerHTML = '<';
-		operatorRigth.className = "operator rigth";
+		operatorRight.innerHTML = '<';
+		operatorRight.className = "operator right";
 		valueleft.className = "value left";
 		valueleft.innerHTML = 0;
 		valueleft.style.display = "none";
-		valuerigth.className = "value rigth";
-		valuerigth.innerHTML = 0;
+		valueright.className = "value right";
+		valueright.innerHTML = 0;
 		cierre.innerHTML = ')';
+		var name2 = name.cloneNode(true);
+		name2.style.display = 'none';
+		name2.className = "name left";
+		left.className = 'left';
+
+
+		//and
+		and.className = 'and';
+		and.innerHTML = 'and ';
+		and.style.display = "none";
 		div.appendChild(bool);
-		div.appendChild(valueleft);
-		div.appendChild(operatorLefth);
-		div.appendChild(name);
-		div.appendChild(operatorRigth);
-		div.appendChild(valuerigth);
+		left.appendChild(name2);
+		left.appendChild(operatorLefth);
+		left.appendChild(valueleft);
+		div.appendChild(left);
+		right.appendChild(and);
+		right.appendChild(name);
+		right.appendChild(operatorRight);
+		right.appendChild(valueright);
+		div.appendChild(right);
 		div.appendChild(cierre);
 
 // 		div.appendChild(bool);
@@ -287,8 +344,8 @@
 			$(".popover-content form input.VariableName").val().length > 0 &&
 			$(".popover-content form input.description").val().length > 0
 			) {
-			var newVariable = $(".popover-content form").serialize();
-			insertVariable(newVariable)
+				var newVariable = $(".popover-content form").serialize();
+				insertVariable(newVariable)
 				.done(function(response){
 					if (response.correct) {
 						$("#popover").popover('hide');
@@ -336,6 +393,9 @@
 			data: data,
 			dataType: 'json'
 		});
+	}
+	function updateDatatable() {
+
 	}
 }
 ));

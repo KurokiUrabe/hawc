@@ -32,6 +32,7 @@
 					<th>Description</th>
 					<th>MinRange</th>
 					<th>MaxRange</th>
+					<th>Step</th>
 					<th>Acion</th>
 				</tr>
 			</thead>
@@ -47,6 +48,7 @@
 					<td><input type="text" name="description" class="form-control description" value="<?php echo $var->Description ?>"></td>
 					<td><input type="text" name="MinRange" class="form-control MinRange" value="<?php echo $var->MinRange ?>"></td>
 					<td><input type="text" name="MaxRange" class="form-control MaxRange" value="<?php echo $var->MaxRange ?>"></td>
+					<td><input type="text" name="Step" class="form-control Step" value="<?php echo $var->Step ?>"></td>
 					<td>
 						<button type="button" class="btn save btn-primary">Save</button>
 						<!-- <button type="button" class="btn edit btn-success">Editar Rango</button> -->
@@ -58,14 +60,14 @@
 	</div>
 </div>
 <script type="text/javascript">
+
 	var base_url = window.location.origin+"/hawc/index.php/";
 	function newVariable() {
-		console.error("asdas");
 		if(
-			$(".popover-content form input.name").length >0 &&
-			$(".popover-content form input.description").length>0 &&
-			$(".popover-content form input.name").val().length > 0 &&
-			$(".popover-content form input.description").val().length > 0
+				$(".popover-content form input.name").length >0 &&
+				$(".popover-content form input.description").length>0 &&
+				$(".popover-content form input.name").val().length > 0 &&
+				$(".popover-content form input.description").val().length > 0
 			) {
 			var newVariable = $(".popover-content form").serialize();
 			insertVariable(newVariable)
@@ -78,7 +80,6 @@
 		}
 	}
 
-
 	function insertVariable(data) {
 		return $.ajax({
 			url: base_url +"~manuel/Hawc/insertVariable",
@@ -88,4 +89,5 @@
 			dataType: 'json'
 		});
 	}
+
 </script>

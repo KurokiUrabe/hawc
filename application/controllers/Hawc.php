@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Hawc extends CI_Controller {
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('QueryBuildier', 'hawc');
@@ -15,6 +16,12 @@ class Hawc extends CI_Controller {
 		$data["variables"] = $this->variable->getListVariables();
 		$this->load->view('index',$data);
 	}
+
+	public function variables(){
+		$data["variables"] = $this->variable->getListVariables();
+		$this->load->view('index_variable',$data);
+	}
+
 	public function getVariableSelect(){
 		$search = $this->input->post("search");
 		$variables = $this->variable->getVariableSelect($search,'*');
@@ -27,15 +34,18 @@ class Hawc extends CI_Controller {
 		$VariableID = $this->variable->insert($this->input->post());
 		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);
 	}
+
 	public function getAllDataFrom(){
 		$VariableID = $this->variable->getAllDataFrom($this->input->post('VariableID'));
 		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);
 	}
+
 	public function runQuery(){
 		$query = $this->input->post("query");
 		$result = $this->hawc->runQuery($query);
 		echo json_encode($result);
 	}
+
 	public function save(){
 		$variableData = $this->input->post();
 		$VariableID = $variableData['VariableID'];
