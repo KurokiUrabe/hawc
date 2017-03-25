@@ -29,7 +29,7 @@
 		<![endif]-->
 	</head>
 	<body>
-		<div class="">
+		<div class="content">
 			<div class="masthead">
 				<h1>HAWC <small>Variables</small></h1>
 				<!-- <nav>
@@ -72,6 +72,14 @@
 		<script src="<?php echo asset_url("js/script.js") ?>"></script>
 		<script src="<?php echo asset_url("js/jquery.dataTables.min.js") ?>"></script>
 		<script src="<?php echo asset_url("js/dataTables.bootstrap.min.js") ?>"></script>
+
+		<script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+		<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+		<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
 		<!-- Site footer -->
 </body>
 </html>
