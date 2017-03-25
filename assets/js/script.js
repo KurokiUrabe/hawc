@@ -231,7 +231,11 @@
 
 
 				$('#responseQuery').dataTable({
-					"paging": false
+					"paging": false,
+					dom: 'Bfrtip',
+					buttons: [
+						'csvFlash'
+					]
 				});
 				}
 			});
@@ -312,9 +316,9 @@
 		and.innerHTML = 'and ';
 		and.style.display = "none";
 		div.appendChild(bool);
-		left.appendChild(name2);
-		left.appendChild(operatorLefth);
 		left.appendChild(valueleft);
+		left.appendChild(operatorLefth);
+		left.appendChild(name2);
 		div.appendChild(left);
 		right.appendChild(and);
 		right.appendChild(name);

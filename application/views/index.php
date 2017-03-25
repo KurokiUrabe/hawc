@@ -16,6 +16,7 @@
 	<link href="<?php echo asset_url("css/bootstrap.min.css") ?>" rel="stylesheet">
 	<link href="<?php echo asset_url("css/dataTables.bootstrap.min.css") ?>" rel="stylesheet">
 	<link href="<?php echo asset_url("css/jquery.dataTables.min.css") ?>" rel="stylesheet">
+	<link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.bootstrap.css" rel="stylesheet">
 
 
 	<script type="text/javascript">
@@ -69,8 +70,10 @@
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="<?php echo asset_url("js/bootstrap.min.js") ?>"></script>
+		<script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
 		<script src="<?php echo asset_url("js/script.js") ?>"></script>
 		<script src="<?php echo asset_url("js/jquery.dataTables.min.js") ?>"></script>
+
 		<script src="<?php echo asset_url("js/dataTables.bootstrap.min.js") ?>"></script>
 		<!-- Site footer -->
 </body>

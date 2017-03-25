@@ -12,7 +12,7 @@
 </div>
 
 <div class="row">
-	<div class="well col-xs-2 col-sm-2 col-md-2 col-lg-2 overflow">
+	<div class="well col-xs-2 col-sm-2 col-md-2 col-lg-2">
 		<input type="text" class="form-control variable finder" placeholder="Variable Search">
 		<ul id="variable_conteiner" class="connectedSortable">
 		</ul>
