@@ -57,6 +57,8 @@
 			}
 		});
 
+
+
 		$("#propertiesEditor").on('change','.left,.right',function(event) {
 			var tr = $(this).closest('tr');
 			var inputLeft = $(tr).find("input.left");
@@ -128,12 +130,18 @@
 			findVariable(data);
 		});
 
-		$(document).on('click','.delete',function() {
+		$(document)
+		.off('click','.delete')
+		.on('click','.delete',function() {
 			var query = $(this).closest('tr').data('query');
 			$(this).closest('tr').remove();
 			var queryPart = $("#querySample .where .queryPart."+query);
 			$(queryPart).remove();
+			printQuery();
 		});
+
+
+
 		/**
 		 * Eventos de variables
 		 */
