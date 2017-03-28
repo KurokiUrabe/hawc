@@ -19,6 +19,7 @@ class Hawc extends CI_Controller {
 
 	public function variables(){
 		$data["variables"] = $this->variable->getListVariables();
+		echo base_url("Hello motherfuker")
 		$this->load->view('index_variables',$data);
 	}
 
@@ -50,19 +51,13 @@ class Hawc extends CI_Controller {
 		$variableData = $this->input->post();
 		$VariableID = $variableData['VariableID'];
 		unset($variableData['VariableID']);
-		if ($variableData['Type']==1) {
-			$variableData['MinRange'] = strtotime($variableData['MinRange']);
-			$variableData['MaxRange'] = strtotime($variableData['MaxRange']);
-
-		print_r($variableData);
-		}
 		$isOK = $this->variable->update($variableData,$VariableID);
 
 		if ($isOK&&$isOK>0) {
 			echo json_encode([
 				"correct"=>$isOK>0,
 				"msj"=>'Se guardo correctamente',
-				"mas"=>$variableData
+				"mas"=>'hola'
 				]);
 		}else{
 			echo "jola";

@@ -9,11 +9,13 @@
 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="<?php echo asset_url('css/styles.css?v=1.0') ?>">
+
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>Bootstrap 101 Template</title>
 
 	<!-- Bootstrap -->
 	<link href="<?php echo asset_url("css/bootstrap.min.css") ?>" rel="stylesheet">
+	<link rel="stylesheet" href="<?php echo asset_url('css/bootstrap-datetimepicker.min.css') ?>">
 	<script type="text/javascript">
 		var baseurl = "<?php echo base_url() ?><?php  ?>";
 	</script>
@@ -24,8 +26,9 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
+
 	<body>
-		<div class="">
+		<div class="contenedor">
 			<div class="masthead">
 				<h1>HAWC <small>Variables</small></h1>
 			</div>
@@ -54,13 +57,14 @@
 					</div>
 				</div>
 				<div class="row">
-					<table class="table">
+					<table id="VariableTable" class="table">
 						<thead>
 							<tr>
 								<th>VariableID</th>
 								<th>VariableName</th>
 								<th>Name</th>
 								<th>Description</th>
+								<th>Type</th>
 								<th>MinRange</th>
 								<th>MaxRange</th>
 								<th>Step</th>
@@ -77,8 +81,9 @@
 								<td><?php echo $var->VariableName ?></td>
 								<td><input type="text" name="name" class="form-control name" value="<?php echo $var->Name ?>" placeholder="<?php echo $var->VariableName ?>"></td>
 								<td><input type="text" name="description" class="form-control description" value="<?php echo $var->Description ?>"></td>
-								<td><input type="text" name="MinRange" class="form-control MinRange" value="<?php echo $var->MinRange ?>"></td>
-								<td><input type="text" name="MaxRange" class="form-control MaxRange" value="<?php echo $var->MaxRange ?>"></td>
+								<td><input type="text" name="Type" class="form-control Type" value="<?php echo $var->Type ?>"></td>
+								<td><div style="position: relative;"><input type="text" name="MinRange" class="form-control MinRange <?php echo $var->Type?'datetimepicker':'' ?>" value="<?php echo $var->Type?date('Y-m-d H:i:s',$var->MinRange): $var->MinRange ?>"></div></td>
+								<td><div style="position: relative;"><input type="text" name="MaxRange" class="form-control MaxRange <?php echo $var->Type?'datetimepicker':'' ?>" value="<?php echo $var->Type?date('Y-m-d H:i:s',$var->MaxRange): $var->MaxRange ?>"></div></td>
 								<td><input type="text" name="Step" class="form-control Step" value="<?php echo $var->Step ?>"></td>
 								<td>
 									<button type="button" class="btn save btn-primary">Save</button>
@@ -104,6 +109,8 @@
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="<?php echo asset_url("js/bootstrap.min.js") ?>"></script>
+		<script src="<?php echo asset_url("js/moment-with-locales.min.js") ?>"></script>
+		<script src="<?php echo asset_url("js/bootstrap-datetimepicker.min.js") ?>"></script>
 		<script src="<?php echo asset_url("js/script.js") ?>"></script>
 		<!-- Site footer -->
 		<script type="text/javascript">

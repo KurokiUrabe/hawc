@@ -10,6 +10,9 @@
 	$(function() {
 		var responseQuery = {};
 
+		$(".datetimepicker").datetimepicker({
+			format: 'YYYY-MM-DD HH:mm:ss'
+		});
 		// $( ".connectedSortable" ).draggable({ revert: "valid" });
 		findVariable({search:''});
 		$( "#tools" ).droppable({
@@ -155,6 +158,27 @@
 				});
 
 		})
+		console.log("@#!@#!@#");
+
+		// $("#variablesTable")
+		// .off('change','.Type')
+		// .on('change','.Type',function() {
+		// 	console.log("mother of good");
+
+		// });
+
+		$('#variablesTable')
+		.off('focus',".MinRange,.MaxRange")
+		.on('focus',".MinRange,.MaxRange", function(){
+			console.log(this);
+			if (Number($(this).closest('tr').find('.Type').val()) == 1) {
+				console.log("picker");
+				$(this).datetimepicker({
+					format: 'YYYY-MM-DD HH:mm:ss'
+				});
+
+			}
+		});
 
 		$('#popover').popover({
 			html : true,
@@ -265,16 +289,29 @@
 		console.log(variableJson);
 		left.setAttribute ('min', variableJson.MinRange);
 		left.setAttribute ('max', variableJson.MaxRange);
+		left.setAttribute ('step', variableJson.Step);
+		right.setAttribute ('step', variableJson.Step);
 		right.setAttribute ('min', variableJson.MinRange);
 		right.setAttribute ('max', variableJson.MaxRange);
-		right.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
-		left.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
 		variable.innerHTML = variableJson.VariableName;
 		var tbody = document.getElementById('tbody');
 
 		tr.style.display = '';
 		// tbody.insertBefore(tr,tbody.childNodes[0]);
 		tbody.appendChild(tr);
+		if (variableJson.Type==1) {
+			right.setAttribute ('type','text');
+			left.setAttribute ('type','text');
+			$(left).datetimepicker({
+				format: 'YYYY-MM-DD HH:mm:ss'
+			});
+			$(right).datetimepicker({
+				format: 'YYYY-MM-DD HH:mm:ss'
+			});
+		}else{
+			right.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
+			left.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
+		}
 		return queryRow;
 	}
 
@@ -324,10 +361,13 @@
 		and.innerHTML = 'and ';
 		and.style.display = "none";
 		div.appendChild(bool);
+		left.className = "queryPart";
 		left.appendChild(valueleft);
 		left.appendChild(operatorLefth);
 		left.appendChild(name2);
 		div.appendChild(left);
+
+		right.className = "queryPart";
 		right.appendChild(and);
 		right.appendChild(name);
 		right.appendChild(operatorRight);
@@ -399,7 +439,7 @@
 	}
 	function save(data) {
 		return $.ajax({
-			url: base_url +"Hawc/save",
+			url: baseurl +"index.php/Hawc/save",
 			cache: false,
 			type: "post",
 			data: data,

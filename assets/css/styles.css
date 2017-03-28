@@ -15,17 +15,33 @@
 /*.body-heigth{
 	height: 100%;
 	}*/
+
+
+	@media (min-width: 1300px)
+.contenedor {
+		width: 1270px;
+}
+@media (min-width: 1170px)
+.contenedor {
+		width: 1070px;
+}
+@media (min-width: 968px)
+.contenedor {
+		width: 950px;
+}
 	body{
 		padding-top: 20px;
 	}
-	.container {
-		widows: 100%;
-		padding-right: 15px;
-		padding-left: 15px;
+	.contenedor {
+		width: 90%;
+		padding-right: 5px;
+		padding-left: 5px;
 		margin-right: auto;
 		margin-left: auto;
 	}
-
+	.myspace{
+		padding: 3px;
+	}
 
 	footer {
 		bottom: 0;
@@ -92,11 +108,14 @@
 		}
 	.ui-hawc-state-active{
 		border: 1px solid #003eff;
-		background: #BFD7F8;
+		background: #e5f2ff;
 		font-weight: normal;
 		color: #ffffff;
 }
 		table#propertiesEditor {
 			width: 100%;
 			table-layout: auto;
+		}
+		#helio{
+			margin-bottom: 75px;
 		}
