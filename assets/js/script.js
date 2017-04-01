@@ -10,6 +10,125 @@
 	$(function() {
 		var responseQuery = {};
 
+		 $("#tags").autocomplete({
+		source: function (request, response) {
+			$.ajax({
+				type: 'post',
+				data:{searchStr: request.term},
+				url: base_url +"Hawc/getVariableName", // resolved
+				dataType: 'json',
+				success: function(jsonData) {
+					var data = [];
+					$.each(jsonData,function(key,item) {
+						data.push(item.VariableName);
+					});
+					response(data);
+				}
+			});
+		},
+		delay: 0,
+		minLength: 1,
+		focus: function() {
+			// prevent value inserted on focus
+			return false;
+		},
+		select: function( event, ui ) {
+			var terms = split( this.value );
+			// remove the current input
+			terms.pop();
+			// add the selected item
+			terms.push( ui.item.value );
+			// add placeholder to get the comma-and-space at the end
+			terms.push( "" );
+			this.value = terms.join( ", " );
+			return false;
+		}
+	});
+
+		 $("#tags").change(function() {
+		 	if ($(this).length <=1) {
+				$(".selector .queryPart").text('*');
+		 	}else{
+				$(".selector .queryPart").text($(this).val().slice(0,-2));
+		 	}
+
+		 })
+
+		// $(".selector .queryPart").on('click,focus',function() {
+		// 	$("#tags").show();
+		// 	$(this).hide();
+		// 	$("#tags").focus()
+		// });
+		// $("#tags").focus(function() {
+		// 	$(this).show();
+		// })
+		// $("#tags").on( "focusout", function() {
+		// 		$(this).hide();
+		// 	$("#.selector .queryPart").show()
+		// })
+		var availableTags = [
+			"ActionScript",
+			"AppleScript",
+			"Asp",
+			"BASIC",
+			"C",
+			"C++",
+			"Clojure",
+			"COBOL",
+			"ColdFusion",
+			"Erlang",
+			"Fortran",
+			"Groovy",
+			"Haskell",
+			"Java",
+			"JavaScript",
+			"Lisp",
+			"Perl",
+			"PHP",
+			"Python",
+			"Ruby",
+			"Scala",
+			"Scheme"
+		];
+		function split( val ) {
+			return val.split( /,\s*/ );
+		}
+		function extractLast( term ) {
+			return split( term ).pop();
+		}
+
+		// $( "#tags" )
+		// 	// don't navigate away from the field on tab when selecting an item
+		// 	.on( "keydown", function( event ) {
+		// 		if ( event.keyCode === $.ui.keyCode.TAB &&
+		// 				$( this ).autocomplete( "instance" ).menu.active ) {
+		// 			event.preventDefault();
+		// 		}
+		// 	})
+		// 	.autocomplete({
+		// 		minLength: 0,
+		// 		source: function( request, response ) {
+		// 			// delegate back to autocomplete, but extract the last term
+		// 			response( $.ui.autocomplete.filter(
+		// 				availableTags, extractLast( request.term ) ) );
+		// 		},
+		// 		focus: function() {
+		// 			// prevent value inserted on focus
+		// 			return false;
+		// 		},
+		// 		select: function( event, ui ) {
+		// 			var terms = split( this.value );
+		// 			// remove the current input
+		// 			terms.pop();
+		// 			// add the selected item
+		// 			terms.push( ui.item.value );
+		// 			// add placeholder to get the comma-and-space at the end
+		// 			terms.push( "" );
+		// 			this.value = terms.join( ", " );
+		// 			return false;
+		// 		}
+		// 	});
+
 		$(".datetimepicker").datetimepicker({
 			format: 'YYYY-MM-DD HH:mm:ss'
 		});
@@ -418,6 +537,18 @@
 			dataType: 'json'
 		});
 	}
+
+	// function getVariableSelect (data) {
+	// 	console.log(base_url +"Hawc/getVariableSelect");
+	// 	return $.ajax({
+	// 		url: base_url +"Hawc/getVariableSelect",
+	// 		cache: false,
+	// 		type: "post",
+	// 		data: data,
+	// 		dataType: 'json'
+	// 	});
+	// }
+
 
 	function insertVariable(data) {
 		return $.ajax({

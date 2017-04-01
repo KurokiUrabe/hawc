@@ -19,6 +19,8 @@
 	</div>
 	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="tools" style="max-width: ">
 		<div class="row">
+				<input type="text" id="tags" class="form-control">
+
 			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 				<label>Seleccion de tabla</label>
 				<select class="form-control" id="tables">

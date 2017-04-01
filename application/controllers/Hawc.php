@@ -19,7 +19,7 @@ class Hawc extends CI_Controller {
 
 	public function variables(){
 		$data["variables"] = $this->variable->getListVariables();
-		$this->load->view('index_variables',$data);
+		$this->load->view('index_Variables',$data);
 	}
 
 	public function getVariableSelect(){
@@ -29,7 +29,11 @@ class Hawc extends CI_Controller {
 		$jsonVariable = [];
 		echo json_encode(["correct"=>$variables!=null,"variables"=>$variables]);
 	}
+	public function getVariableName(){
 
+		$json = $this->variable->getVariablesName($this->input->post('searchStr'));
+		echo json_encode($json);
+	}
 	public function insertVariable(){
 		$VariableID = $this->variable->insert($this->input->post());
 		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);

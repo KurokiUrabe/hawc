@@ -27,8 +27,22 @@ class Variable extends MY_Model {
 		}else{
 			return false;
 		}
-
 	}
+
+	public function getVariablesName($search = ''){
+		$search = str_replace(' ','',$search);
+		$seachList = explode(",", $search);
+		$size = sizeof($seachList);
+		$this->db->select('VariableName');
+		$this->db->like('VariableName', $seachList[$size-1] );
+		$query = $this->db->get($this->TABLE_NAME);
+			return $query->result();
+		if($query->num_rows() > 0) {
+		}else{
+			return false;
+		}
+	}
+
 	public function getAllDataFrom($VariableID){
 		$query = $this->db->get($this->TABLE_NAME);
 		$this->db->where('VariableID', $VariableID);
