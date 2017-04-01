@@ -181,13 +181,13 @@
 
 
 
-		$("#propertiesEditor").on('change','.left,.right',function(event) {
+		$("#propertiesEditor").on('input change','.left,.right',function(event) {
 			var tr = $(this).closest('tr');
 			var inputLeft = $(tr).find("input.left");
 			var selectLeft = $(tr).find("select.left");
 			var selectRight = $(tr).find("select.right");
 			var inputRight = $(tr).find("input.right");
-			var query = $(tr).data('query')
+			var query = $(tr).data('query');
 			var queryPart = $("#querySample .where .queryPart."+query);
 			var valueLeft = $(queryPart).find('.value.left');
 			var and = $(queryPart).find('.and');
@@ -195,8 +195,8 @@
 			var nameLeft = $(queryPart).find('.name.left');
 			var operatorRight = $(queryPart).find('.operator.right');
 			var valueRight = $(queryPart).find('.value.right');
+
 			if ($(selectLeft).val()!=-1) {
-				console.log('yea');
 				$(valueLeft).show();
 				$(operatorLeft).show();
 				$(nameLeft).show();
@@ -209,10 +209,16 @@
 				$(and).hide();
 				$(inputLeft).prop('disabled', true);
 			}
-			valueLeft.text($(inputLeft).val());
+
+			if ($(tr).data('type')==1) {
+				valueLeft.text("'" + $(inputLeft).val() + "'");
+				valueRight.text("'" + $(inputRight).val() + "'");
+			}else{
+				valueLeft.text($(inputLeft).val());
+				valueRight.text($(inputRight).val());
+			}
 			operatorLeft.text($(selectLeft).val());
 			operatorRight.text($(selectRight).val());
-			valueRight.text($(inputRight).val());
 
 			if (document.getElementById("autoQuery").checked) {
 				printQuery();
@@ -405,10 +411,10 @@
 		queryRow = "query"+queryRow;
 		// tr.classList.add('')
 		tr.setAttribute('data-query', queryRow);
-		console.log(variableJson);
-		left.setAttribute ('min', variableJson.MinRange);
-		left.setAttribute ('max', variableJson.MaxRange);
-		left.setAttribute ('step', variableJson.Step);
+		tr.setAttribute('data-type', variableJson.Type);
+		left.setAttribute  ('min', variableJson.MinRange);
+		left.setAttribute  ('max', variableJson.MaxRange);
+		left.setAttribute  ('step', variableJson.Step);
 		right.setAttribute ('step', variableJson.Step);
 		right.setAttribute ('min', variableJson.MinRange);
 		right.setAttribute ('max', variableJson.MaxRange);
