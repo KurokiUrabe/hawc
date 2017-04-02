@@ -11,45 +11,47 @@
 		var responseQuery = {};
 
 		 $("#tags").autocomplete({
-		source: function (request, response) {
-			$.ajax({
-				type: 'post',
-				data:{searchStr: request.term},
-				url: base_url +"Hawc/getVariableName", // resolved
-				dataType: 'json',
-				success: function(jsonData) {
-					var data = [];
-					$.each(jsonData,function(key,item) {
-						data.push(item.VariableName);
-					});
-					response(data);
-				}
-			});
-		},
-		delay: 0,
-		minLength: 1,
-		focus: function() {
-			// prevent value inserted on focus
-			return false;
-		},
-		select: function( event, ui ) {
-			var terms = split( this.value );
-			// remove the current input
-			terms.pop();
-			// add the selected item
-			terms.push( ui.item.value );
-			// add placeholder to get the comma-and-space at the end
-			terms.push( "" );
-			this.value = terms.join( ", " );
-			return false;
-		}
-	});
+			source: function (request, response) {
+				$.ajax({
+					type: 'post',
+					data:{searchStr: request.term},
+					url: base_url +"Hawc/getVariableName", // resolved
+					dataType: 'json',
+					success: function(jsonData) {
+						var data = [];
+						$.each(jsonData,function(key,item) {
+							data.push(item.VariableName);
+						});
+						response(data);
+					}
+				});
+			},
+			delay: 0,
+			minLength: 1,
+			focus: function() {
+				// prevent value inserted on focus
+				return false;
+			},
+			select: function( event, ui ) {
+				var terms = split( this.value );
+				// remove the current input
+				terms.pop();
+				// add the selected item
+				terms.push( ui.item.value );
+				// add placeholder to get the comma-and-space at the end
+				terms.push( "" );
+				this.value = terms.join( ", " );
+				return false;
+			}
+		});
 
-		 $("#tags").change(function() {
-		 	if ($(this).length <=1) {
+		 $("#tags").on('autocompletechange',function() {
+		 	if ($("#tags").val().length <=1) {
+		 	console.log(":si");
 				$(".selector .queryPart").text('*');
 		 	}else{
-				$(".selector .queryPart").text($(this).val().slice(0,-2));
+		 	console.log(":squery");
+				$(".selector .queryPart").text($("#tags").val().slice(0,-2));
 		 	}
 
 		 })
@@ -130,7 +132,12 @@
 		// 	});
 
 		$(".datetimepicker").datetimepicker({
-			format: 'YYYY-MM-DD HH:mm:ss'
+			format: 'YYYY-MM-DD HH:mm:ss',
+			onSelect: function(dateText, inst) {
+        var date = $(this).val();
+        console.log(date);
+        $(this).change();
+    }
 		});
 		// $( ".connectedSortable" ).draggable({ revert: "valid" });
 		findVariable({search:''});
@@ -180,8 +187,50 @@
 		});
 
 
+		$("#propertiesEditor").on('input, change','.left,.right',function(event) {
+			var tr = $(this).closest('tr');
+			var inputLeft = $(tr).find("input.left");
+			var selectLeft = $(tr).find("select.left");
+			var selectRight = $(tr).find("select.right");
+			var inputRight = $(tr).find("input.right");
+			var query = $(tr).data('query');
+			var queryPart = $("#querySample .where .queryPart."+query);
+			var valueLeft = $(queryPart).find('.value.left');
+			var and = $(queryPart).find('.and');
+			var operatorLeft = $(queryPart).find('.operator.left');
+			var nameLeft = $(queryPart).find('.name.left');
+			var operatorRight = $(queryPart).find('.operator.right');
+			var valueRight = $(queryPart).find('.value.right');
 
-		$("#propertiesEditor").on('input change','.left,.right',function(event) {
+			if ($(selectLeft).val()!=-1) {
+				$(valueLeft).show();
+				$(operatorLeft).show();
+				$(nameLeft).show();
+				$(and).show();
+				$(inputLeft).prop('disabled', false);
+			}else{
+				$(valueLeft).hide();
+				$(operatorLeft).hide();
+				$(nameLeft).hide();
+				$(and).hide();
+				$(inputLeft).prop('disabled', true);
+			}
+
+			if ($(tr).data('type')==1) {
+				valueLeft.text("'" + $(inputLeft).val() + "'");
+				valueRight.text("'" + $(inputRight).val() + "'");
+			}else{
+				valueLeft.text($(inputLeft).val());
+				valueRight.text($(inputRight).val());
+			}
+			operatorLeft.text($(selectLeft).val());
+			operatorRight.text($(selectRight).val());
+
+			if (document.getElementById("autoQuery").checked) {
+				printQuery();
+			}
+		})
+		.on('dp.change','.left,.right',function(event) {
 			var tr = $(this).closest('tr');
 			var inputLeft = $(tr).find("input.left");
 			var selectLeft = $(tr).find("select.left");

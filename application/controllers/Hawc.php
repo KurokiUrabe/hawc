@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Hawc extends CI_Controller {
+class Hawc extends My_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -45,7 +45,9 @@ class Hawc extends CI_Controller {
 
 	public function runQuery(){
 		$query = $this->input->post("query");
-		$result = $this->hawc->runQuery($query);
+		$result = $this->hawc->runQuery($query,10000);
+		// echo $this->db->last_query();
+
 		echo json_encode($result);
 	}
 
