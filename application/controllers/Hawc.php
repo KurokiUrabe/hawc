@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Hawc extends My_Controller {
+class Hawc extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -59,7 +59,6 @@ class Hawc extends My_Controller {
 			$variableData['MinRange'] = strtotime($variableData['MinRange']);
 			$variableData['MaxRange'] = strtotime($variableData['MaxRange']);
 
-		print_r($variableData);
 		}
 		$isOK = $this->variable->update($variableData,$VariableID);
 

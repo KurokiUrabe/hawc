@@ -82,6 +82,12 @@
 								<td><input type="text" name="name" class="form-control name" value="<?php echo $var->Name ?>" placeholder="<?php echo $var->VariableName ?>"></td>
 								<td><input type="text" name="description" class="form-control description" value="<?php echo $var->Description ?>"></td>
 								<td><input type="text" name="Type" class="form-control Type" value="<?php echo $var->Type ?>"></td>
+								<td>
+									<select type="text" name="Type" class="form-control Type" value="<?php echo $var->Type ?>">
+										<option value="-1">Select an option</option>
+										<option value="1" <?php echo $var->Type?'selected':'' ?> >Date and time</option>
+									</select>
+								</td>
 								<td><div style="position: relative;"><input type="text" name="MinRange" class="form-control MinRange <?php echo $var->Type?'datetimepicker':'' ?>" value="<?php echo $var->Type?date('Y-m-d H:i:s',$var->MinRange): $var->MinRange ?>"></div></td>
 								<td><div style="position: relative;"><input type="text" name="MaxRange" class="form-control MaxRange <?php echo $var->Type?'datetimepicker':'' ?>" value="<?php echo $var->Type?date('Y-m-d H:i:s',$var->MaxRange): $var->MaxRange ?>"></div></td>
 								<td><input type="text" name="Step" class="form-control Step" value="<?php echo $var->Step ?>"></td>
