@@ -22,6 +22,7 @@
 
 	<script type="text/javascript">
 		var baseurl = "<?php echo base_url() ?><?php  ?>";
+		var urlBase = "<?php echo site_url('') ?><?php  ?>";
 	</script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

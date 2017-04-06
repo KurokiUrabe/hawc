@@ -59,7 +59,6 @@ class Hawc extends CI_Controller {
 			$variableData['MinRange'] = strtotime($variableData['MinRange']);
 			$variableData['MaxRange'] = strtotime($variableData['MaxRange']);
 
-		print_r($variableData);
 		}
 		$isOK = $this->variable->update($variableData,$VariableID);
 

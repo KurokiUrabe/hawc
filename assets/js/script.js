@@ -15,7 +15,7 @@
 				$.ajax({
 					type: 'post',
 					data:{searchStr: request.term},
-					url: base_url +"Hawc/getVariableName", // resolved
+					url: urlBase +"Hawc/getVariableName", // resolved
 					dataType: 'json',
 					success: function(jsonData) {
 						var data = [];
@@ -549,12 +549,6 @@
 		div.appendChild(right);
 		div.appendChild(cierre);
 
-// 		div.appendChild(bool);
-// 		div.appendChild(name);
-// 		div.appendChild(operator);
-// 		div.appendChild(value);
-// 		div.appendChild(cierre);
-// >>>>>>> 82465a1e35715f50c4b6a9075df54b3ddd63dec0
 		div.className = "queryPart "+queryRow;
 		var where = document.querySelector("#querySample .where");
 		where.appendChild(div);
@@ -580,12 +574,12 @@
 				});
 		}
 	}
-	var base_url = window.location.href+"index.php/";
+	// var urlBase = window.location.href+"index.php/";
 	// The rest of your code goes here!
 	function getVariableSelect (data) {
-		console.log(base_url +"Hawc/getVariableSelect");
+		console.log(urlBase +"Hawc/getVariableSelect");
 		return $.ajax({
-			url: base_url +"Hawc/getVariableSelect",
+			url: urlBase +"Hawc/getVariableSelect",
 			cache: false,
 			type: "post",
 			data: data,
@@ -594,9 +588,9 @@
 	}
 
 	// function getVariableSelect (data) {
-	// 	console.log(base_url +"Hawc/getVariableSelect");
+	// 	console.log(urlBase +"Hawc/getVariableSelect");
 	// 	return $.ajax({
-	// 		url: base_url +"Hawc/getVariableSelect",
+	// 		url: urlBase +"Hawc/getVariableSelect",
 	// 		cache: false,
 	// 		type: "post",
 	// 		data: data,
@@ -607,7 +601,7 @@
 
 	function insertVariable(data) {
 		return $.ajax({
-			url: base_url +"Hawc/insertVariable",
+			url: urlBase +"Hawc/insertVariable",
 			cache: false,
 			type: "post",
 			data: data,
@@ -616,7 +610,7 @@
 	}
 	function runQuery(data) {
 		return $.ajax({
-			url: base_url +"Hawc/runQuery",
+			url: urlBase +"Hawc/runQuery",
 			cache: false,
 			type: "post",
 			data: data,
@@ -625,7 +619,7 @@
 	}
 	function save(data) {
 		return $.ajax({
-			url: baseurl +"index.php/Hawc/save",
+			url: urlBase +"index.php/Hawc/save",
 			cache: false,
 			type: "post",
 			data: data,
