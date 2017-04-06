@@ -311,10 +311,12 @@
 		.off('click','.delete')
 		.on('click','.delete',function() {
 			var query = $(this).closest('tr').data('query');
-			$(this).closest('tr').remove();
 			var queryPart = $("#querySample .where .queryPart."+query);
 			$(queryPart).remove();
-			printQuery();
+			$(this).closest('tr').remove();
+			if ($(".queryPart").length>3) {
+				printQuery();
+			}
 		});
 
 

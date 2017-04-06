@@ -98,8 +98,8 @@
 		ul#variable_conteiner li, ul#queryBuldier li {
 			margin: 0 5px 5px 5px;
 			padding: 5px;
-			font-size: 1.2em;
-
+			font-size: 10pt;
+			text-align: center;
 			width: 100%;
 		}
 		#tools{

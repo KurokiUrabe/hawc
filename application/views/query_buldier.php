@@ -3,59 +3,67 @@
 		<h3>Query generator</h3>
 	</div>
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-		<div class="checkbox">
+		<!-- <div class="checkbox">
 			<label>
 				<input type="checkbox" id="autoQuery"> AutoQuery
 			</label>
-		</div>
+		</div> -->
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+				<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
+			</div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-		<input type="text" class="form-control variable finder" placeholder="Variable Search">
-		<ul id="variable_conteiner" class="connectedSortable">
-		</ul>
+		<div class="row">
+			<label>Seleccion de tabla</label>
+			<select class="form-control" id="tables">
+				<?php foreach ($tables as $key => $table): ?>
+					<option value="<?php echo $table->name ?>" <?php echo $table->name==='hawconlinev8_0_1'?'selected':'' ?>>
+						<?php echo $table->name ?>
+					</option>
+				<?php endforeach ?>
+			</select>
+		</div>
+		<div class="row">
+			<label>Variable Finder</label>
+			<input type="text" class="form-control variable finder" placeholder="Variable Search">
+		</div>
+		<div class="row">
+			<label>Variable List</label>
+			<ul id="variable_conteiner" class="connectedSortable">
+			</ul>
+		</div>
 	</div>
 	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="tools" style="max-width: ">
 		<div class="row">
-				<input type="text" id="tags" class="form-control">
+				<!-- <input type="text" id="tags" class="form-control"> -->
 
-			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-				<label>Seleccion de tabla</label>
-				<select class="form-control" id="tables">
-					<?php foreach ($tables as $key => $table): ?>
-						<option value="<?php echo $table->name ?>" <?php echo $table->name==='hawconlinev8_0_1'?'selected':'' ?>>
-							<?php echo $table->name ?>
-						</option>
-					<?php endforeach ?>
-				</select>
-			</div>
-			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
-			</div>
 		</div>
 		<div class="row">
-			<h3 class="panel-title">Query</h3>
-			<div id="querySample">
-			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<div class="selector">
-					<div>SELECT</div>
-					<div class="queryPart" contenteditable="true">*</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h3 class="panel-title">Query</h3>
+				<div id="querySample">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<div class="selector">
+							<div>SELECT</div>
+							<div class="queryPart" contenteditable="true">*</div>
+						</div>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<div class="from">
+							<div>FROM</div>
+							<div class="queryPart">hawconlineV8_0_1</div>
+						</div>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<div class="where">
+							<div>WHERE</div>
+							<div class="queryPart">1=1</div>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<div class="from">
-					<div>FROM</div>
-					<div class="queryPart">hawconlineV8_0_1</div>
-				</div>
-			</div>
-			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<div class="where">
-					<div>WHERE</div>
-					<div class="queryPart">1=1</div>
-				</div>
-			</div>
 			</div>
 		</div>
 		<div class="row">
