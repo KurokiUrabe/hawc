@@ -33,7 +33,7 @@
 	<body>
 		<div class="contenedor">
 			<div class="masthead">
-				<h1>HAWC <small>Variables</small></h1>
+				<h1>HAWC <small>Query generator</small></h1>
 				<!-- <nav>
 					<ul class="nav nav-tabs nav-justified">
 						<li class="active" role="presentation"><a href="#hawc" data-toggle="tab">HAWC</a></li>

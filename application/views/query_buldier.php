@@ -25,7 +25,9 @@
 				<label>Seleccion de tabla</label>
 				<select class="form-control" id="tables">
 					<?php foreach ($tables as $key => $table): ?>
-						<option value="<?php echo $table->name ?>" <?php echo $table->name==='hawconlinev8_0_1'?'selected':'' ?>><?php echo $table->name ?></option>
+						<option value="<?php echo $table->name ?>" <?php echo $table->name==='hawconlinev8_0_1'?'selected':'' ?>>
+							<?php echo $table->name ?>
+						</option>
 					<?php endforeach ?>
 				</select>
 			</div>
