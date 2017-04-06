@@ -10,7 +10,7 @@
 	$(function() {
 		var responseQuery = {};
 
-		 $("#tags").autocomplete({
+		$("#tags").autocomplete({
 			source: function (request, response) {
 				$.ajax({
 					type: 'post',
@@ -46,52 +46,16 @@
 		});
 
 		 $("#tags").on('autocompletechange',function() {
-		 	if ($("#tags").val().length <=1) {
-		 	console.log(":si");
+			if ($("#tags").val().length <=1) {
+			console.log(":si");
 				$(".selector .queryPart").text('*');
-		 	}else{
-		 	console.log(":squery");
+			}else{
+			console.log(":squery");
 				$(".selector .queryPart").text($("#tags").val().slice(0,-2));
-		 	}
+			}
 
 		 })
 
-		// $(".selector .queryPart").on('click,focus',function() {
-		// 	$("#tags").show();
-		// 	$(this).hide();
-		// 	$("#tags").focus()
-		// });
-		// $("#tags").focus(function() {
-		// 	$(this).show();
-		// })
-		// $("#tags").on( "focusout", function() {
-		// 		$(this).hide();
-		// 	$("#.selector .queryPart").show()
-		// })
-		var availableTags = [
-			"ActionScript",
-			"AppleScript",
-			"Asp",
-			"BASIC",
-			"C",
-			"C++",
-			"Clojure",
-			"COBOL",
-			"ColdFusion",
-			"Erlang",
-			"Fortran",
-			"Groovy",
-			"Haskell",
-			"Java",
-			"JavaScript",
-			"Lisp",
-			"Perl",
-			"PHP",
-			"Python",
-			"Ruby",
-			"Scala",
-			"Scheme"
-		];
 		function split( val ) {
 			return val.split( /,\s*/ );
 		}
@@ -134,16 +98,39 @@
 		$(".datetimepicker").datetimepicker({
 			format: 'YYYY-MM-DD HH:mm:ss',
 			onSelect: function(dateText, inst) {
-        var date = $(this).val();
-        console.log(date);
-        $(this).change();
-    }
+				var date = $(this).val();
+				console.log(date);
+				$(this).change();
+		}
 		});
-		// $( ".connectedSortable" ).draggable({ revert: "valid" });
+
 		findVariable({search:''});
-		$( "#tools" ).droppable({
+
+		$( "#select" ).droppable({
 			classes: {
-				"ui-droppable-active": "ui-hawc-state-active",
+				"ui-droppable-active": "ui-hawc-state-select-active",
+				"ui-droppable-hover": "ui-state-hover"
+			},
+			drop: function( event, ui ) {
+				var variable = ui.draggable.data('variable');
+				var select = $(".selector .queryPart");
+				if ($(select).text().length==1) {
+					$(select).empty();
+					$(select).text(variable.VariableName);
+				}else{
+					var newSelect = $(select).text() + ', ' + variable.VariableName;
+					console.log(newSelect);
+					$(select).text(newSelect);
+				}
+
+				// var row = newRow(variable);
+				// newQuery(row,variable);
+			}
+		});
+
+		$( "#wheres" ).droppable({
+			classes: {
+				"ui-droppable-active": "ui-hawc-state-where-active",
 				"ui-droppable-hover": "ui-state-hover"
 			},
 			drop: function( event, ui ) {

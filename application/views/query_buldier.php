@@ -36,12 +36,12 @@
 			</ul>
 		</div>
 	</div>
-	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="tools" style="max-width: ">
+	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"  style="max-width: ">
 		<div class="row">
 				<!-- <input type="text" id="tags" class="form-control"> -->
 
 		</div>
-		<div class="row">
+		<div class="row" id="select">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<h3 class="panel-title">Query</h3>
 				<div id="querySample">
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" id="wheres">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<table class="table table-striped table-bordered table-hover " width="100%" id="propertiesEditor">
 					<thead>

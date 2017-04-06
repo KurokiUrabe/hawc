@@ -106,16 +106,22 @@
 			min-height: 500px;
 			height: 500px;
 		}
-	.ui-hawc-state-active{
+	.ui-hawc-state-where-active{
 		border: 1px solid #003eff;
 		background: #e5f2ff;
 		font-weight: normal;
 		color: #ffffff;
-}
-		table#propertiesEditor {
-			width: 100%;
-			table-layout: auto;
-		}
-		#helio{
-			margin-bottom: 75px;
-		}
+	}
+	.ui-hawc-state-select-active{
+		border: 1px solid #003eff;
+		background: #F7E2FF;
+		font-weight: normal;
+		color: #ffffff;
+	}
+	table#propertiesEditor {
+		width: 100%;
+		table-layout: auto;
+	}
+	#helio{
+		margin-bottom: 75px;
+	}
