@@ -41,7 +41,7 @@ class QueryBuildier extends  CI_Model {
 	public function runQuery($sql = '', $limit = NULL){
 		$sql = $sql;
 		if ($limit) {
-		$sql = $sql ." LIMIT {$limit}";
+			$sql = $sql ." LIMIT {$limit}";
 		}
 		// $query = $this->db->query("SELECT File_name FROM hawconlinev8_0_1 WHERE 1=1 and (-1<File_name<100) LIMIT 100");
 		// echo $this->db->last_query();

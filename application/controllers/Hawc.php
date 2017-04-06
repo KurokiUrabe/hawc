@@ -45,7 +45,7 @@ class Hawc extends CI_Controller {
 
 	public function runQuery(){
 		$query = $this->input->post("query");
-		$result = $this->hawc->runQuery($query,10000);
+		$result = $this->hawc->runQuery($query,9000);
 		// echo $this->db->last_query();
 
 		echo json_encode($result);
