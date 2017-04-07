@@ -94,6 +94,17 @@
 		// 			return false;
 		// 		}
 		// 	});
+		$(document).on('click', '.boolean', function() {
+			var boolean = $(this).text();
+
+			if (boolean == "AND") {
+				$(this).text("OR");
+				$('.'+$(this).closest('tr').data('query')).find('.bool').text('or (');
+			}else{
+				$(this).text("AND");
+				$('.'+$(this).closest('tr').data('query')).find('.bool').text('and (');
+			}
+		});
 
 		$(".datetimepicker").datetimepicker({
 			format: 'YYYY-MM-DD HH:mm:ss',
@@ -501,6 +512,7 @@
 		var operatorRight = document.createElement('span');
 		var valueright = document.createElement('span');
 		bool.innerHTML = 'and (';
+		bool.className = 'bool';
 		name.innerHTML = variable.VariableName;
 		operatorLefth.innerHTML = '<';
 		operatorLefth.className = "operator left";

@@ -45,22 +45,29 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<h3 class="panel-title">Query</h3>
 				<div id="querySample">
-					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 						<div class="selector">
 							<div>SELECT</div>
 							<div class="queryPart" contenteditable="true">*</div>
 						</div>
 					</div>
-					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 						<div class="from">
 							<div>FROM</div>
 							<div class="queryPart">hawconlineV8_0_1</div>
 						</div>
 					</div>
-					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 						<div class="where">
 							<div>WHERE</div>
 							<div class="queryPart">1=1</div>
+						</div>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+						<div class="extras">
+							<div></div>
+							<div class="queryPart" contenteditable="true">-- anexo de extras</div>
+							<div class="queryPart" contenteditable="true"></div>
 						</div>
 					</div>
 				</div>
@@ -81,6 +88,7 @@
 						<tr id="default" style="display: none">
 							<td>
 								<span class="btn btn-danger delete"><i class="glyphicon glyphicon-minus"></i> </span>
+								<span class="btn btn-default boolean">AND</span>
 							</td>
 							<td>
 								<div style="position: relative;">
