@@ -9,8 +9,9 @@
 			</label>
 		</div> -->
 		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-				<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
-			</div>
+			<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
+			<button type="button" class="btn btn-primary getcsv" id="getcsv">GET CSV</button>
+		</div>
 	</div>
 </div>
 
@@ -66,7 +67,7 @@
 					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 						<div class="extras">
 							<div></div>
-							<div class="queryPart" contenteditable="true">-- anexo de extras</div>
+							<div class="queryPart" contenteditable="true">/*anexo de extras*/</div>
 							<div class="queryPart" contenteditable="true"></div>
 						</div>
 					</div>

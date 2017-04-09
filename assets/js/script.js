@@ -56,6 +56,16 @@
 
 		 })
 
+		$('#getcsv').click(function() {
+			var text = document.getElementById("querySample").innerText;
+		text = text.replace(/\n/gm, " ");
+		text = text.replace(/</gm, "\<");
+		text = text.replace(/>/gm, "\>");
+			getCSV({query:text}).done(function(response) {
+				console.log("this is amuse");;
+			})
+		});
+
 		function split( val ) {
 			return val.split( /,\s*/ );
 		}
@@ -224,9 +234,9 @@
 			operatorLeft.text($(selectLeft).val());
 			operatorRight.text($(selectRight).val());
 
-			if (document.getElementById("autoQuery").checked) {
-				printQuery();
-			}
+			// if (document.getElementById("autoQuery").checked) {
+			// 	printQuery();
+			// }
 		})
 		.on('dp.change','.left,.right',function(event) {
 			var tr = $(this).closest('tr');
@@ -267,9 +277,9 @@
 			operatorLeft.text($(selectLeft).val());
 			operatorRight.text($(selectRight).val());
 
-			if (document.getElementById("autoQuery").checked) {
-				printQuery();
-			}
+			// if (document.getElementById("autoQuery").checked) {
+			// 	printQuery();
+			// }
 		});
 
 
@@ -627,8 +637,14 @@
 			dataType: 'json'
 		});
 	}
-	function updateDatatable() {
 
+	function getCSV(data) {
+		return $.ajax({
+			url: urlBase +"Hawc/getCSV",
+			cache: false,
+			type: "post",
+			data: data,
+		});
 	}
 }
 ));

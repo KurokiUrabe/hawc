@@ -48,6 +48,11 @@ class QueryBuildier extends  CI_Model {
 		$query = $this->db->query( $sql );
 		return $query->result();
 	}
+
+	public function dataCSV($sql = ''){
+		echo $sql;
+		return  $this->db->query( $sql );
+	}
 }
 
 /* End of file hawc.php */

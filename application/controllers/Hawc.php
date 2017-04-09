@@ -46,11 +46,27 @@ class Hawc extends CI_Controller {
 	public function runQuery(){
 		$query = $this->input->post("query");
 		$result = $this->hawc->runQuery($query,9000);
-		// echo $this->db->last_query();
-
 		echo json_encode($result);
 	}
 
+	public function getCSV(){
+		$this->db->save_queries = false;
+		$this->load->dbutil();
+		$this->load->helper('file');
+		$query = $this->input->post("query");
+		echo $query;
+		$report  = $this->hawc->dataCSV($query);
+		$delimiter = ",";
+		$newline = "\r\n";
+		$new_report = $this->dbutil->csv_from_result($report, $delimiter, $newline);
+		// write file
+		write_file($this->file_path . '/csv_file.csv', $new_report);
+		//force download from server
+		$this->load->helper('download');
+		$data = file_get_contents($this->file_path . '/csv_file.csv');
+		$name = 'name-'.date('d-m-Y').'.csv';
+		force_download($name, $data);
+	}
 	public function save(){
 		$variableData = $this->input->post();
 		$VariableID = $variableData['VariableID'];
