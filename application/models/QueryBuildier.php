@@ -49,10 +49,39 @@ class QueryBuildier extends  CI_Model {
 		return $query->result();
 	}
 
+	function count_filtered($WHERES=null,$SEARCh = null){
+			$this->_get_datatables_query('COUNT(*) as rows',,$WHERES,$SEARCh);
+			$query = $this->db->get();
+			return $query->row()->rows;
+	}
+	public function count_all($where=null){
+			$this->db->from($this->TABLE_NAME);
+			if ($where !== NULL) {
+				if (is_array($where)) {
+					foreach ($where as $field=>$value) {
+						$this->db->where($field, $value);
+					}
+				} else {
+					$this->db->where($this->PRI_INDEX, $where);
+				}
+			}
+			return $this->db->count_all_results();
+	}
+
 	public function dataCSV($sql = ''){
-		echo $sql;
 		return  $this->db->query( $sql );
 	}
+
+
+	//paginacion
+	function get_datatables($SELECT=null,$JOINS=null,$WHERES=[],$SEARCh=[]){
+		$this->_get_datatables_query($SELECT,$JOINS,$WHERES,$SEARCh);
+		if($_POST['length'] != -1)
+		$this->db->limit($_POST['length'], $_POST['start']);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 }
 
 /* End of file hawc.php */

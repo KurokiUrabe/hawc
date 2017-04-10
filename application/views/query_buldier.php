@@ -47,19 +47,19 @@
 				<h3 class="panel-title">Query</h3>
 				<div id="querySample">
 					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-						<div class="selector">
+						<div id="selector">
 							<div>SELECT</div>
 							<div class="queryPart" contenteditable="true">*</div>
 						</div>
 					</div>
 					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-						<div class="from">
+						<div id="from">
 							<div>FROM</div>
 							<div class="queryPart">hawconlineV8_0_1</div>
 						</div>
 					</div>
 					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-						<div class="where">
+						<div id="where">
 							<div>WHERE</div>
 							<div class="queryPart">1=1</div>
 						</div>

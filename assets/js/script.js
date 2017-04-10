@@ -48,21 +48,43 @@
 		 $("#tags").on('autocompletechange',function() {
 			if ($("#tags").val().length <=1) {
 			console.log(":si");
-				$(".selector .queryPart").text('*');
+				$("#selector .queryPart").text('*');
 			}else{
 			console.log(":squery");
-				$(".selector .queryPart").text($("#tags").val().slice(0,-2));
+				$("#selector .queryPart").text($("#tags").val().slice(0,-2));
 			}
 
 		 })
 
+			$(document).on({
+				ajaxStart: function() { $("body").addClass("loading");    },
+				ajaxStop: function() { $("body").removeClass("loading"); }
+			});
+
+
+
 		$('#getcsv').click(function() {
-			var text = document.getElementById("querySample").innerText;
-		text = text.replace(/\n/gm, " ");
-		text = text.replace(/</gm, "\<");
-		text = text.replace(/>/gm, "\>");
-			getCSV({query:text}).done(function(response) {
-				console.log("this is amuse");;
+			$('#getcsv').prop("disabled", true);
+			var selector = document.getElementById("selector").innerText;
+			var from     = document.getElementById("from").innerText;
+			var where    = document.getElementById("where").innerText;
+
+			selector = cleanText( selector );
+			from     = cleanText( from );
+			where    = cleanText( where );
+			getCSV({
+				selector:selector,
+				from:from,
+				where:where
+			}).done(function(response) {
+				document.location.href = response;
+				$("#getcsv").prop("disabled", false);
+
+			}).always(function() {
+				console.log('eliminando');
+				deletAfterDownload(response);
+				console.log('elimino');
+
 			})
 		});
 
@@ -134,7 +156,7 @@
 			},
 			drop: function( event, ui ) {
 				var variable = ui.draggable.data('variable');
-				var select = $(".selector .queryPart");
+				var select = $("#selector .queryPart");
 				if ($(select).text().length==1) {
 					$(select).empty();
 					$(select).text(variable.VariableName);
@@ -162,10 +184,11 @@
 		});
 
 		$('#tables').change(function() {
-			$(".from .queryPart").text($(this).val());
+			$("#from .queryPart").text($(this).val());
 		});
 
 		$('#runQuery').click(function() {
+			$('#runQuery').prop("disabled", true);
 			printQuery();
 		/*	if (!$('#responseQuery').is(':empty')) {
 					responseQuery = $('#responseQuery').dataTable();
@@ -202,7 +225,7 @@
 			var selectRight = $(tr).find("select.right");
 			var inputRight = $(tr).find("input.right");
 			var query = $(tr).data('query');
-			var queryPart = $("#querySample .where .queryPart."+query);
+			var queryPart = $("#querySample #where .queryPart."+query);
 			var valueLeft = $(queryPart).find('.value.left');
 			var and = $(queryPart).find('.and');
 			var operatorLeft = $(queryPart).find('.operator.left');
@@ -245,7 +268,7 @@
 			var selectRight = $(tr).find("select.right");
 			var inputRight = $(tr).find("input.right");
 			var query = $(tr).data('query');
-			var queryPart = $("#querySample .where .queryPart."+query);
+			var queryPart = $("#querySample #where .queryPart."+query);
 			var valueLeft = $(queryPart).find('.value.left');
 			var and = $(queryPart).find('.and');
 			var operatorLeft = $(queryPart).find('.operator.left');
@@ -301,7 +324,7 @@
 		// 	$(this).addClass('editing');
 
 		// 	// var tools  =$('#tools').html($(this).data('variable'));
-		// 	var variables = $('#propertiesEditor tbody tr td.variable');
+		// 	var variables = $('#propertiesEditor tbody tr ttoday.variable');
 		// 		console.log($('.editing').data('variable'));
 		// 	$.each(variables,function(k,variable) {
 		// 		$(variable).text($('.editing').data('variable').VariableName);
@@ -319,7 +342,7 @@
 		.off('click','.delete')
 		.on('click','.delete',function() {
 			var query = $(this).closest('tr').data('query');
-			var queryPart = $("#querySample .where .queryPart."+query);
+			var queryPart = $("#querySample #where .queryPart."+query);
 			$(queryPart).remove();
 			$(this).closest('tr').remove();
 			if ($(".queryPart").length>3) {
@@ -447,13 +470,29 @@
 
 
 				$('#responseQuery').dataTable({
-					"paging": false,
-					dom: 'Bfrtip',
-					buttons: [
-						'csvFlash'
-					]
+					ajax: {
+						url: urlBase +"hawc/runQueryDatatable",
+						type: "POST",
+						data: {query:text}
+					},
+					"processing": true, //Feature control the processing indicator.
+					"serverSide": true, //Feature control DataTables' server-side processing mode.
+					"order": [], //Initial no order.
+
+					//Set column definition initialisation properties.
+							// "columnDefs": [
+							 //  {
+							 //      "targets": [ 0 ], //first column / numbering column
+							 //      "orderable": false, //set not orderable
+							 //  },
+							// ],
+							responsive: true,
+					start : 0,
+					length : 10,
+					PaginationType: 'full_numbers'
 				});
 				}
+				$("#runQuery").prop("disabled", false);
 			});
 	}
 
@@ -561,12 +600,16 @@
 		div.appendChild(cierre);
 
 		div.className = "queryPart "+queryRow;
-		var where = document.querySelector("#querySample .where");
+		var where = document.querySelector("#querySample #where");
 		where.appendChild(div);
 
 
 	}
-
+	function deletAfterDownload(response) {
+		deleteFile({fileName:response}).done(function(response) {
+					console.log('nada apacere');
+				});
+	}
 	function newVariable() {
 		console.error("asdas");
 		if(
@@ -598,17 +641,12 @@
 		});
 	}
 
-	// function getVariableSelect (data) {
-	// 	console.log(urlBase +"Hawc/getVariableSelect");
-	// 	return $.ajax({
-	// 		url: urlBase +"Hawc/getVariableSelect",
-	// 		cache: false,
-	// 		type: "post",
-	// 		data: data,
-	// 		dataType: 'json'
-	// 	});
-	// }
-
+	function cleanText(text) {
+		text = text.replace(/\n/gm, " ");
+		text = text.replace(/</gm, "\<");
+		text = text.replace(/>/gm, "\>");
+		return text;
+	}
 
 	function insertVariable(data) {
 		return $.ajax({
@@ -641,10 +679,18 @@
 	function getCSV(data) {
 		return $.ajax({
 			url: urlBase +"Hawc/getCSV",
+			type: "post",
+			data: data,
+		});
+	}
+	function deleteFile(data) {
+		return $.ajax({
+			url: urlbase +"Hawc/del_file",
 			cache: false,
 			type: "post",
 			data: data,
 		});
 	}
+
 }
 ));
