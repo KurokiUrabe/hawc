@@ -1,6 +1,5 @@
 <div class="row">
 	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-		<h3>Query generator</h3>
 	</div>
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 		<!-- <div class="checkbox">
@@ -18,7 +17,7 @@
 <div class="row">
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 		<div class="row">
-			<label>Seleccion de tabla</label>
+			<label>Table Select</label>
 			<select class="form-control" id="tables">
 				<?php foreach ($tables as $key => $table): ?>
 					<option value="<?php echo $table->name ?>" <?php echo $table->name==='hawconlinev8_0_1'?'selected':'' ?>>
@@ -44,8 +43,9 @@
 		</div>
 		<div class="row" id="select">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<h3 class="panel-title">Query</h3>
-				<div id="querySample">
+				<label >Query</label>
+
+				<div id="querySample"  style=" border: 1px solid grey;">
 					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 						<div id="selector">
 							<div>SELECT</div>
@@ -79,7 +79,7 @@
 				<table class="table table-striped table-bordered table-hover " width="100%" id="propertiesEditor">
 					<thead>
 						<th></th>
-						<th>Valor</th>
+						<th>Value</th>
 						<th>Operator</th>
 						<th>Variable</th>
 						<th>Operator</th>
@@ -124,11 +124,13 @@
 				</table>
 			</div>
 		</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="row" id="helio" style="overflow: scroll">
-			<table class="table" id="responseQuery">
-				<thead></thead>
-				<tbody></tbody>
-			</table>
+				<table class="table" id="responseQuery">
+					<thead></thead>
+					<tbody></tbody>
+				</table>
 		</div>
+			</div>
 	</div>
 </div>
