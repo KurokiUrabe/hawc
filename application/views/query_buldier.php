@@ -39,36 +39,35 @@
 	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"  style="max-width: ">
 		<div class="row">
 				<!-- <input type="text" id="tags" class="form-control"> -->
-
 		</div>
 		<div class="row" id="select">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<label >Query</label>
-
-				<div id="querySample"  style=" border: 1px solid grey;">
-					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-						<div id="selector">
-							<div>SELECT</div>
-							<div class="queryPart" contenteditable="true">*</div>
+				<div id="querySample" style=" border: 1px solid grey; margin-bottom: 5px">
+					<div class="row">
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+							<div id="selector">
+								<div>SELECT</div>
+								<div class="queryPart" contenteditable="true">*</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-						<div id="from">
-							<div>FROM</div>
-							<div class="queryPart">hawconlineV8_0_1</div>
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+							<div id="from">
+								<div>FROM</div>
+								<div class="queryPart">hawconlineV8_0_1</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-						<div id="where">
-							<div>WHERE</div>
-							<div class="queryPart">1=1</div>
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+							<div id="where">
+								<div>WHERE</div>
+								<div class="queryPart">1=1</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-						<div class="extras">
-							<div></div>
-							<div class="queryPart" contenteditable="true">/*anexo de extras*/</div>
-							<div class="queryPart" contenteditable="true"></div>
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+							<div class="extras">
+								<div class="queryPart" contenteditable="true">/*anexo de extras*/</div>
+								<div class="queryPart" contenteditable="true"></div>
+							</div>
 						</div>
 					</div>
 				</div>

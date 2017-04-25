@@ -49,7 +49,7 @@
 			if ($("#tags").val().length <=1) {
 			console.log(":si");
 				$("#selector .queryPart").text('*');
-			}else{
+			}else
 			console.log(":squery");
 				$("#selector .queryPart").text($("#tags").val().slice(0,-2));
 			}
@@ -310,15 +310,16 @@
 		$( "#variable_conteiner").sortable({
 			connectWith: ".connectedSortable"
 		}).disableSelection()
-		.on("dblclick", ".connectedSortable", function() {
-			// First figure out which list the clicked element is NOT in...
-			var otherUL = $("#variable_conteiner, #queryBuldier").not($(this).closest("ul"));
-			var li = $(this).closest("li");
+		// .on("dblclick", ".connectedSortable", function() {
+		// 	// First figure out which list the clicked element is NOT in...
+		// 	var otherUL = $("#variable_conteiner, #queryBuldier").not($(this).closest("ul"));
+		// 	var li = $(this).closest("li");
 
-			// Move the li to the other list. prependTo() can also be used instead of appendTo().
-			li.detach().appendTo(otherUL);
+		// 	// Move the li to the other list. prependTo() can also be used instead of appendTo().
+		// 	li.detach().appendTo(otherUL);
 
-		});
+		// });
+		;
 		// $('#queryBuldier').on('click','li',function() {
 		// 	$('#queryBuldier li.editing').removeClass('editing');
 		// 	$(this).addClass('editing');
@@ -469,27 +470,29 @@
 					// $("#responseQuery thead").append(tr);
 
 
-				$('#responseQuery').dataTable({
-					ajax: {
-						url: urlBase +"hawc/runQueryDatatable",
-						type: "POST",
-						data: {query:text}
-					},
-					"processing": true, //Feature control the processing indicator.
-					"serverSide": true, //Feature control DataTables' server-side processing mode.
-					"order": [], //Initial no order.
 
-					//Set column definition initialisation properties.
-							// "columnDefs": [
-							 //  {
-							 //      "targets": [ 0 ], //first column / numbering column
-							 //      "orderable": false, //set not orderable
-							 //  },
-							// ],
-							responsive: true,
-					start : 0,
-					length : 10,
-					PaginationType: 'full_numbers'
+				$('#responseQuery').dataTable({
+					"paging":false
+				// 	ajax: {
+				// 		url: urlBase +"hawc/runQueryDatatable",
+				// 		type: "POST",
+				// 		data: {query:text}
+				// 	},
+				// 	"processing": true, //Feature control the processing indicator.
+				// 	"serverSide": true, //Feature control DataTables' server-side processing mode.
+				// 	"order": [], //Initial no order.
+
+				// 	//Set column definition initialisation properties.
+				// 			// "columnDefs": [
+				// 			 //  {
+				// 			 //      "targets": [ 0 ], //first column / numbering column
+				// 			 //      "orderable": false, //set not orderable
+				// 			 //  },
+				// 			// ],
+				// 			responsive: true,
+				// 	start : 0,
+				// 	length : 10,
+				// 	PaginationType: 'full_numbers'
 				});
 				}
 				$("#runQuery").prop("disabled", false);

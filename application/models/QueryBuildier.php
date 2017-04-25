@@ -50,7 +50,7 @@ class QueryBuildier extends  CI_Model {
 	}
 
 	function count_filtered($WHERES=null,$SEARCh = null){
-			$this->_get_datatables_query('COUNT(*) as rows',,$WHERES,$SEARCh);
+			$this->_get_datatables_query('COUNT(*) as rows',$WHERES,$SEARCh);
 			$query = $this->db->get();
 			return $query->row()->rows;
 	}

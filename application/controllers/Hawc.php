@@ -44,11 +44,11 @@ class Hawc extends CI_Controller {
 
 	public function runQuery(){
 		$query = $this->input->post("query");
-		$result = $this->hawc->runQuery($query);
+		$result = $this->hawc->runQuery($query,1000);
 		echo json_encode($result);
 	}
 
-	public function runQueryDatatable(){
+/*	public function runQueryDatatable(){
 		$query = $this->input->post("query");
 		$limit = $this->input->post('length');
 		$start = $this->input->post('start');
@@ -80,7 +80,7 @@ class Hawc extends CI_Controller {
 		// $clientes =  $this->clm->jsonClientes($PERMISO);
 		// echo $this->db->last_query();
 		echo json_encode($output);
-	}
+	}*/
 
 	public function getCSV(){
 		$selector = $this->input->post("selector");
