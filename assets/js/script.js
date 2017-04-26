@@ -47,14 +47,23 @@
 
 		 $("#tags").on('autocompletechange',function() {
 			if ($("#tags").val().length <=1) {
-			console.log(":si");
+				console.log(":si");
 				$("#selector .queryPart").text('*');
-			}else
-			console.log(":squery");
+			}else{
+				console.log(":squery");
 				$("#selector .queryPart").text($("#tags").val().slice(0,-2));
 			}
-
 		 })
+
+		$('#cleanquery').click(function() {
+			$("#selector .queryPart").text("*");
+			$("#from .queryPart").text($('#tables').val());
+			$("#where .queryPart").remove();
+			$("#where").append('<div class="queryPart">1=1</div>');
+			var deff = $("#default").detach();
+			$('#tbody').empty();
+			$('#tbody').append(deff);
+		});
 
 			$(document).on({
 				ajaxStart: function() { $("body").addClass("loading");    },

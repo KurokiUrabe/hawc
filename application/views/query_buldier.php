@@ -10,6 +10,7 @@
 		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 			<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
 			<button type="button" class="btn btn-primary getcsv" id="getcsv">GET CSV</button>
+			<button type="button" class="btn btn-primary" id="cleanquery">CleanQuery</button>
 		</div>
 	</div>
 </div>
@@ -32,8 +33,10 @@
 		</div>
 		<div class="row">
 			<label>Variable List</label>
-			<ul id="variable_conteiner" class="connectedSortable">
-			</ul>
+			<div style="overflow:scroll; height:600px;">
+				<ul id="variable_conteiner" class="connectedSortable">
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"  style="max-width: ">
