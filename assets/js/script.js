@@ -7,6 +7,12 @@
 }(function($, window, document){
 
 	// The $ is now locally scoped
+	//
+	$.fn.toggleDisabled = function(){
+				return this.each(function(){
+						this.disabled = !this.disabled;
+				});
+		};
 	$(function() {
 		var responseQuery = {};
 
@@ -91,7 +97,7 @@
 
 			}).always(function() {
 				console.log('eliminando');
-				deletAfterDownload(response);
+				// deletAfterDownload(response);
 				console.log('elimino');
 
 			})
@@ -202,7 +208,7 @@
 		/*	if (!$('#responseQuery').is(':empty')) {
 					responseQuery = $('#responseQuery').dataTable();
 			}*/
-
+			$("#runQuery").prop("disabled", false);
 		});
 
 		$("#propertiesEditor").on('change','select.right',function() {
@@ -409,6 +415,12 @@
 
 	});
 
+	function clickEvent(event) {
+
+}
+
+
+
 	function findVariable(data) {
 		getVariableSelect(data)
 			.done(function(response){
@@ -432,6 +444,8 @@
 	}
 
 	function printQuery() {
+		$("#runQuery").toggleDisabled();
+
 		var text = document.getElementById("querySample").innerText;
 		text = text.replace(/\n/gm, " ");
 		text = text.replace(/</gm, "\<");
@@ -504,7 +518,14 @@
 				// 	PaginationType: 'full_numbers'
 				});
 				}
+			}).always(function() {
 				$("#runQuery").prop("disabled", false);
+
+				console.log("this is amuse");
+				var button = document.getElementById("runQuery");
+				if (button.hasAttribute('disable')) {
+					$("#runQuery").toggleDisabled();
+				}
 			});
 	}
 

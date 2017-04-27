@@ -21,9 +21,7 @@
 			<label>Table Select</label>
 			<select class="form-control" id="tables">
 				<?php foreach ($tables as $key => $table): ?>
-					<option value="<?php echo $table->name ?>" <?php echo $table->name==='hawconlinev8_0_1'?'selected':'' ?>>
-						<?php echo $table->name ?>
-					</option>
+					<option value="<?php echo $table->name ?>" <?php echo trim($table->name) ==='hawconlineV8_0_1'?'selected':'' ?>><?php echo $table->name ?></option>
 				<?php endforeach ?>
 			</select>
 		</div>
