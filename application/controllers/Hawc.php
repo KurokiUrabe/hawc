@@ -86,6 +86,7 @@ class Hawc extends CI_Controller {
 		$selector = $this->input->post("selector");
 		$from = $this->input->post("from");
 		$where = $this->input->post("where");
+		$extras = $this->input->post("extras");
 		$fileName = date("Y-m-d_His").".csv";
 		$download = '../assets/uploads/csv/'.$fileName ;
 		$pathFile = "./assets/uploads/csv/";
@@ -93,7 +94,7 @@ class Hawc extends CI_Controller {
 		// $csv = realpath(dirname(__FILE__)). '/../../assets/uploads/csv/';
 		$fileName = $csv .'\\'. $fileName;
 		$fileName = str_replace('\\', '/', $fileName);
-		$sql = "{$selector} INTO OUTFILE '{$fileName}' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' {$from} {$where}";
+		$sql = "{$selector} INTO OUTFILE '{$fileName}' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' {$from} {$where} {$extras}";
 		$this->hawc->dataCSV($sql);
 		echo site_url('') . $download ;
 	}

@@ -83,6 +83,7 @@
 			var selector = document.getElementById("selector").innerText;
 			var from     = document.getElementById("from").innerText;
 			var where    = document.getElementById("where").innerText;
+			var extras    = document.getElementById("extras").innerText;
 
 			selector = cleanText( selector );
 			from     = cleanText( from );
@@ -90,7 +91,8 @@
 			getCSV({
 				selector:selector,
 				from:from,
-				where:where
+				where:where,
+				extras:extras
 			}).done(function(response) {
 				document.location.href = response;
 				$("#getcsv").prop("disabled", false);
