@@ -19,7 +19,6 @@ class Hawc extends CI_Controller {
 
 	public function variables(){
 		$data["variables"] = $this->variable->getListVariables();
-		echo base_url("Hello motherfuker")
 		$this->load->view('index_variables',$data);
 	}
 
