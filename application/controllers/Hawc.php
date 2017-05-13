@@ -109,6 +109,7 @@ class Hawc extends CI_Controller {
 		$variableData = $this->input->post();
 		$VariableID = $variableData['VariableID'];
 		unset($variableData['VariableID']);
+		echo "Type {$variableData['Type']}";
 		if ($variableData['Type']==1) {
 			$variableData['MinRange'] = strtotime($variableData['MinRange']);
 			$variableData['MaxRange'] = strtotime($variableData['MaxRange']);

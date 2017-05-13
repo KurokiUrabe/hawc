@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="<?php echo asset_url('css/bootstrap-datetimepicker.min.css') ?>">
 	<script type="text/javascript">
 		var baseurl = "<?php echo base_url() ?><?php  ?>";
+		var urlBase = "<?php echo site_url('') ?><?php  ?>";
 	</script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,9 +63,9 @@
 							<tr>
 								<th>VariableID</th>
 								<th>VariableName</th>
-								<th>Name</th>
+								<th>Display Name</th>
 								<th>Description</th>
-								<th>Type</th>
+								<th>ComponentType</th>
 								<th>MinRange</th>
 								<th>MaxRange</th>
 								<th>Step</th>
@@ -81,14 +82,15 @@
 								<td><?php echo $var->VariableName ?></td>
 								<td><input type="text" name="name" class="form-control name" value="<?php echo $var->Name ?>" placeholder="<?php echo $var->VariableName ?>"></td>
 								<td><input type="text" name="description" class="form-control description" value="<?php echo $var->Description ?>"></td>
-								<td><input type="text" name="Type" class="form-control Type" value="<?php echo $var->Type ?>"></td>
+								<!-- <td><input type="text" name="Type" class="form-control Type" value="<?php echo $var->Type ?>"></td> -->
 								<td>
-									<select type="text" name="Type" class="form-control Type" value="<?php echo $var->Type ?>">
-										<option value="-1">Select an option</option>
-										<option value="1" <?php echo $var->Type?'selected':'' ?> >Date and time</option>
+									<select type="text" name="Type" class="form-control Type">
+										<option value="0" <?php echo $var->Type==0?'selected':'' ?> >Float</option>
+										<option value="1" <?php echo $var->Type==1?'selected':'' ?> >Date and time</option>
 									</select>
 								</td>
-								<td><div style="position: relative;"><input type="text" name="MinRange" class="form-control MinRange <?php echo $var->Type?'datetimepicker':'' ?>" value="<?php echo $var->Type?date('Y-m-d H:i:s',$var->MinRange): $var->MinRange ?>"></div></td>
+								<td>
+								<div style="position: relative;"><input type="text" name="MinRange" class="form-control MinRange <?php echo $var->Type?'datetimepicker':'' ?>" value="<?php echo $var->Type?date('Y-m-d H:i:s',$var->MinRange): $var->MinRange ?>"></div></td>
 								<td><div style="position: relative;"><input type="text" name="MaxRange" class="form-control MaxRange <?php echo $var->Type?'datetimepicker':'' ?>" value="<?php echo $var->Type?date('Y-m-d H:i:s',$var->MaxRange): $var->MaxRange ?>"></div></td>
 								<td><input type="text" name="Step" class="form-control Step" value="<?php echo $var->Step ?>"></td>
 								<td>
@@ -97,7 +99,7 @@
 								</td>
 							</tr>
 						<?php endforeach ?>
-						</tbody>
+						</tbo	dy>
 					</table>
 				</div>
 			</div>
@@ -117,37 +119,11 @@
 		<script src="<?php echo asset_url("js/bootstrap.min.js") ?>"></script>
 		<script src="<?php echo asset_url("js/moment-with-locales.min.js") ?>"></script>
 		<script src="<?php echo asset_url("js/bootstrap-datetimepicker.min.js") ?>"></script>
-		<script src="<?php echo asset_url("js/script.js") ?>"></script>
+		<script src="<?php echo asset_url("js/scriptVariable.js") ?>"></script>
 		<!-- Site footer -->
 		<script type="text/javascript">
-			var base_url = window.location.origin+"/hawc/index.php/";
-			function newVariable() {
-				if(
-						$(".popover-content form input.name").length >0 &&
-						$(".popover-content form input.description").length>0 &&
-						$(".popover-content form input.name").val().length > 0 &&
-						$(".popover-content form input.description").val().length > 0
-					) {
-					var newVariable = $(".popover-content form").serialize();
-					insertVariable(newVariable)
-						.done(function(response){
-							if (response.correct) {
-								$("#popover").popover('hide');
-							}else{
-							}
-						});
-				}
-			}
-
-			function insertVariable(data) {
-				return $.ajax({
-					url: base_url +"~manuel/Hawc/insertVariable",
-					cache: false,
-					type: "post",
-					data: data,
-					dataType: 'json'
-				});
-			}
+			// var base_url = window.location.origin+"/hawc/index.php/";
+			
 
 		</script>
 </body>
