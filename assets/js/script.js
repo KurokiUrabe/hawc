@@ -16,6 +16,9 @@
 	$(function() {
 		var responseQuery = {};
 
+		$(".datetimepicker").datetimepicker({
+			format: 'YYYY-MM-DD HH:mm:ss'
+		});
 		$("#tags").autocomplete({
 			source: function (request, response) {
 				$.ajax({
@@ -155,14 +158,7 @@
 			}
 		});
 
-		$(".datetimepicker").datetimepicker({
-			format: 'YYYY-MM-DD HH:mm:ss',
-			onSelect: function(dateText, inst) {
-				var date = $(this).val();
-				console.log(date);
-				$(this).change();
-		}
-		});
+	
 
 		findVariable({search:''});
 
@@ -424,6 +420,7 @@
 
 
 	function findVariable(data) {
+		if (!$.isEmptyObject(data)) {
 		getVariableSelect(data)
 			.done(function(response){
 				if (response.correct) {
@@ -443,6 +440,7 @@
 				}else{
 				}
 			});
+		}
 	}
 
 	function printQuery() {
