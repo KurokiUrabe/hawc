@@ -19,6 +19,7 @@
 		$(".datetimepicker").datetimepicker({
 			format: 'YYYY-MM-DD HH:mm:ss'
 		});
+
 		$("#tags").autocomplete({
 			source: function (request, response) {
 				$.ajax({
@@ -62,7 +63,7 @@
 				console.log(":squery");
 				$("#selector .queryPart").text($("#tags").val().slice(0,-2));
 			}
-		 })
+		 });
 
 		$('#cleanquery').click(function() {
 			$("#selector .queryPart").text("*");
@@ -74,10 +75,10 @@
 			$('#tbody').append(deff);
 		});
 
-			$(document).on({
-				ajaxStart: function() { $("body").addClass("loading");    },
-				ajaxStop: function() { $("body").removeClass("loading"); }
-			});
+		$(document).on({
+			ajaxStart: function() { $("body").addClass("loading");    },
+			ajaxStop: function() { $("body").removeClass("loading"); }
+		});
 
 
 
@@ -146,6 +147,7 @@
 		// 			return false;
 		// 		}
 		// 	});
+
 		$(document).on('click', '.boolean', function() {
 			var boolean = $(this).text();
 
@@ -158,7 +160,7 @@
 			}
 		});
 
-	
+
 
 		findVariable({search:''});
 
@@ -421,30 +423,47 @@
 
 	function findVariable(data) {
 		if (!$.isEmptyObject(data)) {
-		getVariableSelect(data)
-			.done(function(response){
-				if (response.correct) {
-					var elements = '';
-					var ul = document.getElementById('variable_conteiner');
-					ul.innerHTML = '';
-					$.each(response.variables,function(key,variable) {
-						var li = document.createElement('li');
-						var span = document.createElement('span');
-						li.className = "ui-state-default connectedSortable";
+			data.table = document.querySelector("#from .queryPart").innerText;
+			getVariableSelect(data)
+				.done(function(response){
+					if (response.correct) {
+						var elements = '';
+						var ul = document.getElementById('variable_conteiner');
+						ul.innerHTML = '';
+						$.each(response.variables,function(key,variable) {
+							var li = document.createElement('li');
+							var span = document.createElement('span');
+							li.className = "ui-state-default connectedSortable";
 
-						span.textContent = variable.VariableName;
-						li.setAttribute('data-variable', JSON.stringify(variable));
-						li.appendChild(span);
-						ul.appendChild(li);
-					})
-				}else{
-				}
+							span.textContent = variable.VariableName;
+							li.setAttribute('data-variable', JSON.stringify(variable));
+							li.appendChild(span);
+							ul.appendChild(li);
+						})
+					}else{
+					}
 			});
 		}
 	}
 
 	function printQuery() {
 		$("#runQuery").toggleDisabled();
+
+		var selector = document.getElementById("selector").innerText;
+		var from     = document.querySelector("#from .queryPart").innerText;
+		var where    = document.getElementById("where").innerText;
+		var extras    = document.getElementById("extras").innerText;
+
+		selector = cleanText( selector );
+		from     = cleanText( from );
+		where    = cleanText( where );
+		extras    = cleanText( extras );
+		// getCSV({
+		// 	selector:selector,
+		// 	from:from,
+		// 	where:where,
+		// 	extras:extras
+		// }
 
 		var text = document.getElementById("querySample").innerText;
 		text = text.replace(/\n/gm, " ");
@@ -458,7 +477,15 @@
 		var table = ''
 		var head = '';
 		var body = '';
-		runQuery({query:text})
+		// runQuery({query:text})
+		runQuery(
+			{
+				selector:selector,
+				from:from,
+				where:where,
+				extras:extras
+			}
+			)
 			.done(function(response){
 				$(helio).empty()
 				table = $('<table>');
@@ -495,27 +522,32 @@
 
 
 				$('#responseQuery').dataTable({
-					"paging":false
-				// 	ajax: {
-				// 		url: urlBase +"hawc/runQueryDatatable",
-				// 		type: "POST",
-				// 		data: {query:text}
-				// 	},
-				// 	"processing": true, //Feature control the processing indicator.
-				// 	"serverSide": true, //Feature control DataTables' server-side processing mode.
-				// 	"order": [], //Initial no order.
+					// "paging":false,
+					ajax: {
+						url: urlBase +"hawc/runQueryDatatable",
+						type: "POST",
+						data: {
+							selector:selector,
+							from:from,
+							where:where,
+							extras:extras
+						}
+					},
+					"processing": true, //Feature control the processing indicator.
+					"serverSide": true, //Feature control DataTables' server-side processing mode.
+					"order": [], //Initial no order.
 
-				// 	//Set column definition initialisation properties.
-				// 			// "columnDefs": [
-				// 			 //  {
-				// 			 //      "targets": [ 0 ], //first column / numbering column
-				// 			 //      "orderable": false, //set not orderable
-				// 			 //  },
-				// 			// ],
-				// 			responsive: true,
-				// 	start : 0,
-				// 	length : 10,
-				// 	PaginationType: 'full_numbers'
+					//Set column definition initialisation properties.
+							// "columnDefs": [
+							 //  {
+							 //      "targets": [ 0 ], //first column / numbering column
+							 //      "orderable": false, //set not orderable
+							 //  },
+							// ],
+							responsive: true,
+					start : 0,
+					length : 10,
+					PaginationType: 'full_numbers'
 				});
 				}
 			}).always(function() {
@@ -690,6 +722,7 @@
 			dataType: 'json'
 		});
 	}
+
 	function runQuery(data) {
 		return $.ajax({
 			url: urlBase +"Hawc/runQuery",
@@ -699,6 +732,17 @@
 			dataType: 'json'
 		});
 	}
+
+	// 	function runQuery(data) {
+	// 	return $.ajax({
+	// 		url: urlBase +"Hawc/runQueryDatatable",
+	// 		cache: false,
+	// 		type: "post",
+	// 		data: data,
+	// 		dataType: 'json'
+	// 	});
+	// }
+
 	function save(data) {
 		return $.ajax({
 			url: urlBase +"index.php/Hawc/save",

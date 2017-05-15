@@ -43,44 +43,65 @@ class Hawc extends CI_Controller {
 	}
 
 	public function runQuery(){
-		$query = $this->input->post("query");
-		$result = $this->hawc->runQuery($query,1000);
+		$selector = $this->input->post("selector");
+		$from = $this->input->post("from");
+		$where = $this->input->post("where");
+		$extras = $this->input->post("extras");
+
+		$limit = $this->input->post('length');
+		$start = $this->input->post('start');
+		$limit = $limit!=null?" LIMIT {$limit}":'LIMIT 10';
+		$start = $start!=null?" OFFSET {$start}":'';
+
+		$query = "{$selector} FROM {$from} {$where} {$extras} {$limit} {$start}";
+		// $query = $this->input->post("query");
+		$result = $this->hawc->runQuery($query);
 		echo json_encode($result);
 	}
 
-/*	public function runQueryDatatable(){
+	public function runQueryDatatable(){
+		$selector = $this->input->post("selector");
+		$from = $this->input->post("from");
+		$where = $this->input->post("where");
+		$extras = $this->input->post("extras");
+
 		$query = $this->input->post("query");
 		$limit = $this->input->post('length');
 		$start = $this->input->post('start');
-		$query = "{$query} LIMIT {$limit} OFFSET {$start}";
-		$result = $this->hawc->runQuery($query);
+		$limit = $limit!=null&&$limit>0?" LIMIT {$limit}":'';
+		$start = $start!=null&&$start>0?" OFFSET {$start}":'';
 
-		foreach ($list as $cliente) {
+		$query = "{$selector} FROM {$from} {$where} {$extras} {$limit} {$start}";
+		$result = $this->hawc->runQuery($query );
+
+		$no = 0;
+		foreach ($result as $variable) {
 			$no++;
 			$row = array();
-	// var $column_search = array('nombre','telefono','phone','email','movil'); //set column field database for datatable searchable
-			$row[] = $no;
-			$row[] = $cliente->nombre;
-			$row[] = "Tel : ".$cliente->telefono."<br>Cel : ".$cliente->celular;
-			$row[] = $cliente->email;
-			$row[] = $cliente->first_name." ".$cliente->last_name;
-			$row[] = $this->restrinctionMenu($cliente->id_cliente);
-
+			foreach ($variable as &$value) {
+				$row[] = $value;
+			}
+	// // var $column_search = array('nombre','telefono','phone','email','movil'); //set column field database for datatable searchable
+	// 		$row[] = $no;
+	// 		$row[] = $cliente->nombre;
+	// 		$row[] = "Tel : ".$cliente->telefono."<br>Cel : ".$cliente->celular;
+	// 		$row[] = $cliente->email;
+	// 		$row[] = $cliente->first_name." ".$cliente->last_name;
+	// 		$row[] = $this->restrinctionMenu($cliente->id_cliente);
 
 			$data[] = $row;
 		}
-
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->hawc->,
-						// "recordsFiltered" => $this->hawc->($wheres),
+						"recordsTotal" => $this->hawc->runQuery("SELECT COUNT(*) AS TOTAL FROM {$from}")[0]->TOTAL,
+						"recordsFiltered" => $this->hawc->runQuery("SELECT COUNT(*) AS TOTAL FROM {$from} {$where}")[0]->TOTAL,
 						"data" => $data,
-						"sql" => $sql
+						"sql" => $query
 				);
 		// $clientes =  $this->clm->jsonClientes($PERMISO);
 		// echo $this->db->last_query();
 		echo json_encode($output);
-	}*/
+	}
 
 	public function getCSV(){
 		$selector = $this->input->post("selector");
