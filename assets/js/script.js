@@ -9,10 +9,10 @@
 	// The $ is now locally scoped
 	//
 	$.fn.toggleDisabled = function(){
-				return this.each(function(){
-						this.disabled = !this.disabled;
-				});
-		};
+		return this.each(function(){
+			this.disabled = !this.disabled;
+		});
+	};
 	$(function() {
 		var responseQuery = {};
 
