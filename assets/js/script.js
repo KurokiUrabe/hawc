@@ -449,7 +449,7 @@
 	function printQuery() {
 		$("#runQuery").toggleDisabled();
 
-		var selector = document.getElementById("selector").innerText;
+		var selector = document.querySelector("#selector .queryPart").innerText;
 		var from     = document.querySelector("#from .queryPart").innerText;
 		var where    = document.getElementById("where").innerText;
 		var extras    = document.getElementById("extras").innerText;
@@ -458,6 +458,7 @@
 		from     = cleanText( from );
 		where    = cleanText( where );
 		extras    = cleanText( extras );
+		selector = "select"+ selector.length<2?"*":selector;
 		// getCSV({
 		// 	selector:selector,
 		// 	from:from,
