@@ -1,0 +1,32 @@
+Pasos para instalar
+1.- Se necesita el un clon del repositorio (en forma compreza o de la forma que se desee)
+2.- Mover la clon del repositorio a la ubicacion para crear un server del mismo
+3.- Configurar el acceso a la base de datos desde el archivo de congiguracion dentro del clon del repositorio
+		( ./application/config/database.php si no existe crearlo)
+		$active_group = 'default';
+		$query_builder = TRUE;
+
+		$db['default'] = array(
+			'dsn'	=> '',
+			'hostname' => 'localhost',
+			'username' => '',
+			'password' => '',
+			'database' => '',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+4.- Se necesita en el servidor la base de datos de hawc
+5.- Se necesita tambien incluir la tabla variables, se encuentra un respaldo en el repositorio con nombre variable_backupt.sql en la carpeta sql
+6.- listo
