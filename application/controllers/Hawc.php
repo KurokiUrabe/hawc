@@ -53,7 +53,7 @@ class Hawc extends CI_Controller {
 		$limit = $limit!=null?" LIMIT {$limit}":'LIMIT 10';
 		$start = $start!=null?" OFFSET {$start}":'';
 
-		$query = "{$selector} FROM {$from} {$where} {$extras} {$limit} {$start}";
+		$query = "SELECT {$selector} FROM {$from} {$where} {$extras} {$limit} {$start}";
 		// $query = $this->input->post("query");
 		$result = $this->hawc->runQuery($query);
 		echo json_encode($result);
@@ -71,7 +71,7 @@ class Hawc extends CI_Controller {
 		$limit = $limit!=null&&$limit>0?" LIMIT {$limit}":'';
 		$start = $start!=null&&$start>0?" OFFSET {$start}":'';
 
-		$query = "{$selector} FROM {$from} {$where} {$extras} {$limit} {$start}";
+		$query = "SELECT {$selector} FROM {$from} {$where} {$extras} {$limit} {$start}";
 		$result = $this->hawc->runQuery($query );
 
 		$no = 0;
@@ -109,15 +109,18 @@ class Hawc extends CI_Controller {
 		$where = $this->input->post("where");
 		$extras = $this->input->post("extras");
 		$fileName = date("Y-m-d_His").".csv";
-		$download = '../assets/uploads/csv/'.$fileName ;
-		$pathFile = "./assets/uploads/csv/";
+		$download = '../tmp/'.$fileName ;
+		$pathFile = "./tmp/";
 		$csv = realpath($pathFile);
-		// $csv = realpath(dirname(__FILE__)). '/../../assets/uploads/csv/';
-		$fileName = $csv .'\\'. $fileName;
+		$csv = realpath(dirname(__FILE__)). '/../../assets/uploads/csv/';
+		$fileName = $csv . $fileName;
 		$fileName = str_replace('\\', '/', $fileName);
 		$sql = "{$selector} INTO OUTFILE '{$fileName}' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' {$from} {$where} {$extras}";
+		// echo $fileName;
+		// echo $sql;
 		$this->hawc->dataCSV($sql);
-		echo site_url('') . $download ;
+		echo $this->db->last_query();
+		// 	echo site_url('') . $download ;
 	}
 
 	public function del_file(){

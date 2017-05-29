@@ -83,7 +83,7 @@
 
 
 		$('#getcsv').click(function() {
-			$('#getcsv').prop("disabled", true);
+			// $('#getcsv').prop("disabled", true);
 			var selector = document.getElementById("selector").innerText;
 			var from     = document.getElementById("from").innerText;
 			var where    = document.getElementById("where").innerText;
@@ -98,8 +98,8 @@
 				where:where,
 				extras:extras
 			}).done(function(response) {
-				document.location.href = response;
-				$("#getcsv").prop("disabled", false);
+				// document.location.href = response;
+				// $("#getcsv").prop("disabled", false);
 
 			}).always(function() {
 				console.log('eliminando');
@@ -552,13 +552,13 @@
 				});
 				}
 			}).always(function() {
-				$("#runQuery").prop("disabled", false);
 
 				console.log("this is amuse");
 				var button = document.getElementById("runQuery");
-				if (button.hasAttribute('disable')) {
-					$("#runQuery").toggleDisabled();
-				}
+				// $("#runQuery").prop("disabled", false);
+				// if (button.hasAttribute('disable')) {
+				// 	$("#runQuery").toggleDisabled();
+				// }
 			});
 	}
 
