@@ -28,7 +28,7 @@ class QueryBuildier extends  CI_Model {
 		$query = "SELECT column_name
 		FROM 'information_schema.columns'
 		AND table_name = 'hawconlinev8_0_1'";
-		$result = $this->db->query($query);
+		$query = $this->db->query($query);
 		// $table_name = $table_name?$table_name:$this->TABLE_NAME;
 		// $this->db->select('column_name as name ');
 		// $this->db->where('table_schema', 'qmdb');
@@ -36,7 +36,9 @@ class QueryBuildier extends  CI_Model {
 		// $this->db->from('information_schema.columns');
 		// //AND table_name = 'hawconlinev8_0_1' ;
 		// $query = $this->db->get();
-		return $result->result();
+		$result = $query->result();
+		$query->free_result();
+		return $result;
 	}
 	public function runQuery($sql = '', $limit = 1000){
 		$sql = $sql;
@@ -46,7 +48,9 @@ class QueryBuildier extends  CI_Model {
 		// $query = $this->db->query("SELECT File_name FROM hawconlinev8_0_1 WHERE 1=1 and (-1<File_name<100) LIMIT 100");
 		// echo $this->db->last_query();
 		$query = $this->db->query( $sql );
-		return $query->result();
+		$result =  $query->result();
+		$query->free_result();
+		return $result;
 	}
 
 	function count_filtered($WHERES=null,$SEARCh = null){

@@ -52,9 +52,7 @@ class Hawc extends CI_Controller {
 		$start = $this->input->post('start');
 		$limit = $limit!=null?" LIMIT {$limit}":'LIMIT 10';
 		$start = $start!=null?" OFFSET {$start}":'';
-
-		$query = "SELECT {$selector} FROM {$from} {$where} {$extras} {$limit} {$start}";
-		// $query = $this->input->post("query");
+		$query = "SELECT {$selector} FROM {$from} {$where} {$extras} {$limit} {$start}"; 
 		$result = $this->hawc->runQuery($query);
 		echo json_encode($result);
 	}
@@ -115,12 +113,47 @@ class Hawc extends CI_Controller {
 		$csv = realpath(dirname(__FILE__)). '/../../assets/uploads/csv/';
 		$fileName = $csv . $fileName;
 		$fileName = str_replace('\\', '/', $fileName);
-		$sql = "{$selector} INTO OUTFILE '{$fileName}' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' {$from} {$where} {$extras}";
+		// $sql = "{$selector} INTO OUTFILE '{$fileName}' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' {$from} {$where} {$extras}";
+		$sql = "SELECT COUNT(*) AS total {$from} {$where} {$extras}";
 		// echo $fileName;
 		// echo $sql;
-		$this->hawc->dataCSV($sql);
-		echo $this->db->last_query();
+		// echo realpath(dirname(__FILE__));
+		// $user = posix_getpwuid(posix_geteuid());
+		// var_dump($user);
+	/*	$sed = "s/\\t/','/g;s/^/'/;s/$/'/;s/\n//g";
+		echo $sed;
+		echo "mysql -uhawc_user -porizaba! -hhawcmon.umd.edu QMDB -B -e '{$sql};' | sed '{$sed}' > mysql_exported_table.csv";
+		exec("mysql -uhawc_user -porizaba! -hhawcmon.umd.edu QMDB -B -e '{$sql};' | sed '{$sed}' > /home/kurabe/mysql_exported_table.csv",$resss,$retrive);
+		print_r($retrive);*/
+
+		// $this->hawc->dataCSV($sql);
+		// echo $this->db->last_query();
 		// 	echo site_url('') . $download ;
+
+		$count = $this->hawc->runQuery("SELECT COUNT(*) AS total {$from} {$where} {$extras}")[0]->total;
+		// $this->hawc->runQuery($count)->total;
+$this->db->save_queries = false;
+		echo $count;
+		$result = [];
+		$fp = fopen($csv.'data.csv', 'w') or die("Unable to open file!");
+		$cremento = 2000;
+		for ($LIMIT= $count>$cremento?$cremento:$count,$OFFSET=0; $LIMIT <= $count ; $LIMIT+=$cremento,$OFFSET+=$cremento) { 
+			$query = "{$selector} {$from} {$where} {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}"; 
+			$result = $this->hawc->runQuery($query);
+			echo $LIMIT;
+			$this->db->flush_cache();
+			for ($i = 0, $c = count($result); $i < $c; $i++){
+				 // $val = explode(",",$line);
+				$val = get_object_vars($result[$i]);
+				fputcsv($fp, $val);
+				$line = null;
+				$val = null;
+			}
+			$result = null;
+			gc_collect_cycles();
+		}
+		 
+		fclose($fp);
 	}
 
 	public function del_file(){
