@@ -106,7 +106,7 @@ class Hawc extends CI_Controller {
 		$from = $this->input->post("from");
 		$where = $this->input->post("where");
 		$extras = $this->input->post("extras");
-		$fileName = date("Y-m-d_His").".csv";
+		$fileName = "hawc_".date("Y-m-d_His").".csv";
 		$download = '../tmp/'.$fileName ;
 		$pathFile = "./tmp/";
 		$csv = realpath($pathFile);
@@ -128,7 +128,6 @@ class Hawc extends CI_Controller {
 
 		// $this->hawc->dataCSV($sql);
 		// echo $this->db->last_query();
-		// 	echo site_url('') . $download ;
 
 		$count = $this->hawc->runQuery("SELECT COUNT(*) AS total {$from} {$where} {$extras}")[0]->total;
 		// $this->hawc->runQuery($count)->total;
@@ -136,7 +135,7 @@ class Hawc extends CI_Controller {
 		// echo $count;
 		$result = [];
 		$cremento = 5000;
-		$fp = fopen($csv.'data.csv', 'w') or die("Unable to open file!");
+		$fp = fopen($csv.$fileName, 'w') or die("Unable to open file!");
 		for ($LIMIT= $count>$cremento?$cremento:$count,$OFFSET=0; $OFFSET <= $count ; $OFFSET+=$cremento) { 
 			$query = "{$selector} {$from} {$where} {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}"; 
 			// $result = null;
@@ -167,7 +166,8 @@ class Hawc extends CI_Controller {
 			echo "end cycle {$memory}\n";
 		}
 		fclose($fp);
-		
+		echo site_url('') . $csv ;
+		unlink($csv );
 	}
 
 	public function del_file(){
