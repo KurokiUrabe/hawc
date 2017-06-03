@@ -132,28 +132,42 @@ class Hawc extends CI_Controller {
 
 		$count = $this->hawc->runQuery("SELECT COUNT(*) AS total {$from} {$where} {$extras}")[0]->total;
 		// $this->hawc->runQuery($count)->total;
-$this->db->save_queries = false;
-		echo $count;
+		$this->db->save_queries = false;
+		// echo $count;
 		$result = [];
+		$cremento = 5000;
 		$fp = fopen($csv.'data.csv', 'w') or die("Unable to open file!");
-		$cremento = 2000;
-		for ($LIMIT= $count>$cremento?$cremento:$count,$OFFSET=0; $LIMIT <= $count ; $LIMIT+=$cremento,$OFFSET+=$cremento) { 
+		for ($LIMIT= $count>$cremento?$cremento:$count,$OFFSET=0; $OFFSET <= $count ; $OFFSET+=$cremento) { 
 			$query = "{$selector} {$from} {$where} {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}"; 
-			$result = $this->hawc->runQuery($query);
-			echo $LIMIT;
-			$this->db->flush_cache();
-			for ($i = 0, $c = count($result); $i < $c; $i++){
-				 // $val = explode(",",$line);
-				$val = get_object_vars($result[$i]);
+			// $result = null;
+			// $query = "SELECT COUNT(*) as rows {$from} {$where}  {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}"; 
+			// $result = $this->hawc->runQuery($query);
+			$result = $this->db->query($query);
+			// echo $this->db->last_query() ."\n";
+			$memory = memory_get_usage();
+			// $num_rows = $result->num_rows();
+			$num_rows = 0;
+			// $num_rows = $result->row();
+			echo "start cycle {$memory} {$num_rows}\n";
+
+			while ($row = $result->unbuffered_row())
+			{
+				$val = get_object_vars($row);
 				fputcsv($fp, $val);
 				$line = null;
 				$val = null;
 			}
+			echo "LIMIT $LIMIT\n";
+			echo "OFFSET $OFFSET\n";
+			$result->free_result();
 			$result = null;
+			$this->db->flush_cache();
 			gc_collect_cycles();
+			$memory = memory_get_usage();
+			echo "end cycle {$memory}\n";
 		}
-		 
 		fclose($fp);
+		 
 	}
 
 	public function del_file(){
