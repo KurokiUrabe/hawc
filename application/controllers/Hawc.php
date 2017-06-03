@@ -120,7 +120,7 @@ class Hawc extends CI_Controller {
 		// echo realpath(dirname(__FILE__));
 		// $user = posix_getpwuid(posix_geteuid());
 		// var_dump($user);
-	/*	$sed = "s/\\t/','/g;s/^/'/;s/$/'/;s/\n//g";
+		/*	$sed = "s/\\t/','/g;s/^/'/;s/$/'/;s/\n//g";
 		echo $sed;
 		echo "mysql -uhawc_user -porizaba! -hhawcmon.umd.edu QMDB -B -e '{$sql};' | sed '{$sed}' > mysql_exported_table.csv";
 		exec("mysql -uhawc_user -porizaba! -hhawcmon.umd.edu QMDB -B -e '{$sql};' | sed '{$sed}' > /home/kurabe/mysql_exported_table.csv",$resss,$retrive);
@@ -167,7 +167,7 @@ class Hawc extends CI_Controller {
 			echo "end cycle {$memory}\n";
 		}
 		fclose($fp);
-		 
+		
 	}
 
 	public function del_file(){
