@@ -80,14 +80,17 @@
 			ajaxStop: function() { $("body").removeClass("loading"); }
 		});
 
-
+		$("#saveQuery").click(function(){
+			var querySample = document.getElementById("querySample").innerText;
+			download(querySample, 'query','text/plain');
+		})
 
 		$('#getcsv').click(function() {
 			// $('#getcsv').prop("disabled", true);
 			var selector = document.getElementById("selector").innerText;
 			var from     = document.getElementById("from").innerText;
 			var where    = document.getElementById("where").innerText;
-			var extras    = document.getElementById("extras").innerText;
+			var extras   = document.getElementById("extras").innerText;
 
 			selector = cleanText( selector );
 			from     = cleanText( from );
@@ -115,38 +118,6 @@
 		function extractLast( term ) {
 			return split( term ).pop();
 		}
-
-		// $( "#tags" )
-		// 	// don't navigate away from the field on tab when selecting an item
-		// 	.on( "keydown", function( event ) {
-		// 		if ( event.keyCode === $.ui.keyCode.TAB &&
-		// 				$( this ).autocomplete( "instance" ).menu.active ) {
-		// 			event.preventDefault();
-		// 		}
-		// 	})
-		// 	.autocomplete({
-		// 		minLength: 0,
-		// 		source: function( request, response ) {
-		// 			// delegate back to autocomplete, but extract the last term
-		// 			response( $.ui.autocomplete.filter(
-		// 				availableTags, extractLast( request.term ) ) );
-		// 		},
-		// 		focus: function() {
-		// 			// prevent value inserted on focus
-		// 			return false;
-		// 		},
-		// 		select: function( event, ui ) {
-		// 			var terms = split( this.value );
-		// 			// remove the current input
-		// 			terms.pop();
-		// 			// add the selected item
-		// 			terms.push( ui.item.value );
-		// 			// add placeholder to get the comma-and-space at the end
-		// 			terms.push( "" );
-		// 			this.value = terms.join( ", " );
-		// 			return false;
-		// 		}
-		// 	});
 
 		$(document).on('click', '.boolean', function() {
 			var boolean = $(this).text();
@@ -361,9 +332,6 @@
 			var queryPart = $("#querySample #where .queryPart."+query);
 			$(queryPart).remove();
 			$(this).closest('tr').remove();
-			if ($(".queryPart").length>3) {
-				printQuery();
-			}
 		});
 
 
@@ -420,7 +388,23 @@
 }
 
 
-
+	function download(data, filename, type) {
+		var file = new Blob([data], {type: type});
+		if (window.navigator.msSaveOrOpenBlob) // IE10+
+			window.navigator.msSaveOrOpenBlob(file, filename);
+		else { // Others
+			var a = document.createElement("a"),
+					url = URL.createObjectURL(file);
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+			setTimeout(function() {
+				document.body.removeChild(a);
+				window.URL.revokeObjectURL(url);  
+			}, 0); 
+		}
+	}
 	function findVariable(data) {
 		if (!$.isEmptyObject(data)) {
 			data.table = document.querySelector("#from .queryPart").innerText;

@@ -106,7 +106,7 @@ class Hawc extends CI_Controller {
 		$from = $this->input->post("from");
 		$where = $this->input->post("where");
 		$extras = $this->input->post("extras");
-		$fileName = "hawc_".date("Y-m-d_His").".csv";
+		$fileName = "hawc_".date("Ymd_His").".csv";
 		$OriginalfileName = $fileName;
 		$csv = realpath(dirname(__FILE__)). '/../../assets/uploads/csv/';
 		$fileName = $csv . $fileName;
