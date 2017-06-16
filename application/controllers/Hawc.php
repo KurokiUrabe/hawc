@@ -25,8 +25,8 @@ class Hawc extends CI_Controller {
 		$search = $this->input->post("search");
 		$variables = $this->variable->getVariableSelect($search,'*');
 		$length = count($variables);
-		$jsonVariable = [];
-		echo json_encode(["correct"=>$variables!=null,"variables"=>$variables]);
+		$jsonVariable = array( );
+		echo json_encode(array("correct"=>$variables!=null,"variables"=>$variables));
 	}
 	public function getVariableName(){
 		$json = $this->variable->getVariablesName($this->input->post('searchStr'));
@@ -34,12 +34,12 @@ class Hawc extends CI_Controller {
 	}
 	public function insertVariable(){
 		$VariableID = $this->variable->insert($this->input->post());
-		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);
+		echo json_encode(array("correct"=>$VariableID>0,"VariableID"=>$VariableID));
 	}
 
 	public function getAllDataFrom(){
 		$VariableID = $this->variable->getAllDataFrom($this->input->post('VariableID'));
-		echo json_encode(["correct"=>$VariableID>0,"VariableID"=>$VariableID]);
+		echo json_encode(array("correct"=>$VariableID>0,"VariableID"=>$VariableID));
 	}
 
 	public function runQuery(){
@@ -52,7 +52,7 @@ class Hawc extends CI_Controller {
 		$start = $this->input->post('start');
 		$limit = $limit!=null?" LIMIT {$limit}":'LIMIT 10';
 		$start = $start!=null?" OFFSET {$start}":'';
-		$query = "SELECT {$selector} FROM {$from} {$where} {$extras} {$limit} {$start}"; 
+		$query = "SELECT {$selector} FROM {$from} {$where} {$extras} {$limit} {$start}";
 		$result = $this->hawc->runQuery($query);
 		echo json_encode($result);
 	}
@@ -91,8 +91,8 @@ class Hawc extends CI_Controller {
 		}
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->hawc->runQuery("SELECT COUNT(*) AS TOTAL FROM {$from}")[0]->TOTAL,
-						"recordsFiltered" => $this->hawc->runQuery("SELECT COUNT(*) AS TOTAL FROM {$from} {$where}")[0]->TOTAL,
+						"recordsTotal" => $this->db->query("SELECT COUNT(*) AS TOTAL FROM {$from}")->row()->TOTAL,
+						"recordsFiltered" => $this->db->query("SELECT COUNT(*) AS TOTAL FROM {$from} {$where}")->row()->TOTAL,
 						"data" => $data,
 						"sql" => $query
 				);
@@ -110,7 +110,7 @@ class Hawc extends CI_Controller {
 		$OriginalfileName = $fileName;
 		$csv = realpath(dirname(__FILE__)). '/../../assets/uploads/csv/';
 		$fileName = $csv . $fileName;
-		$fileName = str_replace('\\', '/', $fileName);
+		// $fileName = str_replace('\\', '/', $fileName);
 		// $sql = "{$selector} INTO OUTFILE '{$fileName}' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' {$from} {$where} {$extras}";
 		$sql = "SELECT COUNT(*) AS total {$from} {$where} {$extras}";
 		// echo $fileName;
@@ -127,41 +127,40 @@ class Hawc extends CI_Controller {
 		// $this->hawc->dataCSV($sql);
 		// echo $this->db->last_query();
 
-		$count = $this->hawc->runQuery("SELECT COUNT(*) AS total {$from} {$where} {$extras}")[0]->total;
+		$count = $this->db->query("SELECT COUNT(*) AS total {$from} {$where} {$extras}")->row()->total;
 		// $this->hawc->runQuery($count)->total;
 		$this->db->save_queries = false;
 		// echo $count;
-		$result = [];
+		$result = array( );
 		$cremento = 5000;
 		$fp = fopen($fileName, 'w') or die("Unable to open file!");
-		for ($LIMIT= $count>$cremento?$cremento:$count,$OFFSET=0; $OFFSET <= $count ; $OFFSET+=$cremento) { 
-			$query = "{$selector} {$from} {$where} {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}"; 
+		for ($LIMIT= $count>$cremento?$cremento:$count,$OFFSET=0; $OFFSET <= $count ; $OFFSET+=$cremento) {
+			$query = "{$selector} {$from} {$where} {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}";
 			// $result = null;
-			// $query = "SELECT COUNT(*) as rows {$from} {$where}  {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}"; 
+			// $query = "SELECT COUNT(*) as rows {$from} {$where}  {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}";
 			// $result = $this->hawc->runQuery($query);
 			$result = $this->db->query($query);
 			// echo $this->db->last_query() ."\n";
-			$memory = memory_get_usage();
+			// $memory = memory_get_usage();
 			// $num_rows = $result->num_rows();
-			$num_rows = 0;
+			// $num_rows = 0;
 			// $num_rows = $result->row();
-			echo "start cycle {$memory} {$num_rows}\n";
+			// echo "start cycle {$memory} {$num_rows}\n";
 
-			while ($row = $result->unbuffered_row())
-			{
+			while ($row = $result->unbuffered_row()){
 				$val = get_object_vars($row);
 				fputcsv($fp, $val);
 				$line = null;
 				$val = null;
 			}
-			echo "LIMIT $LIMIT\n";
-			echo "OFFSET $OFFSET\n";
+			// echo "LIMIT $LIMIT\n";
+			// echo "OFFSET $OFFSET\n";
 			$result->free_result();
 			$result = null;
 			$this->db->flush_cache();
 			gc_collect_cycles();
 			$memory = memory_get_usage();
-			echo "end cycle {$memory}\n";
+			// echo "end cycle {$memory}\n";
 		}
 		fclose($fp);
 		echo $OriginalfileName ;
@@ -202,11 +201,11 @@ class Hawc extends CI_Controller {
 		$isOK = $this->variable->update($variableData,$VariableID);
 
 		if ($isOK&&$isOK>0) {
-			echo json_encode([
+			echo json_encode( array(
 				"correct"=>$isOK>0,
 				"msj"=>'Se guardo correctamente',
 				"mas"=>$variableData
-				]);
+				));
 		}else{
 			echo "jola";
 		}
