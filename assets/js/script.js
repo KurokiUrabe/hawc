@@ -98,7 +98,7 @@
 				where:where,
 				extras:extras
 			}).done(function(response) {
-				document.location.href = response;
+				document.location.href = urlBase +"Hawc/download/"+response;
 				// $("#getcsv").prop("disabled", false);
 
 			}).always(function() {
@@ -763,7 +763,7 @@
 	}
 	function deleteFile(data) {
 		return $.ajax({
-			url: urlbase +"Hawc/del_file",
+			url: urlBase +"Hawc/del_file",
 			cache: false,
 			type: "post",
 			data: data,
