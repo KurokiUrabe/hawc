@@ -98,7 +98,7 @@
 				where:where,
 				extras:extras
 			}).done(function(response) {
-				// document.location.href = response;
+				document.location.href = response;
 				// $("#getcsv").prop("disabled", false);
 
 			}).always(function() {
@@ -447,7 +447,7 @@
 	}
 
 	function printQuery() {
-		$("#runQuery").toggleDisabled();
+		// $("#runQuery").toggleDisabled();
 
 		var selector = document.querySelector("#selector .queryPart").innerText;
 		var from     = document.querySelector("#from .queryPart").innerText;
