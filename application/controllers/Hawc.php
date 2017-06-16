@@ -107,9 +107,7 @@ class Hawc extends CI_Controller {
 		$where = $this->input->post("where");
 		$extras = $this->input->post("extras");
 		$fileName = "hawc_".date("Y-m-d_His").".csv";
-		$download = '../tmp/'.$fileName ;
-		$pathFile = "./tmp/";
-		$csv = realpath($pathFile);
+		$OriginalfileName = $fileName;
 		$csv = realpath(dirname(__FILE__)). '/../../assets/uploads/csv/';
 		$fileName = $csv . $fileName;
 		$fileName = str_replace('\\', '/', $fileName);
@@ -135,7 +133,7 @@ class Hawc extends CI_Controller {
 		// echo $count;
 		$result = [];
 		$cremento = 5000;
-		$fp = fopen($csv.$fileName, 'w') or die("Unable to open file!");
+		$fp = fopen($fileName, 'w') or die("Unable to open file!");
 		for ($LIMIT= $count>$cremento?$cremento:$count,$OFFSET=0; $OFFSET <= $count ; $OFFSET+=$cremento) { 
 			$query = "{$selector} {$from} {$where} {$extras} LIMIT {$LIMIT} OFFSET {$OFFSET}"; 
 			// $result = null;
@@ -166,9 +164,24 @@ class Hawc extends CI_Controller {
 			echo "end cycle {$memory}\n";
 		}
 		fclose($fp);
-		echo site_url('') . $csv ;
-		unlink($csv );
+		echo $OriginalfileName ;
 	}
+
+	public function download($fileName=null){
+		if ($fileName) {
+			$csv = realpath(dirname(__FILE__)). '/../../assets/uploads/csv/';
+			$fileName = $csv . $fileName;
+			header("Content-type: text/csv");
+			header("Content-Disposition: attachment; filename='hawcQuery.csv'");
+			header("Pragma: no-cache");
+			header("Expires: 0");
+			header('Content-Length: ' . filesize($fileName));
+			readfile($fileName);
+			unlink($fileName );
+		}else{
+			echo "error";
+		}
+ 	} 
 
 	public function del_file(){
 		$nameFile = $this->input->post("nameFile");
