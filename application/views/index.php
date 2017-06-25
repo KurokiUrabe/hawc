@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>HAWC</title>
+	<title>HAWC QMSBi</title>
 	<meta name="description" content="The HTML5 HAWC">
-	<meta name="author" content="Manuel">
+	<meta name="author" content="Manuel Heredia Navarrete">
 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="<?php echo asset_url('css/styles.css?v=1.0') ?>">

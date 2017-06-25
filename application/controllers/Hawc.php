@@ -79,14 +79,6 @@ class Hawc extends CI_Controller {
 			foreach ($variable as &$value) {
 				$row[] = $value;
 			}
-	// // var $column_search = array('nombre','telefono','phone','email','movil'); //set column field database for datatable searchable
-	// 		$row[] = $no;
-	// 		$row[] = $cliente->nombre;
-	// 		$row[] = "Tel : ".$cliente->telefono."<br>Cel : ".$cliente->celular;
-	// 		$row[] = $cliente->email;
-	// 		$row[] = $cliente->first_name." ".$cliente->last_name;
-	// 		$row[] = $this->restrinctionMenu($cliente->id_cliente);
-
 			$data[] = $row;
 		}
 		$output = array(
