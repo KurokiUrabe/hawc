@@ -320,7 +320,7 @@
 		// });
 
 
-		$(".variable.finder").on("keyup paste change focus blur keydown",function(event) {
+		$(".variable.finder").on("keyup focus",function(event) {
 			var data = {search:$(this).val()}
 			findVariable(data);
 		});
@@ -401,8 +401,8 @@
 			a.click();
 			setTimeout(function() {
 				document.body.removeChild(a);
-				window.URL.revokeObjectURL(url);  
-			}, 0); 
+				window.URL.revokeObjectURL(url);
+			}, 0);
 		}
 	}
 	function findVariable(data) {
