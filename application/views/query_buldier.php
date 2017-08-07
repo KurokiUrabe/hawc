@@ -1,18 +1,13 @@
 <div class="row">
-	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-	</div>
-	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-		<!-- <div class="checkbox">
-			<label>
-				<input type="checkbox" id="autoQuery"> AutoQuery
-			</label>
-		</div> -->
-		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-			<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
-			<button type="button" class="btn btn-primary " id="saveQuery">saveQuery</button>
-			<button type="button" class="btn btn-primary getcsv" id="getcsv">GET CSV</button>
-			<button type="button" class="btn btn-primary" id="cleanquery">CleanQuery</button>
-		</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: right">
+	
+		<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
+		<button type="button" class="btn btn-primary " id="saveQuery">saveQuery</button>
+		<button type="button" class="btn btn-primary getcsv" id="getcsv">GET CSV</button>
+		<button type="button" class="btn btn-primary" id="cleanquery">CleanQuery</button>
+		<button type="button" class="btn btn-primary" id="save_context">SaveContext</button>
+		<button type="button" class="btn btn-primary" id="load_context">LoadContext</button>
+
 	</div>
 </div>
 
