@@ -16,6 +16,17 @@
 	$(function() {
 		var responseQuery = {};
 
+		$("#save_context").click(function(event){
+			var data = { wheres: $("#wheres").html(), select: $("#select").html(), date: new Date() },
+			fileName = "my-download.json";
+
+			saveData(data, fileName);
+		});
+
+		$("#load_context").click(function(event){
+			
+		})
+
 		$(".datetimepicker").datetimepicker({
 			format: 'YYYY-MM-DD HH:mm:ss'
 		});
@@ -296,28 +307,7 @@
 		$( "#variable_conteiner").sortable({
 			connectWith: ".connectedSortable"
 		}).disableSelection()
-		// .on("dblclick", ".connectedSortable", function() {
-		// 	// First figure out which list the clicked element is NOT in...
-		// 	var otherUL = $("#variable_conteiner, #queryBuldier").not($(this).closest("ul"));
-		// 	var li = $(this).closest("li");
 
-		// 	// Move the li to the other list. prependTo() can also be used instead of appendTo().
-		// 	li.detach().appendTo(otherUL);
-
-		// });
-		;
-		// $('#queryBuldier').on('click','li',function() {
-		// 	$('#queryBuldier li.editing').removeClass('editing');
-		// 	$(this).addClass('editing');
-
-		// 	// var tools  =$('#tools').html($(this).data('variable'));
-		// 	var variables = $('#propertiesEditor tbody tr ttoday.variable');
-		// 		console.log($('.editing').data('variable'));
-		// 	$.each(variables,function(k,variable) {
-		// 		$(variable).text($('.editing').data('variable').VariableName);
-		// 	});
-		// 	// console.log($(this).data());
-		// });
 
 
 		$(".variable.finder").on("keyup focus",function(event) {
@@ -591,12 +581,22 @@
 	function outputResult(elm) {
 		$("#queryBuldier").append('<div>'+elm.data('variable')+'</div>');
 		console.log(elm.data('range'));
-		// if ($(elm).hasClass('oTextInput')) {
-			// $result.append('<input type="text" />');
-		// } else if ($(elm).hasClass('oRadioInput')) {
-		// 	$result.append('<input type="radio" />');
-		// }
 	}
+
+	var saveData = (function () {
+		var a = document.createElement("a");
+		document.body.appendChild(a);
+		a.style = "display: none";
+		return function (data, fileName) {
+			var json = JSON.stringify(data),
+				blob = new Blob([json], {type: "octet/stream"}),
+				url = window.URL.createObjectURL(blob);
+			a.href = url;
+			a.download = fileName;
+			a.click();
+			window.URL.revokeObjectURL(url);
+		};
+	}());
 
 	function newQuery(queryRow,variable) {
 		var div = document.createElement('div');
@@ -652,9 +652,8 @@
 		div.className = "queryPart "+queryRow;
 		var where = document.querySelector("#querySample #where");
 		where.appendChild(div);
-
-
 	}
+
 	function deletAfterDownload(response) {
 		deleteFile({fileName:response}).done(function(response) {
 					console.log('nada apacere');
