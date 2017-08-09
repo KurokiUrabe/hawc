@@ -22,6 +22,8 @@
 
 			saveData(data, fileName);
 		});
+		// lectura de un archivo al dar change
+		document.getElementById('fileID').addEventListener('change', handleFileSelect, false);
 
 		$("#load_context").click(function(event){
 			
@@ -726,6 +728,65 @@
 	// 		dataType: 'json'
 	// 	});
 	// }
+
+	function handleFileSelect(evt) {
+		var file = evt.target.files[0]; // FileList object
+		console.log(file);
+		 var MIMEType = file.type;
+		if (MIMEType.match('.json')) {
+			// decode base64 string, remove space for IE compatibility
+			var reader = new FileReader();
+
+			reader.onload = function(readerEvt) {
+
+				// This is done just for the proof of concept
+				var binaryString = readerEvt.target.result;
+				var base64 = btoa(binaryString);
+				var blobfile = atob(base64);
+
+
+				window.blobFromBlobFile = b64toBlob(base64, MIMEType, 512);
+				window.blobURL = URL.createObjectURL(window.blobFromBlobFile);
+
+
+				if (MIMEType != "image/jpeg") {
+					var a = "<br /><a href=\"" + window.blobURL + "\">Blob File Link</a>";
+				} else {
+					var a = "<img src=" + window.blobURL + "\>";
+				}
+
+				document.getElementById('byte_content').innerHTML = a;
+
+			};
+
+			reader.readAsBinaryString(file);
+		} else {
+		}
+		// Loop through the FileList and render image files as thumbnails.
+		// for (var i = 0, f; f = files[i]; i++) {
+
+		// 	// Only process image files.
+		// 	if (!f.type.match('image.*')) {
+		// 		continue;
+		// 	}
+
+		// 	var reader = new FileReader();
+
+		// 	// Closure to capture the file information.
+		// 	reader.onload = (function(theFile) {
+		// 		return function(e) {
+		// 			// Render thumbnail.
+		// 			var span = document.createElement('span');
+		// 			span.innerHTML = ['<img class="thumb" src="', e.target.result,
+		// 												'" title="', escape(theFile.name), '"/>'].join('');
+		// 			document.getElementById('list').insertBefore(span, null);
+		// 		};
+		// 	})(f);
+
+		// 	// Read in the image file as a data URL.
+		// 	reader.readAsDataURL(f);
+		// }
+	}
 
 	function save(data) {
 		return $.ajax({

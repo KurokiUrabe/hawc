@@ -6,7 +6,8 @@
 		<button type="button" class="btn btn-primary getcsv" id="getcsv">GET CSV</button>
 		<button type="button" class="btn btn-primary" id="cleanquery">CleanQuery</button>
 		<button type="button" class="btn btn-primary" id="save_context">SaveContext</button>
-		<button type="button" class="btn btn-primary" id="load_context">LoadContext</button>
+		<button type="button" class="btn btn-primary" onclick="document.getElementById('fileID').click(); return false;" id="load_context">LoadContext</button>
+		<input type="file" id="fileID" style="visibility: hidden;" />
 
 	</div>
 </div>
