@@ -14,16 +14,45 @@
 		});
 	};
 	$(function() {
+
+		
+		$(document).on('keyup',"input", function (event) {
+			console.log(event.target)
+			event.target.setAttribute('value',event.target.value);
+		})
+		function onChange(event) {
+        var reader = new FileReader();
+        reader.onload = onReaderLoad;
+        reader.readAsText(event.target.files[0]);
+    }
+
+    function onReaderLoad(event){
+        var obj = JSON.parse(event.target.result);
+        $("#wheres").html(obj.wheres);
+        $("#select").html(obj.select);
+        console.log(obj);
+        // alert_data(, obj.select);
+    }
+    
+    function alert_data(name, family){
+        alert('Name : ' + name + ', Family : ' + family);
+    }
+ 
+    document.getElementById('fileID').addEventListener('change', onChange);
+
+
+
+
 		var responseQuery = {};
 
 		$("#save_context").click(function(event){
-			var data = { wheres: $("#wheres").html(), select: $("#select").html(), date: new Date() },
+			var data = { wheres: $("#wheres").html().replace("\\r?\\n", ""), select: $("#select").html().replace("\\r?\\n", ""), date: new Date() },
 			fileName = "my-download.json";
 
 			saveData(data, fileName);
 		});
 		// lectura de un archivo al dar change
-		document.getElementById('fileID').addEventListener('change', handleFileSelect, false);
+		// document.getElementById('fileID').addEventListener('change', handleFileSelect, false);
 
 		$("#load_context").click(function(event){
 			
@@ -729,7 +758,7 @@
 	// 	});
 	// }
 
-	function handleFileSelect(evt) {
+	/*function handleFileSelect(evt) {
 		var file = evt.target.files[0]; // FileList object
 		console.log(file);
 		 var MIMEType = file.type;
@@ -786,7 +815,7 @@
 		// 	// Read in the image file as a data URL.
 		// 	reader.readAsDataURL(f);
 		// }
-	}
+	}*/
 
 	function save(data) {
 		return $.ajax({
