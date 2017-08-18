@@ -88,7 +88,6 @@
 		<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
 		<script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 		<script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
-		<script src="dist/clipboard.min.js"></script>
 		<!-- Site footer -->
 		<div class="modal">
 			<div style="text-align: center; vertical-align: middle;"><h1>LOADING</h1></div>
