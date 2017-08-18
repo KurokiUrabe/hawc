@@ -30,7 +30,6 @@
         var obj = JSON.parse(event.target.result);
         $("#wheres").html(obj.wheres);
         $("#select").html(obj.select);
-        console.log(obj);
         // alert_data(, obj.select);
     }
     
@@ -39,8 +38,6 @@
     }
  
     document.getElementById('fileID').addEventListener('change', onChange);
-
-
 
 
 		var responseQuery = {};
@@ -224,7 +221,8 @@
 			$("#runQuery").prop("disabled", false);
 		});
 
-		$("#propertiesEditor").on('change','select.right',function() {
+		$(document).on('change','#propertiesEditor select.right',function() {
+			$(this).find("[value='"+$(this).val()+"']").attr('selected','selected')
 			var input  = $(this).closest('tr').find('input.left');
 			var select = $(this).closest('tr').find('select.left');
 			switch($(this).val()){
@@ -246,13 +244,15 @@
 		});
 
 
-		$("#propertiesEditor").on('input, change','.left,.right',function(event) {
+		$(document).on('input, change','#propertiesEditor .left,#propertiesEditor .right',function(event) {
+			$(this).find("[value='"+$(this).val()+"']").attr('selected','selected')
 			var tr = $(this).closest('tr');
 			var inputLeft = $(tr).find("input.left");
 			var selectLeft = $(tr).find("select.left");
 			var selectRight = $(tr).find("select.right");
 			var inputRight = $(tr).find("input.right");
 			var query = $(tr).data('query');
+			console.log("#querySample #where .queryPart."+query);
 			var queryPart = $("#querySample #where .queryPart."+query);
 			var valueLeft = $(queryPart).find('.value.left');
 			var and = $(queryPart).find('.and');
