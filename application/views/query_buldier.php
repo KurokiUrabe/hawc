@@ -3,7 +3,7 @@
 	
 		<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
 		<button type="button" class="btn btn-primary " id="saveQuery">saveQuery</button>
-		<button type="button" class="btn btn-primary getcsv" id="getcsv">GET CSV</button>
+		<button type="button" class="btn btn-primary getcsv" id="getcsv">getCSV</button>
 		<button type="button" class="btn btn-primary" id="cleanquery">CleanQuery</button>
 		<button type="button" class="btn btn-primary" id="save_context">SaveContext</button>
 		<button type="button" class="btn btn-primary" onclick="document.getElementById('fileID').click(); return false;" id="load_context">LoadContext</button>
