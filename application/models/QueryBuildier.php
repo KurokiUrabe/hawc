@@ -29,24 +29,12 @@ class QueryBuildier extends  CI_Model {
 		FROM 'information_schema.columns'
 		AND table_name = 'hawconlinev8_0_1'";
 		$query = $this->db->query($query);
-		// $table_name = $table_name?$table_name:$this->TABLE_NAME;
-		// $this->db->select('column_name as name ');
-		// $this->db->where('table_schema', 'qmdb');
-		// $this->db->where('table_name', $table_name);
-		// $this->db->from('information_schema.columns');
-		// //AND table_name = 'hawconlinev8_0_1' ;
-		// $query = $this->db->get();
 		$result = $query->result();
 		$query->free_result();
 		return $result;
 	}
 	public function runQuery($sql = '', $limit = 1000){
 		$sql = $sql;
-		/*if ($limit!=null) {
-			$sql = $sql ." LIMIT {$limit}";
-		}*/
-		// $query = $this->db->query("SELECT File_name FROM hawconlinev8_0_1 WHERE 1=1 and (-1<File_name<100) LIMIT 100");
-		// echo $this->db->last_query();
 		$query = $this->db->query( $sql );
 		$result =  $query->result();
 		$query->free_result();
