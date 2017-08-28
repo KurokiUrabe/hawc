@@ -16,28 +16,10 @@
 	$(function() {
 
 		
-		$(document).on('keyup',"input", function (event) {
-			console.log(event.target)
-			event.target.setAttribute('value',event.target.value);
-		})
-		function onChange(event) {
-        var reader = new FileReader();
-        reader.onload = onReaderLoad;
-        reader.readAsText(event.target.files[0]);
-    }
-
-    function onReaderLoad(event){
-        var obj = JSON.parse(event.target.result);
-        $("#wheres").html(obj.wheres);
-        $("#select").html(obj.select);
-        // alert_data(, obj.select);
-    }
-    
-    function alert_data(name, family){
-        alert('Name : ' + name + ', Family : ' + family);
-    }
+		
+		
  
-    document.getElementById('fileID').addEventListener('change', onChange);
+		document.getElementById('fileID').addEventListener('change', onChange);
 
 
 		var responseQuery = {};
@@ -51,10 +33,7 @@
 		// lectura de un archivo al dar change
 		// document.getElementById('fileID').addEventListener('change', handleFileSelect, false);
 
-		$("#load_context").click(function(event){
-			
-		})
-
+		
 		$(".datetimepicker").datetimepicker({
 			format: 'YYYY-MM-DD HH:mm:ss'
 		});
@@ -243,7 +222,6 @@
 			}
 		});
 
-
 		$(document).on('input, change','#propertiesEditor .left,#propertiesEditor .right',function(event) {
 			$(this).find("[value='"+$(this).val()+"']").attr('selected','selected')
 			var tr = $(this).closest('tr');
@@ -285,11 +263,12 @@
 			operatorLeft.text($(selectLeft).val());
 			operatorRight.text($(selectRight).val());
 
-			// if (document.getElementById("autoQuery").checked) {
-			// 	printQuery();
-			// }
+			console.log('event',event.target,'value',event.target.value);
+			event.target.setAttribute('value',event.target.value);
 		})
 		.on('dp.change','.left,.right',function(event) {
+			console.log('dateevent',event.target,'value',event.target.value);
+			event.target.setAttribute('value',event.target.value);
 			var tr = $(this).closest('tr');
 			var inputLeft = $(tr).find("input.left");
 			var selectLeft = $(tr).find("select.left");
@@ -404,11 +383,27 @@
 
 	});
 
-	function clickEvent(event) {
-
-}
 
 
+	function onChange(event) {
+		var reader = new FileReader();
+		reader.onload = onReaderLoad;
+		reader.readAsText(event.target.files[0]);
+	}
+
+	function onReaderLoad(event){
+		var obj = JSON.parse(event.target.result);
+		$("#wheres").html(obj.wheres);
+		$("#select").html(obj.select);
+		$('.datetimepicker').datetimepicker({
+			format: 'YYYY-MM-DD HH:mm:ss'
+		});
+	}
+	
+	function alert_data(name, family){
+		alert('Name : ' + name + ', Family : ' + family);
+	}
+	
 	function download(data, filename, type) {
 		var file = new Blob([data], {type: type});
 		if (window.navigator.msSaveOrOpenBlob) // IE10+
@@ -596,6 +591,8 @@
 		if (variableJson.Type==1) {
 			right.setAttribute ('type','text');
 			left.setAttribute ('type','text');
+			left.classList.add('datetimepicker');
+			right.classList.add('datetimepicker');
 			$(left).datetimepicker({
 				format: 'YYYY-MM-DD HH:mm:ss'
 			});
