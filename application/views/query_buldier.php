@@ -1,14 +1,13 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: right">
 	
-		<button type="button" class="btn btn-primary runQuery" id="runQuery">runQuery</button>
-		<button type="button" class="btn btn-primary " id="saveQuery">saveQuery</button>
-		<button type="button" class="btn btn-primary getcsv" id="getcsv">getCSV</button>
-		<button type="button" class="btn btn-primary" id="cleanquery">CleanQuery</button>
-		<button type="button" class="btn btn-primary" id="save_context">SaveContext</button>
-		<button type="button" class="btn btn-primary" onclick="document.getElementById('fileID').click(); return false;" id="load_context">LoadContext</button>
+		<button type="button" class="btn btn-primary runQuery" id="runQuery">Run</button>
+		<button type="button" class="btn btn-primary " id="saveQuery">Save</button>
+		<button type="button" class="btn btn-primary getcsv" id="getcsv">export results CSV</button>
+		<button type="button" class="btn btn-primary" id="cleanquery">Clean</button>
+		<button type="button" class="btn btn-primary" id="save_context">Save SQL query</button>
+		<button type="button" class="btn btn-primary" onclick="document.getElementById('fileID').click(); return false;" id="load_context">Load</button>
 		<input type="file" id="fileID" style="visibility: hidden;" />
-
 	</div>
 </div>
 
