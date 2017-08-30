@@ -106,15 +106,21 @@
 			min-height: 500px;
 			height: 500px;
 		}
+
+
 	.ui-hawc-state-where-active{
-		border: 1px solid #003eff;
-		background: #e5f2ff;
+		border: 1px solid #337ab7;
+		background: #adadad;
+		/*background: #0000ff;*/
+		/*background: #e5f2ff;*/
 		font-weight: normal;
 		color: #ffffff;
 	}
 	.ui-hawc-state-select-active{
-		border: 1px solid #003eff;
-		background: #F7E2FF;
+		border: 1px solid #337ab7;
+		background: #dadada;
+		/*background: #ff0000;*/
+		/*background: #F7E2FF;*/
 		font-weight: normal;
 		color: #ffffff;
 	}
