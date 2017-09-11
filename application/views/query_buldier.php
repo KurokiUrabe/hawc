@@ -78,7 +78,7 @@
 						<th>Operator</th>
 						<th>Variable</th>
 						<th>Operator</th>
-						<th>Valor</th>
+						<th>Value</th>
 					</thead>
 					<tbody id="tbody">
 						<tr id="default" style="display: none">
