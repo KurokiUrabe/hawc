@@ -15,10 +15,10 @@
 	};
 	$(function() {
 
-		
-		
-		
- 
+
+
+
+
 		document.getElementById('fileID').addEventListener('change', onChange);
 
 
@@ -26,14 +26,14 @@
 
 		$("#save_context").click(function(event){
 			var data = { wheres: $("#wheres").html().replace("\\r?\\n", ""), select: $("#select").html().replace("\\r?\\n", ""), date: new Date() },
-			fileName = "my-download.json";
+			fileName = "QMDBi_WorkArea_"+getDate()+".json";
 
 			saveData(data, fileName);
 		});
 		// lectura de un archivo al dar change
 		// document.getElementById('fileID').addEventListener('change', handleFileSelect, false);
 
-		
+
 		$(".datetimepicker").datetimepicker({
 			format: 'YYYY-MM-DD HH:mm:ss'
 		});
@@ -100,7 +100,8 @@
 
 		$("#saveQuery").click(function(){
 			var querySample = document.getElementById("querySample").innerText;
-			download(querySample, 'query','text/plain');
+			console.log(querySample);
+			download(querySample, 'QMDBi_SQLQuery_' + getDate() + '.sql','text/plain');
 		})
 
 		$('#getcsv').click(function() {
@@ -383,7 +384,21 @@
 
 	});
 
-
+	function getDate() {
+		var date = new Date(),
+			year = date.getFullYear(),
+			month = (date.getMonth() + 1).toString(),
+			formatedMonth = (month.length === 1) ? ("0" + month) : month,
+			day = date.getDate().toString(),
+			formatedDay = (day.length === 1) ? ("0" + day) : day,
+			hour = date.getHours().toString(),
+			formatedHour = (hour.length === 1) ? ("0" + hour) : hour,
+			minute = date.getMinutes().toString(),
+			formatedMinute = (minute.length === 1) ? ("0" + minute) : minute,
+			second = date.getSeconds().toString(),
+			formatedSecond = (second.length === 1) ? ("0" + second) : second;
+		return year + formatedMonth  + formatedDay + "_" + formatedHour + formatedMinute + formatedSecond;
+	};
 
 	function onChange(event) {
 		var reader = new FileReader();
@@ -399,11 +414,11 @@
 			format: 'YYYY-MM-DD HH:mm:ss'
 		});
 	}
-	
+
 	function alert_data(name, family){
 		alert('Name : ' + name + ', Family : ' + family);
 	}
-	
+
 	function download(data, filename, type) {
 		var file = new Blob([data], {type: type});
 		if (window.navigator.msSaveOrOpenBlob) // IE10+
@@ -576,12 +591,18 @@
 		// tr.classList.add('')
 		tr.setAttribute('data-query', queryRow);
 		tr.setAttribute('data-type', variableJson.Type);
-		left.setAttribute  ('min', variableJson.MinRange);
-		left.setAttribute  ('max', variableJson.MaxRange);
-		left.setAttribute  ('step', variableJson.Step);
-		right.setAttribute ('step', variableJson.Step);
-		right.setAttribute ('min', variableJson.MinRange);
-		right.setAttribute ('max', variableJson.MaxRange);
+		if (variableJson.MinRange) {
+			left.setAttribute  ('min', variableJson.MinRange);
+			left.setAttribute  ('max', variableJson.MaxRange);
+		}
+		if (variableJson.Step) {
+			left.setAttribute  ('step', variableJson.Step);
+			right.setAttribute ('step', variableJson.Step);
+		}
+		if (variableJson.MinRange) {
+			right.setAttribute ('min', variableJson.MinRange);
+			right.setAttribute ('max', variableJson.MaxRange);
+		}
 		variable.innerHTML = variableJson.VariableName;
 		var tbody = document.getElementById('tbody');
 
@@ -600,8 +621,17 @@
 				format: 'YYYY-MM-DD HH:mm:ss'
 			});
 		}else{
-			right.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
-			left.setAttribute ('placeholder', "["+variableJson.MinRange+","+variableJson.MaxRange+"]");
+			var min = "(∞";
+			var max = "∞)";
+			if ( variableJson.MinRange != null ) {
+				min = "["+variableJson.MinRange;
+			}
+			if ( variableJson.MaxRange != null ) {
+				max = variableJson.MaxRange+"]";
+			}
+
+			left.setAttribute ('placeholder', min + "," + max);
+			right.setAttribute ('placeholder', min + "," + max);
 		}
 		return queryRow;
 	}
